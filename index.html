@@ -3,13 +3,126 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Study Portal - Love Theme</title>
+  <title>Study Portal - Dynamic Atmospheric Theme</title>
   
   <!-- Google Fonts & FontAwesome -->
-  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700&family=Great+Vibes&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
   <style>
+    /* =========================================================
+       DYNAMIC THEME CSS VARIABLES & ATMOSPHERIC STYLES
+       ========================================================= */
+    :root {
+      /* Default / Night Theme (Exact Original) */
+      --bg-gradient: linear-gradient(135deg, #2b092b 0%, #4a0e2e 50%, #1f041b 100%);
+      --accent-color: #ff4d94;
+      --accent-glow: rgba(255, 77, 148, 0.35);
+      --badge-bg: rgba(255, 77, 148, 0.15);
+      --badge-border: rgba(255, 77, 148, 0.35);
+      --badge-text: #ff94c2;
+      --heading-gradient: linear-gradient(90deg, #ff758c 0%, #ff7eb3 50%, #ffa4b6 100%);
+      --quote-bg: rgba(255, 77, 148, 0.12);
+      --quote-border: rgba(255, 117, 140, 0.4);
+      --quote-text: #ffd1e4;
+      --card-bg: rgba(45, 14, 38, 0.65);
+      --card-hover-bg: rgba(70, 20, 58, 0.75);
+      --card-border: rgba(255, 117, 140, 0.2);
+      --card-hover-border: rgba(255, 105, 180, 0.6);
+      --card-icon-bg: linear-gradient(135deg, rgba(255, 105, 180, 0.2), rgba(255, 77, 148, 0.1));
+      --card-icon-border: rgba(255, 105, 180, 0.3);
+      --card-icon-color: #ff758c;
+      --card-subtext: #c99fb5;
+    }
+
+    /* 1. MORNING THEME: Golden Sunrise & Radiant Rays */
+    body.theme-morning {
+      --bg-gradient: linear-gradient(135deg, #2e1814 0%, #4a2118 40%, #7c3b24 75%, #a85834 100%);
+      --accent-color: #ff9e42;
+      --accent-glow: rgba(255, 158, 66, 0.45);
+      --badge-bg: rgba(255, 183, 77, 0.18);
+      --badge-border: rgba(255, 183, 77, 0.45);
+      --badge-text: #ffe082;
+      --heading-gradient: linear-gradient(90deg, #ffe082 0%, #ffab40 50%, #ff6e40 100%);
+      --quote-bg: rgba(255, 171, 64, 0.12);
+      --quote-border: rgba(255, 171, 64, 0.4);
+      --quote-text: #fff3e0;
+      --card-bg: rgba(54, 26, 18, 0.75);
+      --card-hover-bg: rgba(78, 38, 26, 0.85);
+      --card-border: rgba(255, 171, 64, 0.25);
+      --card-hover-border: rgba(255, 171, 64, 0.7);
+      --card-icon-bg: linear-gradient(135deg, rgba(255, 209, 128, 0.25), rgba(255, 110, 64, 0.2));
+      --card-icon-border: rgba(255, 183, 77, 0.4);
+      --card-icon-color: #ffb74d;
+      --card-subtext: #e6bba8;
+    }
+
+    /* 2. AFTERNOON THEME: Heavy Dark Storm & Wind/Lightning */
+    body.theme-afternoon {
+      --bg-gradient: linear-gradient(135deg, #0b1118 0%, #151d28 45%, #0f1620 100%);
+      --accent-color: #38bdf8;
+      --accent-glow: rgba(56, 189, 248, 0.45);
+      --badge-bg: rgba(56, 189, 248, 0.15);
+      --badge-border: rgba(56, 189, 248, 0.4);
+      --badge-text: #7dd3fc;
+      --heading-gradient: linear-gradient(90deg, #93c5fd 0%, #38bdf8 50%, #a5f3fc 100%);
+      --quote-bg: rgba(56, 189, 248, 0.1);
+      --quote-border: rgba(56, 189, 248, 0.35);
+      --quote-text: #e0f2fe;
+      --card-bg: rgba(18, 27, 39, 0.78);
+      --card-hover-bg: rgba(26, 40, 58, 0.88);
+      --card-border: rgba(56, 189, 248, 0.22);
+      --card-hover-border: rgba(56, 189, 248, 0.65);
+      --card-icon-bg: linear-gradient(135deg, rgba(56, 189, 248, 0.2), rgba(14, 116, 144, 0.25));
+      --card-icon-border: rgba(56, 189, 248, 0.35);
+      --card-icon-color: #38bdf8;
+      --card-subtext: #94a3b8;
+    }
+
+    /* 3. EVENING THEME: Dimmed Sunset, Silhouette Dusky Skies & Birds */
+    body.theme-evening {
+      --bg-gradient: linear-gradient(135deg, #18091f 0%, #2f1228 40%, #461927 75%, #2a0b16 100%);
+      --accent-color: #f472b6;
+      --accent-glow: rgba(244, 114, 182, 0.35);
+      --badge-bg: rgba(244, 114, 182, 0.16);
+      --badge-border: rgba(244, 114, 182, 0.38);
+      --badge-text: #fbcfe8;
+      --heading-gradient: linear-gradient(90deg, #fbcfe8 0%, #f472b6 50%, #fb923c 100%);
+      --quote-bg: rgba(244, 114, 182, 0.1);
+      --quote-border: rgba(244, 114, 182, 0.35);
+      --quote-text: #fdf2f8;
+      --card-bg: rgba(41, 15, 34, 0.72);
+      --card-hover-bg: rgba(61, 22, 51, 0.82);
+      --card-border: rgba(244, 114, 182, 0.22);
+      --card-hover-border: rgba(244, 114, 182, 0.6);
+      --card-icon-bg: linear-gradient(135deg, rgba(244, 114, 182, 0.2), rgba(251, 146, 60, 0.15));
+      --card-icon-border: rgba(244, 114, 182, 0.3);
+      --card-icon-color: #f472b6;
+      --card-subtext: #cca4b8;
+    }
+
+    /* 4. NIGHT THEME: Exact Original */
+    body.theme-night {
+      --bg-gradient: linear-gradient(135deg, #2b092b 0%, #4a0e2e 50%, #1f041b 100%);
+      --accent-color: #ff4d94;
+      --accent-glow: rgba(255, 77, 148, 0.35);
+      --badge-bg: rgba(255, 77, 148, 0.15);
+      --badge-border: rgba(255, 77, 148, 0.35);
+      --badge-text: #ff94c2;
+      --heading-gradient: linear-gradient(90deg, #ff758c 0%, #ff7eb3 50%, #ffa4b6 100%);
+      --quote-bg: rgba(255, 77, 148, 0.12);
+      --quote-border: rgba(255, 117, 140, 0.4);
+      --quote-text: #ffd1e4;
+      --card-bg: rgba(45, 14, 38, 0.65);
+      --card-hover-bg: rgba(70, 20, 58, 0.75);
+      --card-border: rgba(255, 117, 140, 0.2);
+      --card-hover-border: rgba(255, 105, 180, 0.6);
+      --card-icon-bg: linear-gradient(135deg, rgba(255, 105, 180, 0.2), rgba(255, 77, 148, 0.1));
+      --card-icon-border: rgba(255, 105, 180, 0.3);
+      --card-icon-color: #ff758c;
+      --card-subtext: #c99fb5;
+    }
+
     * {
       margin: 0;
       padding: 0;
@@ -18,7 +131,7 @@
     }
 
     body {
-      background: linear-gradient(135deg, #2b092b 0%, #4a0e2e 50%, #1f041b 100%);
+      background: var(--bg-gradient);
       color: #fff;
       min-height: 100vh;
       padding: 40px 16px;
@@ -27,10 +140,12 @@
       align-items: center;
       position: relative;
       overflow-x: hidden;
+      transition: background 1s ease;
+      user-select: none;
     }
 
-    /* Floating Background Hearts */
-    .heart-bg {
+    /* Ambient Layer Container */
+    #ambientLayer {
       position: fixed;
       top: 0;
       left: 0;
@@ -41,6 +156,241 @@
       overflow: hidden;
     }
 
+    /* =========================================================
+       SWIPE TRAIL & TOUCH INTERACTIVE PARTICLES
+       ========================================================= */
+    .swipe-trail-spark {
+      position: fixed;
+      pointer-events: none;
+      z-index: 998;
+      transform: translate(-50%, -50%);
+      animation: swipeParticleFloat 1.2s cubic-bezier(0.2, 0.8, 0.25, 1) forwards;
+      filter: drop-shadow(0 0 6px var(--accent-glow));
+    }
+
+    @keyframes swipeParticleFloat {
+      0% {
+        opacity: 0.9;
+        transform: translate(-50%, -50%) scale(1) rotate(0deg);
+      }
+      50% {
+        opacity: 0.7;
+        transform: translate(calc(-50% + var(--dx, 0px)), calc(-50% - 25px)) scale(0.85) rotate(45deg);
+      }
+      100% {
+        opacity: 0;
+        transform: translate(calc(-50% + var(--dx, 0px)), calc(-50% - 55px)) scale(0.3) rotate(90deg);
+      }
+    }
+
+    .touch-pop-item {
+      position: fixed;
+      pointer-events: none;
+      z-index: 999;
+      transform: translate(-50%, -50%) scale(0.6);
+      opacity: 0;
+      animation: popAndSlowFade 1.8s cubic-bezier(0.2, 0.8, 0.3, 1) forwards;
+      white-space: nowrap;
+    }
+
+    /* Transparent Glassy Text Prompt */
+    .touch-glass-pill {
+      background: rgba(255, 255, 255, 0.15);
+      border: 1px solid rgba(255, 255, 255, 0.35);
+      padding: 8px 16px;
+      border-radius: 50px;
+      font-size: 1.05rem;
+      font-weight: 600;
+      color: #fff;
+      backdrop-filter: blur(12px);
+      box-shadow: 0 8px 25px rgba(255, 77, 148, 0.35);
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    /* Transparent Heart Bubble */
+    .touch-bubble {
+      width: 60px;
+      height: 60px;
+      border-radius: 50%;
+      background: radial-gradient(circle at 30% 30%, rgba(255, 255, 255, 0.4) 0%, rgba(255, 117, 140, 0.2) 60%, rgba(255, 77, 148, 0.4) 100%);
+      border: 1.5px solid rgba(255, 255, 255, 0.5);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.4rem;
+      color: #ff4d94;
+      backdrop-filter: blur(6px);
+      box-shadow: 0 0 15px rgba(255, 105, 180, 0.4), inset 0 0 10px rgba(255, 255, 255, 0.5);
+    }
+
+    @keyframes popAndSlowFade {
+      0% {
+        opacity: 0;
+        transform: translate(-50%, -50%) scale(0.4) translateY(10px);
+      }
+      20% {
+        opacity: 0.95;
+        transform: translate(-50%, -50%) scale(1.1) translateY(-10px);
+      }
+      40% {
+        opacity: 0.9;
+        transform: translate(-50%, -50%) scale(1) translateY(-25px);
+      }
+      100% {
+        opacity: 0;
+        transform: translate(-50%, -50%) scale(0.85) translateY(-70px);
+      }
+    }
+
+    /* =========================================================
+       ATMOSPHERE ANIMATION STYLES
+       ========================================================= */
+
+    /* --- MORNING: Glowing Sun & Rotating Rays --- */
+    .morning-sun-glow {
+      position: absolute;
+      top: -80px;
+      right: -80px;
+      width: 320px;
+      height: 320px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(255,224,130,0.8) 0%, rgba(255,167,38,0.4) 40%, rgba(255,110,64,0.05) 70%, transparent 100%);
+      filter: blur(20px);
+      animation: sunPulse 6s ease-in-out infinite alternate;
+    }
+
+    .sun-rays {
+      position: absolute;
+      top: -150px;
+      right: -150px;
+      width: 600px;
+      height: 600px;
+      background: conic-gradient(from 0deg, rgba(255, 235, 150, 0.12) 0deg 20deg, transparent 20deg 40deg, rgba(255, 235, 150, 0.12) 40deg 60deg, transparent 60deg 80deg, rgba(255, 235, 150, 0.12) 80deg 100deg, transparent 100deg 120deg, rgba(255, 235, 150, 0.12) 120deg 140deg, transparent 140deg 160deg, rgba(255, 235, 150, 0.12) 160deg 180deg, transparent 180deg 200deg, rgba(255, 235, 150, 0.12) 200deg 220deg, transparent 220deg 240deg, rgba(255, 235, 150, 0.12) 240deg 260deg, transparent 260deg 280deg, rgba(255, 235, 150, 0.12) 280deg 300deg, transparent 300deg 320deg, rgba(255, 235, 150, 0.12) 320deg 340deg, transparent 340deg 360deg);
+      border-radius: 50%;
+      animation: rotateRays 40s linear infinite;
+    }
+
+    .morning-sparkle {
+      position: absolute;
+      bottom: -30px;
+      color: rgba(255, 224, 130, 0.45);
+      animation: morningFloat 7s linear infinite;
+    }
+
+    @keyframes rotateRays {
+      from { transform: rotate(0deg); }
+      to { transform: rotate(360deg); }
+    }
+
+    @keyframes sunPulse {
+      0% { transform: scale(0.92); opacity: 0.75; }
+      100% { transform: scale(1.1); opacity: 1; }
+    }
+
+    @keyframes morningFloat {
+      0% { transform: translateY(0) scale(0.6); opacity: 0; }
+      20% { opacity: 0.8; }
+      80% { opacity: 0.8; }
+      100% { transform: translateY(-110vh) scale(1.2); opacity: 0; }
+    }
+
+    /* --- AFTERNOON: Storm Clouds, Rain, Wind Gusts & Thunder Flash --- */
+    .thunder-flash-overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(255, 255, 255, 0.9);
+      opacity: 0;
+      pointer-events: none;
+      z-index: 10;
+    }
+
+    .flash-active {
+      animation: thunderFlashAnim 0.7s ease-out;
+    }
+
+    @keyframes thunderFlashAnim {
+      0% { opacity: 0; }
+      15% { opacity: 0.85; }
+      25% { opacity: 0.1; }
+      40% { opacity: 0.95; }
+      55% { opacity: 0.2; }
+      75% { opacity: 0.6; }
+      100% { opacity: 0; }
+    }
+
+    .storm-cloud {
+      position: absolute;
+      color: rgba(148, 163, 184, 0.22);
+      font-size: 6rem;
+      animation: cloudDrift 20s linear infinite;
+    }
+
+    @keyframes cloudDrift {
+      0% { transform: translateX(-150px); }
+      100% { transform: translateX(110vw); }
+    }
+
+    .rain-drop {
+      position: absolute;
+      top: -40px;
+      width: 2px;
+      background: linear-gradient(to bottom, transparent, rgba(56, 189, 248, 0.65));
+      animation: rainfall linear infinite;
+    }
+
+    @keyframes rainfall {
+      0% { transform: translateY(0) translateX(0); opacity: 0; }
+      20% { opacity: 0.9; }
+      100% { transform: translateY(110vh) translateX(-70px); opacity: 0.3; }
+    }
+
+    .wind-trail {
+      position: absolute;
+      height: 1.5px;
+      background: linear-gradient(90deg, transparent, rgba(148, 163, 184, 0.4), transparent);
+      animation: windBlow linear infinite;
+    }
+
+    @keyframes windBlow {
+      0% { transform: translateX(-20vw); opacity: 0; }
+      30% { opacity: 0.7; }
+      80% { opacity: 0.7; }
+      100% { transform: translateX(120vw); opacity: 0; }
+    }
+
+    /* --- EVENING: Dim Twilight Sunset Glow & Flying Birds --- */
+    .evening-sunset-disc {
+      position: absolute;
+      bottom: 5%;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 480px;
+      height: 240px;
+      background: radial-gradient(ellipse at bottom, rgba(251,146,60,0.55) 0%, rgba(244,114,182,0.3) 45%, rgba(47,18,40,0.02) 80%, transparent 100%);
+      filter: blur(28px);
+      pointer-events: none;
+    }
+
+    .flying-bird {
+      position: absolute;
+      color: rgba(251, 207, 232, 0.45);
+      animation: birdFly linear infinite;
+    }
+
+    @keyframes birdFly {
+      0% { transform: translate(-10vw, 0) scale(0.7); opacity: 0; }
+      10% { opacity: 0.75; }
+      50% { transform: translate(50vw, -30px) scale(0.9); }
+      90% { opacity: 0.75; }
+      100% { transform: translate(110vw, -60px) scale(0.7); opacity: 0; }
+    }
+
+    /* --- NIGHT: Floating Romantic Hearts (Original) --- */
     .heart-particle {
       position: absolute;
       bottom: -40px;
@@ -49,23 +399,20 @@
     }
 
     @keyframes floatUp {
-      0% {
-        transform: translateY(0) scale(0.8) rotate(0deg);
-        opacity: 0;
-      }
+      0% { transform: translateY(0) scale(0.8) rotate(0deg); opacity: 0; }
       20% { opacity: 0.7; }
       80% { opacity: 0.7; }
-      100% {
-        transform: translateY(-110vh) scale(1.3) rotate(360deg);
-        opacity: 0;
-      }
+      100% { transform: translateY(-110vh) scale(1.3) rotate(360deg); opacity: 0; }
     }
 
+    /* =========================================================
+       LAYOUT & UI COMPONENTS
+       ========================================================= */
     .container {
       width: 100%;
       max-width: 760px;
       position: relative;
-      z-index: 1;
+      z-index: 2;
     }
 
     /* Header Section */
@@ -77,21 +424,42 @@
     .love-badge {
       display: inline-flex;
       align-items: center;
-      gap: 6px;
-      background: rgba(255, 77, 148, 0.15);
-      border: 1px solid rgba(255, 77, 148, 0.35);
-      padding: 6px 16px;
+      gap: 8px;
+      background: var(--badge-bg);
+      border: 1px solid var(--badge-border);
+      padding: 8px 18px;
       border-radius: 50px;
-      font-size: 0.85rem;
-      color: #ff94c2;
-      margin-bottom: 12px;
+      font-size: 0.88rem;
+      color: var(--badge-text);
+      margin-bottom: 14px;
       backdrop-filter: blur(8px);
+      transition: all 0.5s ease;
+    }
+
+    /* Dynamic Message Box */
+    .dynamic-love-quote {
+      background: var(--quote-bg);
+      border: 1px dashed var(--quote-border);
+      border-radius: 14px;
+      padding: 14px 20px;
+      margin: 14px auto 20px;
+      font-size: 0.96rem;
+      color: var(--quote-text);
+      line-height: 1.55;
+      backdrop-filter: blur(10px);
+      animation: fadeIn 0.8s ease-in-out;
+      transition: all 0.5s ease;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(-6px); }
+      to { opacity: 1; transform: translateY(0); }
     }
 
     header h1 {
       font-size: 2.4rem;
       font-weight: 700;
-      background: linear-gradient(90deg, #ff758c 0%, #ff7eb3 50%, #ffa4b6 100%);
+      background: var(--heading-gradient);
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
       margin-bottom: 6px;
@@ -113,7 +481,7 @@
       width: 100%;
       padding: 14px 20px 14px 48px;
       background: rgba(255, 255, 255, 0.08);
-      border: 1px solid rgba(255, 117, 140, 0.25);
+      border: 1px solid var(--card-border);
       border-radius: 16px;
       color: #fff;
       font-size: 0.95rem;
@@ -123,9 +491,9 @@
     }
 
     .search-box input:focus {
-      border-color: #ff4d94;
+      border-color: var(--accent-color);
       background: rgba(255, 255, 255, 0.12);
-      box-shadow: 0 0 20px rgba(255, 77, 148, 0.35);
+      box-shadow: 0 0 20px var(--accent-glow);
     }
 
     .search-box input::placeholder {
@@ -137,7 +505,7 @@
       left: 18px;
       top: 50%;
       transform: translateY(-50%);
-      color: #ff758c;
+      color: var(--accent-color);
       font-size: 1.05rem;
     }
 
@@ -148,10 +516,10 @@
       gap: 16px;
     }
 
-    /* Link Card */
+    /* Link Card with Smooth 3D Elastic Physics */
     .link-card {
-      background: rgba(45, 14, 38, 0.65);
-      border: 1px solid rgba(255, 117, 140, 0.2);
+      background: var(--card-bg);
+      border: 1px solid var(--card-border);
       border-radius: 18px;
       padding: 18px 22px;
       display: flex;
@@ -160,9 +528,11 @@
       text-decoration: none;
       color: #fff;
       backdrop-filter: blur(16px);
-      transition: all 0.3s cubic-bezier(0.2, 0.8, 0.2, 1);
+      transition: transform 0.25s cubic-bezier(0.2, 0.8, 0.2, 1), background 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
       position: relative;
       overflow: hidden;
+      transform-style: preserve-3d;
+      will-change: transform;
     }
 
     .link-card::before {
@@ -181,10 +551,10 @@
     }
 
     .link-card:hover {
-      transform: translateY(-3px) scale(1.01);
-      border-color: rgba(255, 105, 180, 0.6);
-      background: rgba(70, 20, 58, 0.75);
-      box-shadow: 0 12px 25px rgba(255, 77, 148, 0.25);
+      transform: translateY(-4px) scale(1.015);
+      border-color: var(--card-hover-border);
+      background: var(--card-hover-bg);
+      box-shadow: 0 14px 28px var(--accent-glow);
     }
 
     /* Card Icon */
@@ -197,9 +567,9 @@
       justify-content: center;
       font-size: 1.4rem;
       flex-shrink: 0;
-      background: linear-gradient(135deg, rgba(255, 105, 180, 0.2), rgba(255, 77, 148, 0.1));
-      border: 1px solid rgba(255, 105, 180, 0.3);
-      color: #ff758c;
+      background: var(--card-icon-bg);
+      border: 1px solid var(--card-icon-border);
+      color: var(--card-icon-color);
     }
 
     /* Info */
@@ -219,12 +589,12 @@
 
     .card-info h3 span.heart-mini {
       font-size: 0.85rem;
-      color: #ff4d94;
+      color: var(--accent-color);
     }
 
     .card-info p {
       font-size: 0.82rem;
-      color: #c99fb5;
+      color: var(--card-subtext);
     }
 
     /* Action Arrow */
@@ -236,12 +606,12 @@
       display: flex;
       align-items: center;
       justify-content: center;
-      color: #ff94c2;
+      color: var(--badge-text);
       transition: all 0.3s ease;
     }
 
     .link-card:hover .arrow-box {
-      background: #ff4d94;
+      background: var(--accent-color);
       color: #fff;
       transform: translateX(4px);
     }
@@ -255,22 +625,31 @@
     }
 
     footer i {
-      color: #ff4d94;
+      color: var(--accent-color);
     }
   </style>
 </head>
-<body>
+<body class="theme-night">
 
-  <!-- Animated Floating Hearts -->
-  <div class="heart-bg" id="heartContainer"></div>
+  <!-- Thunder Flash Overlay for Stormy Afternoon -->
+  <div class="thunder-flash-overlay" id="thunderFlash"></div>
+
+  <!-- Dynamic Atmospheric Background Elements Container -->
+  <div id="ambientLayer"></div>
 
   <div class="container">
     <header>
-      <div class="love-badge">
-        <i class="fa-solid fa-heart"></i> Your heart beats 💓 is mine music 🎶🎵🤩
+      <div class="love-badge" id="timeBadge">
+        <i class="fa-solid fa-heart" id="badgeIcon"></i> <span id="badgeText">Your heart beats 💓 is mine music 🎶🎵🤩</span>
       </div>
-      <h1>You are my CHARM
-      💓</h1>
+
+      <h1>You are my CHARM 💓</h1>
+      
+      <!-- Dynamic Time-Based Romantic Line -->
+      <div class="dynamic-love-quote" id="romanticQuote">
+        ✨ Loading something sweet for you...
+      </div>
+
       <p>Aapke sabhi important classes aur study links ek jagah 💕</p>
     </header>
 
@@ -283,7 +662,7 @@
     <!-- Cards List -->
     <div class="links-list" id="linksList">
       
-      <!-- New Link: Hindi Amarnath -->
+      <!-- Hindi Amarnath -->
       <a href="https://ydv-satyamm.github.io/Amarnath/" target="_blank" class="link-card">
         <div class="card-icon">
           <i class="fa-solid fa-book-bookmark"></i>
@@ -297,7 +676,7 @@
         </div>
       </a>
 
-      <!-- Link 1: Sachin SUPER TET -->
+      <!-- Sachin SUPER TET -->
       <a href="https://t.me/c/2309266095/2005/2007" target="_blank" class="link-card">
         <div class="card-icon" style="color: #26a5e4; border-color: rgba(38,165,228,0.4); background: rgba(38,165,228,0.15);">
           <i class="fa-brands fa-telegram"></i>
@@ -311,7 +690,7 @@
         </div>
       </a>
 
-      <!-- Link 2: Aman Vasisht -->
+      <!-- Aman Vasisht -->
       <a href="https://selectionway.edgeone.app/#/batch/69f990eeb927c1a84afcbff8" target="_blank" class="link-card">
         <div class="card-icon">
           <i class="fa-solid fa-graduation-cap"></i>
@@ -325,7 +704,7 @@
         </div>
       </a>
 
-      <!-- Link 3: Radhika Mam -->
+      <!-- Radhika Mam -->
       <a href="https://selectionway.edgeone.app/#/batch/6a4e35315bac0ae4bab52444" target="_blank" class="link-card">
         <div class="card-icon">
           <i class="fa-solid fa-book-open-reader"></i>
@@ -339,7 +718,7 @@
         </div>
       </a>
 
-      <!-- Link 4: SSC Pratham Batch -->
+      <!-- SSC Pratham Batch -->
       <a href="https://vividxprathambatch.edgeone.app/" target="_blank" class="link-card">
         <div class="card-icon">
           <i class="fa-solid fa-chalkboard-user"></i>
@@ -361,6 +740,271 @@
   </div>
 
   <script>
+    // 100 Romantic & Flirt Lines Dataset
+    const flirtLines = {
+      morning: [
+        "Good Morning! सुबह का सूरज भी आपकी मुस्कान के आगे फीका लगता है।",
+        "उठते ही जो पहला ख्याल आया, वो बस आपका खूबसूरत चेहरा था। ☕❤️",
+        "आज की सुबह और भी प्यारी हो जाती, अगर सामने आपकी चाय और आप होते।",
+        "अलार्म की आवाज़ से नहीं, आपकी प्यारी यादों से मेरी नींद खुली है।",
+        "Good Morning Beautiful! आपकी एक मुस्कुराहट मेरा पूरा दिन बना सकती है।",
+        "सुबह की ताज़ा हवा में भी सिर्फ आपकी ही खुशबू महसूस हो रही है।",
+        "खुदा का शुक्रिया कि एक और सुबह मुझे आपको चाहने का मौका मिला।",
+        "Good Morning! आज ज़रा कम खूबसूरत लगना, दिल संभालना मुश्किल हो जाता है। 😉",
+        "मेरी हर सुबह की शुरुआत आपके नाम से और दिन का अंत आपके ख्याल से होता है।",
+        "उठ जाइए जनाब, सूरज भी आपके दीदार का इंतज़ार कर रहा है।",
+        "Good Morning Sweetheart! काश आज की सुबह आपके चेहरे को छूकर शुरू होती।",
+        "दुनिया के लिए यह बस एक सुबह है, पर मेरे लिए आपकी यादों की नई शुरुआत।",
+        "सुबह की पहली चाय में जितनी मिठास है, उससे कहीं ज़्यादा मीठे आपके बोल हैं।",
+        "Good Morning! मेरी आंखों की पहली ख्वाहिश सिर्फ आपको देखना है।",
+        "आपका ख्याल ही काफी है इस आलस भरी सुबह को हसीन बनाने के लिए।",
+        "Good Morning Gorgeous! आपकी चमकती आंखें सुबह की धूप से भी तेज़ हैं।",
+        "आज दिल ने फिर फरमाइश की है कि सुबह की शुरुआत आपके 'Hello' से हो।",
+        "मौसम चाहे जैसा भी हो, आपकी याद आते ही दिल में बहार आ जाती है।",
+        "Good Morning! क्या मैं आज आपका पूरा दिन चुरा सकता हूँ? ❤️",
+        "आपकी मुस्कान वो कॉफी है जिसकी मुझे हर सुबह सबसे ज्यादा जरूरत होती है।",
+        "गुड मॉर्निंग! मुस्कुराइए, क्योंकि आपकी मुस्कान किसी की जान ले सकती है।",
+        "सुबह-सुबह जब ठंडी हवा चलती है, तो आपकी बाहों की गर्माहट याद आती है।",
+        "Good Morning! आज का दिन आपके जितना ही हसीन और खास गुजरे।",
+        "नींद खुली तो लगा कोई सपना देख रहा था, फिर याद आया आप तो हकीकत हैं।",
+        "Good Morning Jaan! जब तक आपको याद न करूँ, दिन शुरू ही नहीं होता।"
+      ],
+      afternoon: [
+        "Good Afternoon! दोपहर की इस तपish में आपका ख्याल ठंडी छांव जैसा है।",
+        "लंच कर लिया या अभी भी मेरे ख्यालों में ही खोए हुए हैं? 😉",
+        "दोपहर की सारी थकान गायब हो जाती है, जब आपकी तस्वीर सामने आ जाती है।",
+        "काम में मन बिल्कुल नहीं लग रहा, सारा ध्यान तो आपकी तरफ भटक रहा है।",
+        "Good Afternoon! धूप चाहे कितनी भी हो, आपकी बातें हमेशा ठंडक देती हैं।",
+        "एक मीठी सी झपकी और उसमें आपका ख्वाब... दोपहर मुकम्मल हो जाए।",
+        "Good Afternoon Handsome/Beautiful! आज आप इतने याद क्यों आ रहे हैं?",
+        "दोपहर का खाना फीका लग रहा है, काश आपकी मीठी बातें साथ होतीं।",
+        "काम का बहाना करके बार-बार आपका फोन चेक करने की आदत हो गई है।",
+        "Good Afternoon! आपकी यादें दोपहर की सबसे खूबसूरत ब्रेक हैं।",
+        "सूरज अपने शबाब पर है, और आपकी मोहब्बत मेरे दिल के उरूज पर।",
+        "दोपहर की सुस्ती मिटाने के लिए मुझे बस आपकी एक आवाज़ की जरूरत है।",
+        "Good Afternoon! दिल कर रहा है कि सारे काम छोड़कर आपसे बातें करूँ।",
+        "आपकी यादों ने दोपहर के सन्नाटे को भी एक मीठा संगीत बना दिया है।",
+        "लंच टाइम में पेट भरे या न भरे, आपका ख्याल दिल ज़रूर भर देता है।",
+        "Good Afternoon! क्या आपको पता है कि आप मेरे दिन का सबसे पसंदीदा हिस्सा हैं?",
+        "दोपहर की धूप भी आपकी खूबसूरती की बराबरी नहीं कर सकती।",
+        "व्यस्त दिन में भी आपके ख्याल का एक पल सुकून दे जाता है।",
+        "Good Afternoon! आज लंच में क्या खाया? मेरी जान या कुछ और? 😉",
+        "घड़ी की सुइयां बहुत धीरे चल रही हैं, शाम को आपसे मिलने का सब्र नहीं हो रहा।",
+        "दोपहर की धूप में जो चमक है, वो आपकी आंखों की चमक के सामने कुछ भी नहीं।",
+        "Good Afternoon Love! बस यह बताने के लिए याद किया कि आप बहुत खास हैं।",
+        "काम के बीच में अचानक से मुस्कुरा देना... वजह सिर्फ आप हैं।",
+        "Good Afternoon! आपकी बातें किसी एनर्जी बूस्टर से कम नहीं हैं।",
+        "दिन का आधा हिस्सा बीत गया, पर आपकी यादों का सिलसिला अभी भी पूरा है।"
+      ],
+      evening: [
+        "Good Evening! ढलती शाम और आपकी यादें, दोनों ही बेहद हसीन हैं।",
+        "चाय का प्याला हाथ में हो और सामने आप, शाम जन्नत बन जाए। ☕",
+        "शाम का ये सुहाना मौसम पूछ रहा है कि आप इतने प्यारे क्यों हैं?",
+        "सूरज डूब रहा है, पर मेरे दिल में आपकी मोहब्बत का उजाला बढ़ रहा है।",
+        "Good Evening! इस गुलाबी शाम में आपकी गैर-मौजूदगी बहुत सता रही है।",
+        "दिन भर की थकान के बाद शाम को आपका ख्याल एक मरहम जैसा लगता है।",
+        "शाम की ठंडी हवाएं जैसे कान में आकर सिर्फ आपका नाम गुनगुनाती हैं।",
+        "Good Evening Gorgeous! काश इस शाम की सैर आपके हाथ में हाथ डालकर होती।",
+        "आसमान का रंग लाल हो रहा है, शायद उसे भी आपसे प्यार हो गया है।",
+        "Good Evening! दिन ढलने लगा है, अब तो आ जाइए मेरे ख्यालों की दुनिया से बाहर।",
+        "शाम की खामोशी में भी आपका नाम सबसे ज्यादा गूंजता है।",
+        "एक कप चाय, थोड़ी सी बातें और बहुत सारा आपका साथ... परफेक्ट शाम!",
+        "Good Evening Jaan! आपकी एक झलक इस शाम को यादगार बना सकती है।",
+        "सूरज ने रुखसत ले ली है, अब तो आपकी मीठी बातों का वक्त हो गया है।",
+        "शाम का हर लम्हा आपकी खुशबू से महक रहा है।",
+        "Good Evening! दिल की धड़कनें तेज हो जाती हैं जब शाम को आपका मैसेज आता है।",
+        "इस शहर की शाम जितनी खूबसूरत है, आप उससे कहीं ज्यादा हसीन हैं।",
+        "Good Evening! शाम ढलते ही दिल पर आपका कब्जा और गहरा हो जाता है।",
+        "चाय तो बहाना है, असल में तो इस शाम में आपकी यादों को घोलना है।",
+        "Good Evening Sweetheart! आपकी हंसी इस शाम की रोशनी से भी चमकदार है।",
+        "शाम की इस मदहोश हवा में सिर्फ आपकी मौजूदगी की कमी खल रही है।",
+        "दिन भर भागदौड़ के बाद, शाम को आपके बारे में सोचना ही सबसे बड़ा सुकून है।",
+        "Good Evening! काश ये शाम कभी खत्म न हो और आपकी बातें चलती रहें।",
+        "शाम की लालिमा देखकर मुझे आपके चेहरे की वो प्यारी सी शर्म याद आ गई।",
+        "Good Evening Love! आज की शाम पूरी तरह आपके नाम समर्पित है।"
+      ],
+      night: [
+        "Good Night! चांद तो यूं ही इतराता है, उसने अभी तक आपका चेहरा नहीं देखा।",
+        "सोने की कोशिश तो बहुत की, पर आपकी यादें सोने कहाँ देती हैं! ❤️",
+        "Good Night Sweetheart! सपनों में भी सिर्फ आपका ही साथ चाहिए।",
+        "रात गहरी है, खामोशी है... पर दिल में सिर्फ आपका नाम गूंज रहा है।",
+        "आसमान के सारे तारे मिलकर भी आपकी आंखों की चमक की बराबरी नहीं कर सकते।",
+        "Good Night! तकिए को गले लगाकर सो रहा हूँ, काश इसकी जगह आप होते।",
+        "रात को जब सब सो जाते हैं, तब आपकी यादों की महफिल सजती है।",
+        "Good Night Beautiful! आज रात मेरे ख्वाबों में आने का रास्ता मत भूलना।",
+        "चांदनी रात में आपकी याद का आना, किसी खूबसूरत जादू जैसा है।",
+        "Good Night! अपनी आंखें बंद कीजिए, मैं आपके सपनों में इंतज़ार कर रहा हूँ।",
+        "रात की तन्हाई में दिल बार-बार पूछता है—आप कब मेरे करीब होंगे?",
+        "Good Night Jaan! आपके बिना रातें बहुत लंबी और अधूरी लगती हैं।",
+        "आसमान का सबसे चमकता सितारा भी आपके आगे फीका लगता है।",
+        "Good Night! सोने से पहले मेरी आखिरी और उठने के बाद पहली सोच आप ही हैं।",
+        "चांद बादलों में छुप गया, शायद वो आपके हुस्न से जलने लगा है।",
+        "Good Night! काश इस ठंडी रात में आपकी बाहों की गर्माहट मिल जाती।",
+        "रात के सन्नाटे में भी सिर्फ आपके दिल की धड़कन सुनाई देती है।",
+        "Good Night My Love! अपने सबसे प्यारे ख्वाब को सच करने के लिए सो जाइए।",
+        "जब तक आपको Good Night न कह दूँ, नींद को भी आने में शर्म आती है।",
+        "चांद से कह दिया है कि आज रात मेरे प्यार पर पहरा रखे। 🌙",
+        "Good Night! दिल चाहता है कि रात की ये खामोशी आपके साथ बांट सकूँ।",
+        "सो जाइए हुजूर, कहीं आपकी नींद चुराने का इल्ज़ाम मेरे सर न लग जाए।",
+        "Good Night! आपके चेहरे की मासूमियत रात को और भी हसीन बना देती है।",
+        "चांदनी रात, ठंडी हवा और आपका ख्याल... बस आप ही की कमी है।",
+        "Good Night My Everything! सपनों की दुनिया में मिलते हैं, वहीं ढेर सारी बातें करेंगे। 💕"
+      ]
+    };
+
+    // Thunder Flash Interval Controller
+    let thunderInterval = null;
+
+    // Time-based Atmospheric Controller
+    function applyTimeBasedThemeAndAtmosphere() {
+      const currentHour = new Date().getHours();
+      const ambient = document.getElementById('ambientLayer');
+      ambient.innerHTML = ''; // Reset ambient container
+
+      if (thunderInterval) {
+        clearInterval(thunderInterval);
+        thunderInterval = null;
+      }
+
+      let slot = 'morning';
+      let themeClass = 'theme-morning';
+      let badgeLabel = 'Golden Morning ☀️';
+      let badgeIcon = 'fa-sun';
+
+      // Morning: 5 AM - 12 PM
+      if (currentHour >= 5 && currentHour < 12) {
+        slot = 'morning';
+        themeClass = 'theme-morning';
+        badgeLabel = 'Golden Sunrise ☀️';
+        badgeIcon = 'fa-sun';
+
+        // 1. Radiant Glowing Sun & Spinning Rays
+        const sunGlow = document.createElement('div');
+        sunGlow.className = 'morning-sun-glow';
+        const sunRays = document.createElement('div');
+        sunRays.className = 'sun-rays';
+        ambient.appendChild(sunGlow);
+        ambient.appendChild(sunRays);
+
+        // 2. Warm Sunlit Float Particles
+        for (let i = 0; i < 14; i++) {
+          const sparkle = document.createElement('i');
+          sparkle.className = 'fa-solid fa-sparkles morning-sparkle';
+          sparkle.style.left = `${Math.random() * 100}%`;
+          sparkle.style.fontSize = `${Math.random() * 14 + 10}px`;
+          sparkle.style.animationDuration = `${Math.random() * 4 + 5}s`;
+          sparkle.style.animationDelay = `${Math.random() * 5}s`;
+          ambient.appendChild(sparkle);
+        }
+
+      // Afternoon: 12 PM - 5 PM (Heavy Storm, Wind, Rain, Clouds & Thunder Lightning)
+      } else if (currentHour >= 12 && currentHour < 17) {
+        slot = 'afternoon';
+        themeClass = 'theme-afternoon';
+        badgeLabel = 'Stormy Afternoon ⛈️🌪️';
+        badgeIcon = 'fa-bolt-lightning';
+
+        // 1. Drifting Heavy Storm Clouds
+        for (let i = 0; i < 4; i++) {
+          const cloud = document.createElement('i');
+          cloud.className = 'fa-solid fa-cloud storm-cloud';
+          cloud.style.top = `${i * 14 + 5}%`;
+          cloud.style.animationDuration = `${Math.random() * 10 + 16}s`;
+          cloud.style.animationDelay = `${i * 3.5}s`;
+          ambient.appendChild(cloud);
+        }
+
+        // 2. Heavy Rain Drops
+        for (let i = 0; i < 40; i++) {
+          const drop = document.createElement('div');
+          drop.className = 'rain-drop';
+          drop.style.left = `${Math.random() * 105}%`;
+          drop.style.height = `${Math.random() * 22 + 18}px`;
+          drop.style.animationDuration = `${Math.random() * 0.4 + 0.55}s`;
+          drop.style.animationDelay = `${Math.random() * 2}s`;
+          ambient.appendChild(drop);
+        }
+
+        // 3. High Velocity Wind Trails
+        for (let i = 0; i < 7; i++) {
+          const wind = document.createElement('div');
+          wind.className = 'wind-trail';
+          wind.style.top = `${Math.random() * 90}%`;
+          wind.style.width = `${Math.random() * 180 + 120}px`;
+          wind.style.animationDuration = `${Math.random() * 2 + 2}s`;
+          wind.style.animationDelay = `${Math.random() * 3}s`;
+          ambient.appendChild(wind);
+        }
+
+        // 4. Thunder Lightning Screen Flash Loop
+        const flashOverlay = document.getElementById('thunderFlash');
+        function triggerLightning() {
+          flashOverlay.classList.remove('flash-active');
+          void flashOverlay.offsetWidth;
+          flashOverlay.classList.add('flash-active');
+        }
+        thunderInterval = setInterval(() => {
+          triggerLightning();
+        }, Math.floor(Math.random() * 4000) + 4500);
+
+      // Evening: 5 PM - 9 PM (Dim Sunset & Flying Silhouette Birds)
+      } else if (currentHour >= 17 && currentHour < 21) {
+        slot = 'evening';
+        themeClass = 'theme-evening';
+        badgeLabel = 'Sunset Twilight 🌇';
+        badgeIcon = 'fa-dove';
+
+        // 1. Soft Dimmed Sunset Glow Disc
+        const sunsetDisc = document.createElement('div');
+        sunsetDisc.className = 'evening-sunset-disc';
+        ambient.appendChild(sunsetDisc);
+
+        // 2. Flying Birds Silhouette across the sky
+        for (let i = 0; i < 7; i++) {
+          const bird = document.createElement('i');
+          bird.className = 'fa-solid fa-dove flying-bird';
+          bird.style.top = `${Math.random() * 45 + 10}%`;
+          bird.style.fontSize = `${Math.random() * 10 + 14}px`;
+          bird.style.animationDuration = `${Math.random() * 6 + 10}s`;
+          bird.style.animationDelay = `${i * 2}s`;
+          ambient.appendChild(bird);
+        }
+
+      // Night: 9 PM - 5 AM (Original Look & Floating Hearts Unchanged)
+      } else {
+        slot = 'night';
+        themeClass = 'theme-night';
+        badgeLabel = 'Your heart beats 💓 is mine music 🎶🎵🤩';
+        badgeIcon = 'fa-heart';
+
+        // Exact original floating hearts
+        for (let i = 0; i < 15; i++) {
+          const heart = document.createElement('i');
+          heart.className = 'fa-solid fa-heart heart-particle';
+          heart.style.left = `${Math.random() * 100}%`;
+          heart.style.fontSize = `${Math.random() * 16 + 12}px`;
+          heart.style.animationDuration = `${Math.random() * 5 + 6}s`;
+          heart.style.animationDelay = `${Math.random() * 5}s`;
+          ambient.appendChild(heart);
+        }
+      }
+
+      // Apply body class
+      document.body.className = themeClass;
+
+      // Random Dynamic Flirt Line
+      const availableLines = flirtLines[slot];
+      const randomIndex = Math.floor(Math.random() * availableLines.length);
+      document.getElementById('romanticQuote').innerHTML = `❝ ${availableLines[randomIndex]} ❞`;
+
+      // Update Top Badge
+      document.getElementById('badgeText').innerText = badgeLabel;
+      document.getElementById('badgeIcon').className = `fa-solid ${badgeIcon}`;
+    }
+
+    // Execute theme and dynamic atmospheric engine on load
+    applyTimeBasedThemeAndAtmosphere();
+
     // Live Search Filter
     function filterLinks() {
       const input = document.getElementById('searchInput').value.toLowerCase();
@@ -376,18 +1020,131 @@
       });
     }
 
-    // Dynamic Floating Hearts Generator
-    const container = document.getElementById('heartContainer');
+    // =========================================================
+    // TOUCH / CLICK RANDOM ROMANTIC POPUP ENGINE
+    // =========================================================
+    const touchItems = [
+       { type: 'bubble', html: '<div class="touch-bubble"><i class="fa-solid fa-heart"></i></div>' },
+      { type: 'prompt', html: '<div class="touch-glass-pill">I love you 💕</div>' },
+      { type: 'prompt', html: '<div class="touch-glass-pill">Kiss you 😘</div>' },
+      { type: 'prompt', html: '<div class="touch-glass-pill">Ummah 💋</div>' }, 
+      { type: 'prompt', html: '<div class="touch-glass-pill">Miss You 😘</div>' }, 
+      { type: 'prompt', html: '<div class="touch-glass-pill"> Kissi do na babu 😏</div>' },
+      { type: 'prompt', html: '<div class="touch-glass-pill"> 😘</div>' },
+      { type: 'prompt', html: '<div class="touch-glass-pill"> 💋</div>' }, 
+      { type: 'prompt', html: '<div class="touch-glass-pill"> 💕</div>' }, 
+      { type: 'prompt', html: '<div class="touch-glass-pill"> 😍</div>' }, 
+      { type: 'prompt', html: '<div class="touch-glass-pill"> 🥰</div>' }, 
+      { type: 'prompt', html: '<div class="touch-glass-pill"> 🩷</div>' }, 
+      { type: 'prompt', html: '<div class="touch-glass-pill"> 🩵</div>' }, 
+      { type: 'prompt', html: '<div class="touch-glass-pill"> 🩶 Kissi do na babu 😏</div>' }, 
+      { type: 'prompt', html: '<div class="touch-glass-pill"> ❤️‍🩹</div>' },  
+      { type: 'prompt', html: '<div class="touch-glass-pill"> 🌺</div>' }
+    ];
 
-    for (let i = 0; i < 15; i++) {
-      const heart = document.createElement('i');
-      heart.className = `fa-solid fa-heart heart-particle`;
-      heart.style.left = `${Math.random() * 100}%`;
-      heart.style.fontSize = `${Math.random() * 16 + 12}px`;
-      heart.style.animationDuration = `${Math.random() * 5 + 6}s`;
-      heart.style.animationDelay = `${Math.random() * 5}s`;
-      container.appendChild(heart);
+    function spawnTouchEffect(x, y) {
+      const selected = touchItems[Math.floor(Math.random() * touchItems.length)];
+      const el = document.createElement('div');
+      el.className = 'touch-pop-item';
+      el.style.left = `${x}px`;
+      el.style.top = `${y}px`;
+      el.innerHTML = selected.html;
+
+      document.body.appendChild(el);
+
+      setTimeout(() => {
+        el.remove();
+      }, 1800);
     }
+
+    // =========================================================
+    // ENHANCED SWIPE / DRAG PARTICLE TRAIL ENGINE
+    // =========================================================
+    const swipeIcons = ['fa-heart', 'fa-sparkles', 'fa-star', 'fa-wand-magic-sparkles'];
+    let lastSwipeX = 0;
+    let lastSwipeY = 0;
+    let lastSwipeTime = 0;
+
+    function spawnSwipeTrail(x, y, vx = 0) {
+      const now = performance.now();
+      // Throttle density for 60fps performance
+      if (now - lastSwipeTime < 24) return;
+      lastSwipeTime = now;
+
+      const spark = document.createElement('i');
+      const randomIcon = swipeIcons[Math.floor(Math.random() * swipeIcons.length)];
+      spark.className = `fa-solid ${randomIcon} swipe-trail-spark`;
+      
+      const size = Math.random() * 12 + 10;
+      const dx = (Math.random() - 0.5) * 40 + (vx * 2);
+      
+      spark.style.left = `${x}px`;
+      spark.style.top = `${y}px`;
+      spark.style.fontSize = `${size}px`;
+      spark.style.color = 'var(--accent-color)';
+      spark.style.setProperty('--dx', `${dx}px`);
+
+      document.body.appendChild(spark);
+
+      setTimeout(() => {
+        spark.remove();
+      }, 1200);
+    }
+
+    // Touch Event Listeners for Mobile Swipe & Tap
+    let touchStartX = 0;
+    let touchStartY = 0;
+
+    window.addEventListener('touchstart', (e) => {
+      const touch = e.touches[0];
+      touchStartX = touch.clientX;
+      touchStartY = touch.clientY;
+      lastSwipeX = touch.clientX;
+      lastSwipeY = touch.clientY;
+
+      spawnTouchEffect(touch.clientX, touch.clientY);
+    }, { passive: true });
+
+    window.addEventListener('touchmove', (e) => {
+      const touch = e.touches[0];
+      const vx = touch.clientX - lastSwipeX;
+      spawnSwipeTrail(touch.clientX, touch.clientY, vx);
+      lastSwipeX = touch.clientX;
+      lastSwipeY = touch.clientY;
+    }, { passive: true });
+
+    // Desktop Mouse Drag / Swipe
+    let isMouseDown = false;
+    window.addEventListener('mousedown', (e) => {
+      isMouseDown = true;
+      lastSwipeX = e.clientX;
+      lastSwipeY = e.clientY;
+      spawnTouchEffect(e.clientX, e.clientY);
+    });
+
+    window.addEventListener('mouseup', () => { isMouseDown = false; });
+
+    window.addEventListener('mousemove', (e) => {
+      if (!isMouseDown) return;
+      const vx = e.clientX - lastSwipeX;
+      spawnSwipeTrail(e.clientX, e.clientY, vx);
+      lastSwipeX = e.clientX;
+      lastSwipeY = e.clientY;
+    });
+
+    // 3D Card Interactive Tilt Feedback on Swipe/Move
+    document.querySelectorAll('.link-card').forEach(card => {
+      card.addEventListener('mousemove', (e) => {
+        const rect = card.getBoundingClientRect();
+        const x = e.clientX - rect.left - (rect.width / 2);
+        const y = e.clientY - rect.top - (rect.height / 2);
+        card.style.transform = `perspective(600px) rotateX(${-y * 0.05}deg) rotateY(${x * 0.05}deg) translateY(-4px) scale(1.015)`;
+      });
+
+      card.addEventListener('mouseleave', () => {
+        card.style.transform = '';
+      });
+    });
   </script>
 </body>
 </html>
