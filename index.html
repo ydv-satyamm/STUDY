@@ -14,7 +14,7 @@
        DYNAMIC THEME CSS VARIABLES & ATMOSPHERIC STYLES
        ========================================================= */
     :root {
-      /* Default / Night Theme (Exact Original) */
+      /* Default / Night Theme */
       --bg-gradient: linear-gradient(135deg, #2b092b 0%, #4a0e2e 50%, #1f041b 100%);
       --accent-color: #ff4d94;
       --accent-glow: rgba(255, 77, 148, 0.35);
@@ -35,7 +35,7 @@
       --card-subtext: #c99fb5;
     }
 
-    /* 1. MORNING THEME: Golden Sunrise & Radiant Rays */
+    /* 1. MORNING THEME */
     body.theme-morning {
       --bg-gradient: linear-gradient(135deg, #2e1814 0%, #4a2118 40%, #7c3b24 75%, #a85834 100%);
       --accent-color: #ff9e42;
@@ -57,7 +57,7 @@
       --card-subtext: #e6bba8;
     }
 
-    /* 2. AFTERNOON THEME: Heavy Dark Storm & Wind/Lightning */
+    /* 2. AFTERNOON THEME */
     body.theme-afternoon {
       --bg-gradient: linear-gradient(135deg, #0b1118 0%, #151d28 45%, #0f1620 100%);
       --accent-color: #38bdf8;
@@ -79,7 +79,7 @@
       --card-subtext: #94a3b8;
     }
 
-    /* 3. EVENING THEME: Dimmed Sunset, Silhouette Dusky Skies & Birds */
+    /* 3. EVENING THEME */
     body.theme-evening {
       --bg-gradient: linear-gradient(135deg, #18091f 0%, #2f1228 40%, #461927 75%, #2a0b16 100%);
       --accent-color: #f472b6;
@@ -101,7 +101,7 @@
       --card-subtext: #cca4b8;
     }
 
-    /* 4. NIGHT THEME: Exact Original */
+    /* 4. NIGHT THEME */
     body.theme-night {
       --bg-gradient: linear-gradient(135deg, #2b092b 0%, #4a0e2e 50%, #1f041b 100%);
       --accent-color: #ff4d94;
@@ -144,7 +144,6 @@
       user-select: none;
     }
 
-    /* Ambient Layer Container */
     #ambientLayer {
       position: fixed;
       top: 0;
@@ -156,9 +155,7 @@
       overflow: hidden;
     }
 
-    /* =========================================================
-       SWIPE TRAIL & TOUCH INTERACTIVE PARTICLES
-       ========================================================= */
+    /* Swipe Particles */
     .swipe-trail-spark {
       position: fixed;
       pointer-events: none;
@@ -169,20 +166,12 @@
     }
 
     @keyframes swipeParticleFloat {
-      0% {
-        opacity: 0.9;
-        transform: translate(-50%, -50%) scale(1) rotate(0deg);
-      }
-      50% {
-        opacity: 0.7;
-        transform: translate(calc(-50% + var(--dx, 0px)), calc(-50% - 25px)) scale(0.85) rotate(45deg);
-      }
-      100% {
-        opacity: 0;
-        transform: translate(calc(-50% + var(--dx, 0px)), calc(-50% - 55px)) scale(0.3) rotate(90deg);
-      }
+      0% { opacity: 0.9; transform: translate(-50%, -50%) scale(1) rotate(0deg); }
+      50% { opacity: 0.7; transform: translate(calc(-50% + var(--dx, 0px)), calc(-50% - 25px)) scale(0.85) rotate(45deg); }
+      100% { opacity: 0; transform: translate(calc(-50% + var(--dx, 0px)), calc(-50% - 55px)) scale(0.3) rotate(90deg); }
     }
 
+    /* Touch Popups */
     .touch-pop-item {
       position: fixed;
       pointer-events: none;
@@ -193,7 +182,6 @@
       white-space: nowrap;
     }
 
-    /* Transparent Glassy Text Prompt */
     .touch-glass-pill {
       background: rgba(255, 255, 255, 0.15);
       border: 1px solid rgba(255, 255, 255, 0.35);
@@ -209,7 +197,6 @@
       gap: 6px;
     }
 
-    /* Transparent Heart Bubble */
     .touch-bubble {
       width: 60px;
       height: 60px;
@@ -226,29 +213,13 @@
     }
 
     @keyframes popAndSlowFade {
-      0% {
-        opacity: 0;
-        transform: translate(-50%, -50%) scale(0.4) translateY(10px);
-      }
-      20% {
-        opacity: 0.95;
-        transform: translate(-50%, -50%) scale(1.1) translateY(-10px);
-      }
-      40% {
-        opacity: 0.9;
-        transform: translate(-50%, -50%) scale(1) translateY(-25px);
-      }
-      100% {
-        opacity: 0;
-        transform: translate(-50%, -50%) scale(0.85) translateY(-70px);
-      }
+      0% { opacity: 0; transform: translate(-50%, -50%) scale(0.4) translateY(10px); }
+      20% { opacity: 0.95; transform: translate(-50%, -50%) scale(1.1) translateY(-10px); }
+      40% { opacity: 0.9; transform: translate(-50%, -50%) scale(1) translateY(-25px); }
+      100% { opacity: 0; transform: translate(-50%, -50%) scale(0.85) translateY(-70px); }
     }
 
-    /* =========================================================
-       ATMOSPHERE ANIMATION STYLES
-       ========================================================= */
-
-    /* --- MORNING: Glowing Sun & Rotating Rays --- */
+    /* Atmosphere Details */
     .morning-sun-glow {
       position: absolute;
       top: -80px;
@@ -279,24 +250,10 @@
       animation: morningFloat 7s linear infinite;
     }
 
-    @keyframes rotateRays {
-      from { transform: rotate(0deg); }
-      to { transform: rotate(360deg); }
-    }
+    @keyframes rotateRays { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
+    @keyframes sunPulse { 0% { transform: scale(0.92); opacity: 0.75; } 100% { transform: scale(1.1); opacity: 1; } }
+    @keyframes morningFloat { 0% { transform: translateY(0) scale(0.6); opacity: 0; } 20% { opacity: 0.8; } 80% { opacity: 0.8; } 100% { transform: translateY(-110vh) scale(1.2); opacity: 0; } }
 
-    @keyframes sunPulse {
-      0% { transform: scale(0.92); opacity: 0.75; }
-      100% { transform: scale(1.1); opacity: 1; }
-    }
-
-    @keyframes morningFloat {
-      0% { transform: translateY(0) scale(0.6); opacity: 0; }
-      20% { opacity: 0.8; }
-      80% { opacity: 0.8; }
-      100% { transform: translateY(-110vh) scale(1.2); opacity: 0; }
-    }
-
-    /* --- AFTERNOON: Storm Clouds, Rain, Wind Gusts & Thunder Flash --- */
     .thunder-flash-overlay {
       position: fixed;
       top: 0;
@@ -309,19 +266,8 @@
       z-index: 10;
     }
 
-    .flash-active {
-      animation: thunderFlashAnim 0.7s ease-out;
-    }
-
-    @keyframes thunderFlashAnim {
-      0% { opacity: 0; }
-      15% { opacity: 0.85; }
-      25% { opacity: 0.1; }
-      40% { opacity: 0.95; }
-      55% { opacity: 0.2; }
-      75% { opacity: 0.6; }
-      100% { opacity: 0; }
-    }
+    .flash-active { animation: thunderFlashAnim 0.7s ease-out; }
+    @keyframes thunderFlashAnim { 0% { opacity: 0; } 15% { opacity: 0.85; } 25% { opacity: 0.1; } 40% { opacity: 0.95; } 55% { opacity: 0.2; } 75% { opacity: 0.6; } 100% { opacity: 0; } }
 
     .storm-cloud {
       position: absolute;
@@ -329,11 +275,7 @@
       font-size: 6rem;
       animation: cloudDrift 20s linear infinite;
     }
-
-    @keyframes cloudDrift {
-      0% { transform: translateX(-150px); }
-      100% { transform: translateX(110vw); }
-    }
+    @keyframes cloudDrift { 0% { transform: translateX(-150px); } 100% { transform: translateX(110vw); } }
 
     .rain-drop {
       position: absolute;
@@ -342,12 +284,7 @@
       background: linear-gradient(to bottom, transparent, rgba(56, 189, 248, 0.65));
       animation: rainfall linear infinite;
     }
-
-    @keyframes rainfall {
-      0% { transform: translateY(0) translateX(0); opacity: 0; }
-      20% { opacity: 0.9; }
-      100% { transform: translateY(110vh) translateX(-70px); opacity: 0.3; }
-    }
+    @keyframes rainfall { 0% { transform: translateY(0) translateX(0); opacity: 0; } 20% { opacity: 0.9; } 100% { transform: translateY(110vh) translateX(-70px); opacity: 0.3; } }
 
     .wind-trail {
       position: absolute;
@@ -355,15 +292,8 @@
       background: linear-gradient(90deg, transparent, rgba(148, 163, 184, 0.4), transparent);
       animation: windBlow linear infinite;
     }
+    @keyframes windBlow { 0% { transform: translateX(-20vw); opacity: 0; } 30% { opacity: 0.7; } 80% { opacity: 0.7; } 100% { transform: translateX(120vw); opacity: 0; } }
 
-    @keyframes windBlow {
-      0% { transform: translateX(-20vw); opacity: 0; }
-      30% { opacity: 0.7; }
-      80% { opacity: 0.7; }
-      100% { transform: translateX(120vw); opacity: 0; }
-    }
-
-    /* --- EVENING: Dim Twilight Sunset Glow & Flying Birds --- */
     .evening-sunset-disc {
       position: absolute;
       bottom: 5%;
@@ -381,33 +311,17 @@
       color: rgba(251, 207, 232, 0.45);
       animation: birdFly linear infinite;
     }
+    @keyframes birdFly { 0% { transform: translate(-10vw, 0) scale(0.7); opacity: 0; } 10% { opacity: 0.75; } 50% { transform: translate(50vw, -30px) scale(0.9); } 90% { opacity: 0.75; } 100% { transform: translate(110vw, -60px) scale(0.7); opacity: 0; } }
 
-    @keyframes birdFly {
-      0% { transform: translate(-10vw, 0) scale(0.7); opacity: 0; }
-      10% { opacity: 0.75; }
-      50% { transform: translate(50vw, -30px) scale(0.9); }
-      90% { opacity: 0.75; }
-      100% { transform: translate(110vw, -60px) scale(0.7); opacity: 0; }
-    }
-
-    /* --- NIGHT: Floating Romantic Hearts (Original) --- */
     .heart-particle {
       position: absolute;
       bottom: -40px;
       color: rgba(255, 77, 148, 0.25);
       animation: floatUp 8s linear infinite;
     }
+    @keyframes floatUp { 0% { transform: translateY(0) scale(0.8) rotate(0deg); opacity: 0; } 20% { opacity: 0.7; } 80% { opacity: 0.7; } 100% { transform: translateY(-110vh) scale(1.3) rotate(360deg); opacity: 0; } }
 
-    @keyframes floatUp {
-      0% { transform: translateY(0) scale(0.8) rotate(0deg); opacity: 0; }
-      20% { opacity: 0.7; }
-      80% { opacity: 0.7; }
-      100% { transform: translateY(-110vh) scale(1.3) rotate(360deg); opacity: 0; }
-    }
-
-    /* =========================================================
-       LAYOUT & UI COMPONENTS
-       ========================================================= */
+    /* Layout & UI Components */
     .container {
       width: 100%;
       max-width: 760px;
@@ -415,7 +329,6 @@
       z-index: 2;
     }
 
-    /* Header Section */
     header {
       text-align: center;
       margin-bottom: 30px;
@@ -436,7 +349,6 @@
       transition: all 0.5s ease;
     }
 
-    /* Dynamic Message Box */
     .dynamic-love-quote {
       background: var(--quote-bg);
       border: 1px dashed var(--quote-border);
@@ -471,7 +383,6 @@
       font-weight: 400;
     }
 
-    /* Search Box */
     .search-box {
       margin-bottom: 28px;
       position: relative;
@@ -509,14 +420,13 @@
       font-size: 1.05rem;
     }
 
-    /* Links Container */
     .links-list {
       display: flex;
       flex-direction: column;
       gap: 16px;
     }
 
-    /* Link Card with Smooth 3D Elastic Physics */
+    /* Link Card */
     .link-card {
       background: var(--card-bg);
       border: 1px solid var(--card-border);
@@ -533,6 +443,7 @@
       overflow: hidden;
       transform-style: preserve-3d;
       will-change: transform;
+      cursor: pointer;
     }
 
     .link-card::before {
@@ -557,7 +468,6 @@
       box-shadow: 0 14px 28px var(--accent-glow);
     }
 
-    /* Card Icon */
     .card-icon {
       width: 52px;
       height: 52px;
@@ -572,7 +482,6 @@
       color: var(--card-icon-color);
     }
 
-    /* Info */
     .card-info {
       flex: 1;
     }
@@ -597,7 +506,6 @@
       color: var(--card-subtext);
     }
 
-    /* Action Arrow */
     .arrow-box {
       width: 36px;
       height: 36px;
@@ -616,7 +524,87 @@
       transform: translateX(4px);
     }
 
-    /* Footer */
+    /* Accordion */
+    .expandable-container {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .expandable-container .link-card {
+      border-radius: 18px;
+      transition: all 0.3s ease;
+    }
+
+    .expandable-container.active .link-card {
+      border-bottom-left-radius: 0;
+      border-bottom-right-radius: 0;
+      border-color: var(--card-hover-border);
+    }
+
+    .chevron-arrow {
+      transition: transform 0.3s ease;
+      font-size: 0.9rem;
+    }
+
+    .expandable-container.active .chevron-arrow {
+      transform: rotate(180deg);
+    }
+
+    .subtopics-list {
+      display: none;
+      background: rgba(20, 7, 24, 0.8);
+      border: 1px solid var(--card-border);
+      border-top: none;
+      border-radius: 0 0 18px 18px;
+      padding: 8px 12px 14px;
+      backdrop-filter: blur(16px);
+      box-shadow: 0 10px 20px rgba(0, 0, 0, 0.25);
+    }
+
+    .expandable-container.active .subtopics-list {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+      gap: 8px;
+      animation: fadeIn 0.35s ease-in-out;
+    }
+
+    .sub-item {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 11px 16px;
+      color: #ffd8ec;
+      text-decoration: none;
+      border-radius: 12px;
+      background: rgba(255, 255, 255, 0.04);
+      border: 1px solid rgba(255, 255, 255, 0.05);
+      font-size: 0.92rem;
+      font-weight: 500;
+      transition: all 0.25s ease;
+    }
+
+    .sub-item:hover {
+      background: rgba(255, 77, 148, 0.18);
+      border-color: var(--accent-color);
+      color: #fff;
+      transform: translateX(4px);
+    }
+
+    .sub-item i {
+      color: var(--accent-color);
+      font-size: 0.85rem;
+      transition: transform 0.2s ease;
+    }
+
+    .sub-item:hover i {
+      transform: translateX(3px);
+    }
+
+    .sub-item.disabled {
+      opacity: 0.6;
+      cursor: not-allowed;
+    }
+
     footer {
       text-align: center;
       margin-top: 40px;
@@ -631,7 +619,7 @@
 </head>
 <body class="theme-night">
 
-  <!-- Thunder Flash Overlay for Stormy Afternoon -->
+  <!-- Thunder Flash Overlay -->
   <div class="thunder-flash-overlay" id="thunderFlash"></div>
 
   <!-- Dynamic Atmospheric Background Elements Container -->
@@ -645,7 +633,7 @@
 
       <h1>You are my CHARM 💓</h1>
       
-      <!-- Dynamic Time-Based Romantic Line -->
+      <!-- Dynamic Romantic Line -->
       <div class="dynamic-love-quote" id="romanticQuote">
         ✨ Loading something sweet for you...
       </div>
@@ -656,19 +644,19 @@
     <!-- Search Box -->
     <div class="search-box">
       <i class="fa-solid fa-magnifying-glass"></i>
-      <input type="text" id="searchInput" placeholder="Search batch or teacher..." onkeyup="filterLinks()">
+      <input type="text" id="searchInput" placeholder="Search batch, subject or teacher..." onkeyup="filterLinks()">
     </div>
 
-    <!-- Cards List -->
+    <!-- Cards List Arranged Exactly as Requested -->
     <div class="links-list" id="linksList">
       
-      <!-- Hindi Amarnath -->
-      <a href="https://ydv-satyamm.github.io/Amarnath/" target="_blank" class="link-card">
+      <!-- 1. Hindi – Amarnath Sir -->
+      <a href="https://ydv-satyamm.github.io/Amarnath/" target="_blank" class="link-card searchable-entry">
         <div class="card-icon">
           <i class="fa-solid fa-book-bookmark"></i>
         </div>
         <div class="card-info">
-          <h3>Hindi - Amarnath Sir <span class="heart-mini">💖</span></h3>
+          <h3>Hindi – Amarnath Sir <span class="heart-mini">💖</span></h3>
           <p>GitHub Pages Portal Access</p>
         </div>
         <div class="arrow-box">
@@ -676,27 +664,91 @@
         </div>
       </a>
 
-      <!-- Sachin SUPER TET -->
-      <a href="https://t.me/c/2309266095/2005/2007" target="_blank" class="link-card">
-        <div class="card-icon" style="color: #26a5e4; border-color: rgba(38,165,228,0.4); background: rgba(38,165,228,0.15);">
-          <i class="fa-brands fa-telegram"></i>
+      <!-- 2. Sachin UP TET (All Subjects) -->
+      <div class="expandable-container searchable-entry" id="sachinContainer">
+        <div class="link-card" onclick="toggleSubtopics('sachinContainer')">
+          <div class="card-icon" style="color: #26a5e4; border-color: rgba(38,165,228,0.4); background: rgba(38,165,228,0.15);">
+            <i class="fa-brands fa-telegram"></i>
+          </div>
+          <div class="card-info">
+            <h3>Sachin UP TET (All Subjects) <span class="heart-mini">💖</span></h3>
+            <p>Click to view 15 subject modules & materials</p>
+          </div>
+          <div class="arrow-box">
+            <i class="fa-solid fa-chevron-down chevron-arrow"></i>
+          </div>
+        </div>
+
+        <div id="sachinList" class="subtopics-list">
+          <a href="https://t.me/c/3913088196/332/333" target="_blank" class="sub-item">
+            <span>1. Hindi</span> <i class="fa-solid fa-arrow-right"></i>
+          </a>
+          <a href="https://t.me/c/3913088196/313/314" target="_blank" class="sub-item">
+            <span>2. History</span> <i class="fa-solid fa-arrow-right"></i>
+          </a>
+          <a href="https://t.me/c/3913088196/279/280" target="_blank" class="sub-item">
+            <span>3. Math</span> <i class="fa-solid fa-arrow-right"></i>
+          </a>
+          <a href="https://t.me/c/3913088196/326/327" target="_blank" class="sub-item">
+            <span>4. Biology</span> <i class="fa-solid fa-arrow-right"></i>
+          </a>
+          <a href="https://t.me/c/3913088196/319/320" target="_blank" class="sub-item">
+            <span>5. Statics</span> <i class="fa-solid fa-arrow-right"></i>
+          </a>
+          <a href="https://t.me/c/3913088196/316/317" target="_blank" class="sub-item">
+            <span>6. Reasoning</span> <i class="fa-solid fa-arrow-right"></i>
+          </a>
+          <a href="https://t.me/c/3913088196/308/309" target="_blank" class="sub-item">
+            <span>7. Geography</span> <i class="fa-solid fa-arrow-right"></i>
+          </a>
+          <a href="https://t.me/c/3913088196/295/296" target="_blank" class="sub-item">
+            <span>8. English</span> <i class="fa-solid fa-arrow-right"></i>
+          </a>
+          <a href="https://t.me/c/3913088196/292/293" target="_blank" class="sub-item">
+            <span>9. Hindi Vyakaran</span> <i class="fa-solid fa-arrow-right"></i>
+          </a>
+          <a href="https://t.me/c/3913088196/287/288" target="_blank" class="sub-item">
+            <span>10. Computer</span> <i class="fa-solid fa-arrow-right"></i>
+          </a>
+          <a href="https://t.me/c/3913088196/274/275" target="_blank" class="sub-item">
+            <span>11. Chemistry</span> <i class="fa-solid fa-arrow-right"></i>
+          </a>
+          <a href="https://t.me/c/3913088196/265/266" target="_blank" class="sub-item">
+            <span>12. CDP</span> <i class="fa-solid fa-arrow-right"></i>
+          </a>
+          <a href="https://t.me/c/3913088196/262/263" target="_blank" class="sub-item">
+            <span>13. Sanskrit</span> <i class="fa-solid fa-arrow-right"></i>
+          </a>
+          <a href="javascript:void(0)" class="sub-item disabled" title="Coming Soon">
+            <span>14. Current Affairs</span> <i class="fa-solid fa-hourglass-half"></i>
+          </a>
+          <a href="https://t.me/c/3913088196/145/146" target="_blank" class="sub-item">
+            <span>15. Physics</span> <i class="fa-solid fa-arrow-right"></i>
+          </a>
+        </div>
+      </div>
+
+      <!-- 3. SUPER TET 2023 – Primary Teacher -->
+      <a href="https://t.me/+mGjO9vEy6ig3NjFl" target="_blank" class="link-card searchable-entry">
+        <div class="card-icon" style="color: #4ade80; border-color: rgba(74, 222, 128, 0.4); background: rgba(74, 222, 128, 0.15);">
+          <i class="fa-solid fa-chalkboard-user"></i>
         </div>
         <div class="card-info">
-          <h3>Sachin SUPER TET <span class="heart-mini">💖</span></h3>
-          <p>Telegram Channel & Study Materials</p>
+          <h3>SUPER TET 2023 – Primary Teacher <span class="heart-mini">🏆</span></h3>
+          <p>Telegram Materials & Preparation Batch</p>
         </div>
         <div class="arrow-box">
           <i class="fa-solid fa-arrow-up-right-from-square"></i>
         </div>
       </a>
 
-      <!-- Aman Vasisht -->
-      <a href="https://selectionway.edgeone.app/#/batch/69f990eeb927c1a84afcbff8" target="_blank" class="link-card">
+      <!-- 4. Aman Vashisht Sir -->
+      <a href="https://selectionway.edgeone.app/#/batch/69f990eeb927c1a84afcbff8" target="_blank" class="link-card searchable-entry">
         <div class="card-icon">
           <i class="fa-solid fa-graduation-cap"></i>
         </div>
         <div class="card-info">
-          <h3>Aman Vasisht Sir <span class="heart-mini">🌸</span></h3>
+          <h3>Aman Vashisht Sir <span class="heart-mini">🌸</span></h3>
           <p>Selectionway App - Batch Access</p>
         </div>
         <div class="arrow-box">
@@ -704,8 +756,8 @@
         </div>
       </a>
 
-      <!-- Radhika Mam -->
-      <a href="https://selectionway.edgeone.app/#/batch/6a4e35315bac0ae4bab52444" target="_blank" class="link-card">
+      <!-- 5. Radhika Mam -->
+      <a href="https://selectionway.edgeone.app/#/batch/6a4e35315bac0ae4bab52444" target="_blank" class="link-card searchable-entry">
         <div class="card-icon">
           <i class="fa-solid fa-book-open-reader"></i>
         </div>
@@ -718,8 +770,78 @@
         </div>
       </a>
 
-      <!-- SSC Pratham Batch -->
-      <a href="https://vividxprathambatch.edgeone.app/" target="_blank" class="link-card">
+      <!-- 6. NCERT Foundation Complete -->
+      <a href="https://selectionway.edgeone.app/#/batch/69204beb39642e9188a548b9" target="_blank" class="link-card searchable-entry">
+        <div class="card-icon">
+          <i class="fa-solid fa-book-open"></i>
+        </div>
+        <div class="card-info">
+          <h3>NCERT Foundation Complete <span class="heart-mini">📚</span></h3>
+          <p>Selectionway App - Batch Access</p>
+        </div>
+        <div class="arrow-box">
+          <i class="fa-solid fa-arrow-up-right-from-square"></i>
+        </div>
+      </a>
+
+      <!-- 7. Parmar GK 4.0 -->
+      <a href="https://t.me/+PuhafqlqljEwMDk1" target="_blank" class="link-card searchable-entry">
+        <div class="card-icon" style="color: #ff9e42; border-color: rgba(255, 158, 66, 0.4); background: rgba(255, 158, 66, 0.15);">
+          <i class="fa-solid fa-earth-americas"></i>
+        </div>
+        <div class="card-info">
+          <h3>Parmar GK 4.0 <span class="heart-mini">🌍</span></h3>
+          <p>General Knowledge & Static GK Channel</p>
+        </div>
+        <div class="arrow-box">
+          <i class="fa-solid fa-arrow-up-right-from-square"></i>
+        </div>
+      </a>
+
+      <!-- 8. Reasoning – Piyush Sir -->
+      <a href="https://t.me/c/3702564013/610/611" target="_blank" class="link-card searchable-entry">
+        <div class="card-icon" style="color: #f472b6; border-color: rgba(244, 114, 182, 0.4); background: rgba(244, 114, 182, 0.15);">
+          <i class="fa-solid fa-brain"></i>
+        </div>
+        <div class="card-info">
+          <h3>Reasoning – Piyush Sir <span class="heart-mini">💡</span></h3>
+          <p>Telegram Channel & Practice Sessions</p>
+        </div>
+        <div class="arrow-box">
+          <i class="fa-solid fa-arrow-up-right-from-square"></i>
+        </div>
+      </a>
+
+      <!-- 9. Math – Winners Institute -->
+      <a href="https://t.me/+K7AMKGxl40YwZGVl" target="_blank" class="link-card searchable-entry">
+        <div class="card-icon" style="color: #38bdf8; border-color: rgba(56, 189, 248, 0.4); background: rgba(56, 189, 248, 0.15);">
+          <i class="fa-solid fa-calculator"></i>
+        </div>
+        <div class="card-info">
+          <h3>Math – Winners Institute <span class="heart-mini">📐</span></h3>
+          <p>Telegram Channel & Course Access</p>
+        </div>
+        <div class="arrow-box">
+          <i class="fa-solid fa-arrow-up-right-from-square"></i>
+        </div>
+      </a>
+
+      <!-- 10. Math – Rakesh Yadav Sir -->
+      <a href="https://t.me/+toslsScpw-1kMmU1" target="_blank" class="link-card searchable-entry">
+        <div class="card-icon" style="color: #a78bfa; border-color: rgba(167, 139, 250, 0.4); background: rgba(167, 139, 250, 0.15);">
+          <i class="fa-solid fa-square-root-variable"></i>
+        </div>
+        <div class="card-info">
+          <h3>Math – Rakesh Yadav Sir <span class="heart-mini">⚡</span></h3>
+          <p>Telegram Channel & Special Math Batch</p>
+        </div>
+        <div class="arrow-box">
+          <i class="fa-solid fa-arrow-up-right-from-square"></i>
+        </div>
+      </a>
+
+      <!-- 11. SSC Pratham Batch (Rakesh Yadav) -->
+      <a href="https://vividxprathambatch.edgeone.app/" target="_blank" class="link-card searchable-entry">
         <div class="card-icon">
           <i class="fa-solid fa-chalkboard-user"></i>
         </div>
@@ -740,6 +862,12 @@
   </div>
 
   <script>
+    // Accordion Toggle Function
+    function toggleSubtopics(containerId) {
+      const container = document.getElementById(containerId);
+      container.classList.toggle('active');
+    }
+
     // 100 Romantic & Flirt Lines Dataset
     const flirtLines = {
       morning: [
@@ -852,14 +980,13 @@
       ]
     };
 
-    // Thunder Flash Interval Controller
     let thunderInterval = null;
 
     // Time-based Atmospheric Controller
     function applyTimeBasedThemeAndAtmosphere() {
       const currentHour = new Date().getHours();
       const ambient = document.getElementById('ambientLayer');
-      ambient.innerHTML = ''; // Reset ambient container
+      ambient.innerHTML = '';
 
       if (thunderInterval) {
         clearInterval(thunderInterval);
@@ -878,7 +1005,6 @@
         badgeLabel = 'Golden Sunrise ☀️';
         badgeIcon = 'fa-sun';
 
-        // 1. Radiant Glowing Sun & Spinning Rays
         const sunGlow = document.createElement('div');
         sunGlow.className = 'morning-sun-glow';
         const sunRays = document.createElement('div');
@@ -886,7 +1012,6 @@
         ambient.appendChild(sunGlow);
         ambient.appendChild(sunRays);
 
-        // 2. Warm Sunlit Float Particles
         for (let i = 0; i < 14; i++) {
           const sparkle = document.createElement('i');
           sparkle.className = 'fa-solid fa-sparkles morning-sparkle';
@@ -897,14 +1022,13 @@
           ambient.appendChild(sparkle);
         }
 
-      // Afternoon: 12 PM - 5 PM (Heavy Storm, Wind, Rain, Clouds & Thunder Lightning)
+      // Afternoon: 12 PM - 5 PM
       } else if (currentHour >= 12 && currentHour < 17) {
         slot = 'afternoon';
         themeClass = 'theme-afternoon';
         badgeLabel = 'Stormy Afternoon ⛈️🌪️';
         badgeIcon = 'fa-bolt-lightning';
 
-        // 1. Drifting Heavy Storm Clouds
         for (let i = 0; i < 4; i++) {
           const cloud = document.createElement('i');
           cloud.className = 'fa-solid fa-cloud storm-cloud';
@@ -914,7 +1038,6 @@
           ambient.appendChild(cloud);
         }
 
-        // 2. Heavy Rain Drops
         for (let i = 0; i < 40; i++) {
           const drop = document.createElement('div');
           drop.className = 'rain-drop';
@@ -925,7 +1048,6 @@
           ambient.appendChild(drop);
         }
 
-        // 3. High Velocity Wind Trails
         for (let i = 0; i < 7; i++) {
           const wind = document.createElement('div');
           wind.className = 'wind-trail';
@@ -936,7 +1058,6 @@
           ambient.appendChild(wind);
         }
 
-        // 4. Thunder Lightning Screen Flash Loop
         const flashOverlay = document.getElementById('thunderFlash');
         function triggerLightning() {
           flashOverlay.classList.remove('flash-active');
@@ -947,19 +1068,17 @@
           triggerLightning();
         }, Math.floor(Math.random() * 4000) + 4500);
 
-      // Evening: 5 PM - 9 PM (Dim Sunset & Flying Silhouette Birds)
+      // Evening: 5 PM - 9 PM
       } else if (currentHour >= 17 && currentHour < 21) {
         slot = 'evening';
         themeClass = 'theme-evening';
         badgeLabel = 'Sunset Twilight 🌇';
         badgeIcon = 'fa-dove';
 
-        // 1. Soft Dimmed Sunset Glow Disc
         const sunsetDisc = document.createElement('div');
         sunsetDisc.className = 'evening-sunset-disc';
         ambient.appendChild(sunsetDisc);
 
-        // 2. Flying Birds Silhouette across the sky
         for (let i = 0; i < 7; i++) {
           const bird = document.createElement('i');
           bird.className = 'fa-solid fa-dove flying-bird';
@@ -970,14 +1089,13 @@
           ambient.appendChild(bird);
         }
 
-      // Night: 9 PM - 5 AM (Original Look & Floating Hearts Unchanged)
+      // Night: 9 PM - 5 AM
       } else {
         slot = 'night';
         themeClass = 'theme-night';
         badgeLabel = 'Your heart beats 💓 is mine music 🎶🎵🤩';
         badgeIcon = 'fa-heart';
 
-        // Exact original floating hearts
         for (let i = 0; i < 15; i++) {
           const heart = document.createElement('i');
           heart.className = 'fa-solid fa-heart heart-particle';
@@ -989,57 +1107,51 @@
         }
       }
 
-      // Apply body class
       document.body.className = themeClass;
-
-      // Random Dynamic Flirt Line
       const availableLines = flirtLines[slot];
       const randomIndex = Math.floor(Math.random() * availableLines.length);
       document.getElementById('romanticQuote').innerHTML = `❝ ${availableLines[randomIndex]} ❞`;
-
-      // Update Top Badge
       document.getElementById('badgeText').innerText = badgeLabel;
       document.getElementById('badgeIcon').className = `fa-solid ${badgeIcon}`;
     }
 
-    // Execute theme and dynamic atmospheric engine on load
     applyTimeBasedThemeAndAtmosphere();
 
-    // Live Search Filter
+    // Universal Search Filter (Including Accordion Subtopics)
     function filterLinks() {
-      const input = document.getElementById('searchInput').value.toLowerCase();
-      const cards = document.querySelectorAll('.link-card');
+      const input = document.getElementById('searchInput').value.toLowerCase().trim();
+      const entries = document.querySelectorAll('.searchable-entry');
       
-      cards.forEach(card => {
-        const text = card.textContent.toLowerCase();
+      entries.forEach(entry => {
+        const text = entry.textContent.toLowerCase();
         if (text.includes(input)) {
-          card.style.display = 'flex';
+          entry.style.display = 'flex';
+          if (input.length > 1 && entry.classList.contains('expandable-container')) {
+            entry.classList.add('active');
+          }
         } else {
-          card.style.display = 'none';
+          entry.style.display = 'none';
         }
       });
     }
 
-    // =========================================================
-    // TOUCH / CLICK RANDOM ROMANTIC POPUP ENGINE
-    // =========================================================
+    // Touch / Click Random Romantic Popups
     const touchItems = [
-       { type: 'bubble', html: '<div class="touch-bubble"><i class="fa-solid fa-heart"></i></div>' },
+      { type: 'bubble', html: '<div class="touch-bubble"><i class="fa-solid fa-heart"></i></div>' },
       { type: 'prompt', html: '<div class="touch-glass-pill">I love you 💕</div>' },
       { type: 'prompt', html: '<div class="touch-glass-pill">Kiss you 😘</div>' },
       { type: 'prompt', html: '<div class="touch-glass-pill">Ummah 💋</div>' }, 
       { type: 'prompt', html: '<div class="touch-glass-pill">Miss You 😘</div>' }, 
-      { type: 'prompt', html: '<div class="touch-glass-pill"> Kissi do na babu 😏</div>' },
-      { type: 'prompt', html: '<div class="touch-glass-pill"> 😘</div>' },
-      { type: 'prompt', html: '<div class="touch-glass-pill"> 💋</div>' }, 
-      { type: 'prompt', html: '<div class="touch-glass-pill"> 💕</div>' }, 
-      { type: 'prompt', html: '<div class="touch-glass-pill"> 😍</div>' }, 
-      { type: 'prompt', html: '<div class="touch-glass-pill"> 🥰</div>' }, 
-      { type: 'prompt', html: '<div class="touch-glass-pill"> 🩷</div>' }, 
-      { type: 'prompt', html: '<div class="touch-glass-pill"> 🩵</div>' }, 
-      { type: 'prompt', html: '<div class="touch-glass-pill"> 🩶 Kissi do na babu 😏</div>' }, 
-      { type: 'prompt', html: '<div class="touch-glass-pill"> ❤️‍🩹</div>' },  
-      { type: 'prompt', html: '<div class="touch-glass-pill"> 🌺</div>' }
+      { type: 'prompt', html: '<div class="touch-glass-pill">Kissi do na babu 😏</div>' },
+      { type: 'prompt', html: '<div class="touch-glass-pill">😘</div>' },
+      { type: 'prompt', html: '<div class="touch-glass-pill">💋</div>' }, 
+      { type: 'prompt', html: '<div class="touch-glass-pill">💕</div>' }, 
+      { type: 'prompt', html: '<div class="touch-glass-pill">😍</div>' }, 
+      { type: 'prompt', html: '<div class="touch-glass-pill">🥰</div>' }, 
+      { type: 'prompt', html: '<div class="touch-glass-pill">🩷</div>' }, 
+      { type: 'prompt', html: '<div class="touch-glass-pill">🩵</div>' }, 
+      { type: 'prompt', html: '<div class="touch-glass-pill">❤️‍🩹</div>' },  
+      { type: 'prompt', html: '<div class="touch-glass-pill">🌺</div>' }
     ];
 
     function spawnTouchEffect(x, y) {
@@ -1057,9 +1169,7 @@
       }, 1800);
     }
 
-    // =========================================================
-    // ENHANCED SWIPE / DRAG PARTICLE TRAIL ENGINE
-    // =========================================================
+    // Swipe Trail Sparkle Engine
     const swipeIcons = ['fa-heart', 'fa-sparkles', 'fa-star', 'fa-wand-magic-sparkles'];
     let lastSwipeX = 0;
     let lastSwipeY = 0;
@@ -1067,7 +1177,6 @@
 
     function spawnSwipeTrail(x, y, vx = 0) {
       const now = performance.now();
-      // Throttle density for 60fps performance
       if (now - lastSwipeTime < 24) return;
       lastSwipeTime = now;
 
@@ -1091,17 +1200,11 @@
       }, 1200);
     }
 
-    // Touch Event Listeners for Mobile Swipe & Tap
-    let touchStartX = 0;
-    let touchStartY = 0;
-
+    // Touch & Swipe Event Listeners
     window.addEventListener('touchstart', (e) => {
       const touch = e.touches[0];
-      touchStartX = touch.clientX;
-      touchStartY = touch.clientY;
       lastSwipeX = touch.clientX;
       lastSwipeY = touch.clientY;
-
       spawnTouchEffect(touch.clientX, touch.clientY);
     }, { passive: true });
 
@@ -1113,7 +1216,7 @@
       lastSwipeY = touch.clientY;
     }, { passive: true });
 
-    // Desktop Mouse Drag / Swipe
+    // Desktop Mouse Drag
     let isMouseDown = false;
     window.addEventListener('mousedown', (e) => {
       isMouseDown = true;
@@ -1132,13 +1235,13 @@
       lastSwipeY = e.clientY;
     });
 
-    // 3D Card Interactive Tilt Feedback on Swipe/Move
+    // 3D Card Interactive Tilt
     document.querySelectorAll('.link-card').forEach(card => {
       card.addEventListener('mousemove', (e) => {
         const rect = card.getBoundingClientRect();
         const x = e.clientX - rect.left - (rect.width / 2);
         const y = e.clientY - rect.top - (rect.height / 2);
-        card.style.transform = `perspective(600px) rotateX(${-y * 0.05}deg) rotateY(${x * 0.05}deg) translateY(-4px) scale(1.015)`;
+        card.style.transform = `perspective(600px) rotateX(${-y * 0.04}deg) rotateY(${x * 0.04}deg) translateY(-3px) scale(1.012)`;
       });
 
       card.addEventListener('mouseleave', () => {
