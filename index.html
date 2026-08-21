@@ -3,1663 +3,1377 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>StudyTracker Pro - Lock Screen Notifications</title>
-  <script src="https://cdn.tailwindcss.com"></script>
-  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-  <script src="https://unpkg.com/lucide@latest"></script>
-  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <title>Study Portal - Dynamic Atmospheric Theme</title>
+  
+  <!-- Google Fonts & FontAwesome -->
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
   <style>
-    @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap');
-    body { font-family: 'Plus Jakarta Sans', sans-serif; }
+    /* =========================================================
+       DYNAMIC THEME CSS VARIABLES & ATMOSPHERIC STYLES
+       ========================================================= */
+    :root {
+      --bg-gradient: linear-gradient(135deg, #2b092b 0%, #4a0e2e 50%, #1f041b 100%);
+      --accent-color: #ff4d94;
+      --accent-glow: rgba(255, 77, 148, 0.35);
+      --badge-bg: rgba(255, 77, 148, 0.15);
+      --badge-border: rgba(255, 77, 148, 0.35);
+      --badge-text: #ff94c2;
+      --heading-gradient: linear-gradient(90deg, #ff758c 0%, #ff7eb3 50%, #ffa4b6 100%);
+      --quote-bg: rgba(255, 77, 148, 0.12);
+      --quote-border: rgba(255, 117, 140, 0.4);
+      --quote-text: #ffd1e4;
+      --card-bg: rgba(45, 14, 38, 0.65);
+      --card-hover-bg: rgba(70, 20, 58, 0.75);
+      --card-border: rgba(255, 117, 140, 0.2);
+      --card-hover-border: rgba(255, 105, 180, 0.6);
+      --card-icon-bg: linear-gradient(135deg, rgba(255, 105, 180, 0.2), rgba(255, 77, 148, 0.1));
+      --card-icon-border: rgba(255, 105, 180, 0.3);
+      --card-icon-color: #ff758c;
+      --card-subtext: #c99fb5;
+    }
+
+    body.theme-morning {
+      --bg-gradient: linear-gradient(135deg, #2e1814 0%, #4a2118 40%, #7c3b24 75%, #a85834 100%);
+      --accent-color: #ff9e42;
+      --accent-glow: rgba(255, 158, 66, 0.45);
+      --badge-bg: rgba(255, 183, 77, 0.18);
+      --badge-border: rgba(255, 183, 77, 0.45);
+      --badge-text: #ffe082;
+      --heading-gradient: linear-gradient(90deg, #ffe082 0%, #ffab40 50%, #ff6e40 100%);
+      --quote-bg: rgba(255, 171, 64, 0.12);
+      --quote-border: rgba(255, 171, 64, 0.4);
+      --quote-text: #fff3e0;
+      --card-bg: rgba(54, 26, 18, 0.75);
+      --card-hover-bg: rgba(78, 38, 26, 0.85);
+      --card-border: rgba(255, 171, 64, 0.25);
+      --card-hover-border: rgba(255, 171, 64, 0.7);
+      --card-icon-bg: linear-gradient(135deg, rgba(255, 209, 128, 0.25), rgba(255, 110, 64, 0.2));
+      --card-icon-border: rgba(255, 183, 77, 0.4);
+      --card-icon-color: #ffb74d;
+      --card-subtext: #e6bba8;
+    }
+
+    body.theme-afternoon {
+      --bg-gradient: linear-gradient(135deg, #0b1118 0%, #151d28 45%, #0f1620 100%);
+      --accent-color: #38bdf8;
+      --accent-glow: rgba(56, 189, 248, 0.45);
+      --badge-bg: rgba(56, 189, 248, 0.15);
+      --badge-border: rgba(56, 189, 248, 0.4);
+      --badge-text: #7dd3fc;
+      --heading-gradient: linear-gradient(90deg, #93c5fd 0%, #38bdf8 50%, #a5f3fc 100%);
+      --quote-bg: rgba(56, 189, 248, 0.1);
+      --quote-border: rgba(56, 189, 248, 0.35);
+      --quote-text: #e0f2fe;
+      --card-bg: rgba(18, 27, 39, 0.78);
+      --card-hover-bg: rgba(26, 40, 58, 0.88);
+      --card-border: rgba(56, 189, 248, 0.22);
+      --card-hover-border: rgba(56, 189, 248, 0.65);
+      --card-icon-bg: linear-gradient(135deg, rgba(56, 189, 248, 0.2), rgba(14, 116, 144, 0.25));
+      --card-icon-border: rgba(56, 189, 248, 0.35);
+      --card-icon-color: #38bdf8;
+      --card-subtext: #94a3b8;
+    }
+
+    body.theme-evening {
+      --bg-gradient: linear-gradient(135deg, #18091f 0%, #2f1228 40%, #461927 75%, #2a0b16 100%);
+      --accent-color: #f472b6;
+      --accent-glow: rgba(244, 114, 182, 0.35);
+      --badge-bg: rgba(244, 114, 182, 0.16);
+      --badge-border: rgba(244, 114, 182, 0.38);
+      --badge-text: #fbcfe8;
+      --heading-gradient: linear-gradient(90deg, #fbcfe8 0%, #f472b6 50%, #fb923c 100%);
+      --quote-bg: rgba(244, 114, 182, 0.1);
+      --quote-border: rgba(244, 114, 182, 0.35);
+      --quote-text: #fdf2f8;
+      --card-bg: rgba(41, 15, 34, 0.72);
+      --card-hover-bg: rgba(61, 22, 51, 0.82);
+      --card-border: rgba(244, 114, 182, 0.22);
+      --card-hover-border: rgba(244, 114, 182, 0.6);
+      --card-icon-bg: linear-gradient(135deg, rgba(244, 114, 182, 0.2), rgba(251, 146, 60, 0.15));
+      --card-icon-border: rgba(244, 114, 182, 0.3);
+      --card-icon-color: #f472b6;
+      --card-subtext: #cca4b8;
+    }
+
+    body.theme-night {
+      --bg-gradient: linear-gradient(135deg, #2b092b 0%, #4a0e2e 50%, #1f041b 100%);
+      --accent-color: #ff4d94;
+      --accent-glow: rgba(255, 77, 148, 0.35);
+      --badge-bg: rgba(255, 77, 148, 0.15);
+      --badge-border: rgba(255, 77, 148, 0.35);
+      --badge-text: #ff94c2;
+      --heading-gradient: linear-gradient(90deg, #ff758c 0%, #ff7eb3 50%, #ffa4b6 100%);
+      --quote-bg: rgba(255, 77, 148, 0.12);
+      --quote-border: rgba(255, 117, 140, 0.4);
+      --quote-text: #ffd1e4;
+      --card-bg: rgba(45, 14, 38, 0.65);
+      --card-hover-bg: rgba(70, 20, 58, 0.75);
+      --card-border: rgba(255, 117, 140, 0.2);
+      --card-hover-border: rgba(255, 105, 180, 0.6);
+      --card-icon-bg: linear-gradient(135deg, rgba(255, 105, 180, 0.2), rgba(255, 77, 148, 0.1));
+      --card-icon-border: rgba(255, 105, 180, 0.3);
+      --card-icon-color: #ff758c;
+      --card-subtext: #c99fb5;
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Outfit', sans-serif;
+    }
+
+    body {
+      background: var(--bg-gradient);
+      color: #fff;
+      min-height: 100vh;
+      padding: 40px 16px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      position: relative;
+      overflow-x: hidden;
+      transition: background 1s ease;
+      user-select: none;
+    }
+
+    #ambientLayer {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+      z-index: 0;
+      overflow: hidden;
+    }
+
+    /* Particles & Popups */
+    .swipe-trail-spark {
+      position: fixed;
+      pointer-events: none;
+      z-index: 998;
+      transform: translate(-50%, -50%);
+      animation: swipeParticleFloat 1.2s cubic-bezier(0.2, 0.8, 0.25, 1) forwards;
+      filter: drop-shadow(0 0 6px var(--accent-glow));
+    }
+
+    @keyframes swipeParticleFloat {
+      0% { opacity: 0.9; transform: translate(-50%, -50%) scale(1) rotate(0deg); }
+      50% { opacity: 0.7; transform: translate(calc(-50% + var(--dx, 0px)), calc(-50% - 25px)) scale(0.85) rotate(45deg); }
+      100% { opacity: 0; transform: translate(calc(-50% + var(--dx, 0px)), calc(-50% - 55px)) scale(0.3) rotate(90deg); }
+    }
+
+    .touch-pop-item {
+      position: fixed;
+      pointer-events: none;
+      z-index: 999;
+      transform: translate(-50%, -50%) scale(0.6);
+      opacity: 0;
+      animation: popAndSlowFade 1.8s cubic-bezier(0.2, 0.8, 0.3, 1) forwards;
+      white-space: nowrap;
+    }
+
+    .touch-glass-pill {
+      background: rgba(255, 255, 255, 0.15);
+      border: 1px solid rgba(255, 255, 255, 0.35);
+      padding: 8px 16px;
+      border-radius: 50px;
+      font-size: 1.05rem;
+      font-weight: 600;
+      color: #fff;
+      backdrop-filter: blur(12px);
+      box-shadow: 0 8px 25px rgba(255, 77, 148, 0.35);
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .touch-bubble {
+      width: 60px;
+      height: 60px;
+      border-radius: 50%;
+      background: radial-gradient(circle at 30% 30%, rgba(255, 255, 255, 0.4) 0%, rgba(255, 117, 140, 0.2) 60%, rgba(255, 77, 148, 0.4) 100%);
+      border: 1.5px solid rgba(255, 255, 255, 0.5);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.4rem;
+      color: #ff4d94;
+      backdrop-filter: blur(6px);
+      box-shadow: 0 0 15px rgba(255, 105, 180, 0.4), inset 0 0 10px rgba(255, 255, 255, 0.5);
+    }
+
+    @keyframes popAndSlowFade {
+      0% { opacity: 0; transform: translate(-50%, -50%) scale(0.4) translateY(10px); }
+      20% { opacity: 0.95; transform: translate(-50%, -50%) scale(1.1) translateY(-10px); }
+      40% { opacity: 0.9; transform: translate(-50%, -50%) scale(1) translateY(-25px); }
+      100% { opacity: 0; transform: translate(-50%, -50%) scale(0.85) translateY(-70px); }
+    }
+
+    /* Atmospheres */
+    .morning-sun-glow {
+      position: absolute;
+      top: -80px;
+      right: -80px;
+      width: 320px;
+      height: 320px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(255,224,130,0.8) 0%, rgba(255,167,38,0.4) 40%, rgba(255,110,64,0.05) 70%, transparent 100%);
+      filter: blur(20px);
+      animation: sunPulse 6s ease-in-out infinite alternate;
+    }
+
+    .sun-rays {
+      position: absolute;
+      top: -150px;
+      right: -150px;
+      width: 600px;
+      height: 600px;
+      background: conic-gradient(from 0deg, rgba(255, 235, 150, 0.12) 0deg 20deg, transparent 20deg 40deg, rgba(255, 235, 150, 0.12) 40deg 60deg, transparent 60deg 80deg, rgba(255, 235, 150, 0.12) 80deg 100deg, transparent 100deg 120deg, rgba(255, 235, 150, 0.12) 120deg 140deg, transparent 140deg 160deg, rgba(255, 235, 150, 0.12) 160deg 180deg, transparent 180deg 200deg, rgba(255, 235, 150, 0.12) 200deg 220deg, transparent 220deg 240deg, rgba(255, 235, 150, 0.12) 240deg 260deg, transparent 260deg 280deg, rgba(255, 235, 150, 0.12) 280deg 300deg, transparent 300deg 320deg, rgba(255, 235, 150, 0.12) 320deg 340deg, transparent 340deg 360deg);
+      border-radius: 50%;
+      animation: rotateRays 40s linear infinite;
+    }
+
+    .morning-sparkle {
+      position: absolute;
+      bottom: -30px;
+      color: rgba(255, 224, 130, 0.45);
+      animation: morningFloat 7s linear infinite;
+    }
+
+    @keyframes rotateRays { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
+    @keyframes sunPulse { 0% { transform: scale(0.92); opacity: 0.75; } 100% { transform: scale(1.1); opacity: 1; } }
+    @keyframes morningFloat { 0% { transform: translateY(0) scale(0.6); opacity: 0; } 20% { opacity: 0.8; } 80% { opacity: 0.8; } 100% { transform: translateY(-110vh) scale(1.2); opacity: 0; } }
+
+    .thunder-flash-overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(255, 255, 255, 0.9);
+      opacity: 0;
+      pointer-events: none;
+      z-index: 10;
+    }
+
+    .flash-active { animation: thunderFlashAnim 0.7s ease-out; }
+    @keyframes thunderFlashAnim { 0% { opacity: 0; } 15% { opacity: 0.85; } 25% { opacity: 0.1; } 40% { opacity: 0.95; } 55% { opacity: 0.2; } 75% { opacity: 0.6; } 100% { opacity: 0; } }
+
+    .storm-cloud {
+      position: absolute;
+      color: rgba(148, 163, 184, 0.22);
+      font-size: 6rem;
+      animation: cloudDrift 20s linear infinite;
+    }
+    @keyframes cloudDrift { 0% { transform: translateX(-150px); } 100% { transform: translateX(110vw); } }
+
+    .rain-drop {
+      position: absolute;
+      top: -40px;
+      width: 2px;
+      background: linear-gradient(to bottom, transparent, rgba(56, 189, 248, 0.65));
+      animation: rainfall linear infinite;
+    }
+    @keyframes rainfall { 0% { transform: translateY(0) translateX(0); opacity: 0; } 20% { opacity: 0.9; } 100% { transform: translateY(110vh) translateX(-70px); opacity: 0.3; } }
+
+    .wind-trail {
+      position: absolute;
+      height: 1.5px;
+      background: linear-gradient(90deg, transparent, rgba(148, 163, 184, 0.4), transparent);
+      animation: windBlow linear infinite;
+    }
+    @keyframes windBlow { 0% { transform: translateX(-20vw); opacity: 0; } 30% { opacity: 0.7; } 80% { opacity: 0.7; } 100% { transform: translateX(120vw); opacity: 0; } }
+
+    .evening-sunset-disc {
+      position: absolute;
+      bottom: 5%;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 480px;
+      height: 240px;
+      background: radial-gradient(ellipse at bottom, rgba(251,146,60,0.55) 0%, rgba(244,114,182,0.3) 45%, rgba(47,18,40,0.02) 80%, transparent 100%);
+      filter: blur(28px);
+      pointer-events: none;
+    }
+
+    .flying-bird {
+      position: absolute;
+      color: rgba(251, 207, 232, 0.45);
+      animation: birdFly linear infinite;
+    }
+    @keyframes birdFly { 0% { transform: translate(-10vw, 0) scale(0.7); opacity: 0; } 10% { opacity: 0.75; } 50% { transform: translate(50vw, -30px) scale(0.9); } 90% { opacity: 0.75; } 100% { transform: translate(110vw, -60px) scale(0.7); opacity: 0; } }
+
+    .heart-particle {
+      position: absolute;
+      bottom: -40px;
+      color: rgba(255, 77, 148, 0.25);
+      animation: floatUp 8s linear infinite;
+    }
+    @keyframes floatUp { 0% { transform: translateY(0) scale(0.8) rotate(0deg); opacity: 0; } 20% { opacity: 0.7; } 80% { opacity: 0.7; } 100% { transform: translateY(-110vh) scale(1.3) rotate(360deg); opacity: 0; } }
+
+    /* Layout & UI */
+    .container {
+      width: 100%;
+      max-width: 760px;
+      position: relative;
+      z-index: 2;
+    }
+
+    header {
+      text-align: center;
+      margin-bottom: 30px;
+    }
+
+    .love-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: var(--badge-bg);
+      border: 1px solid var(--badge-border);
+      padding: 8px 18px;
+      border-radius: 50px;
+      font-size: 0.88rem;
+      color: var(--badge-text);
+      margin-bottom: 14px;
+      backdrop-filter: blur(8px);
+      transition: all 0.5s ease;
+    }
+
+    .dynamic-love-quote {
+      background: var(--quote-bg);
+      border: 1px dashed var(--quote-border);
+      border-radius: 14px;
+      padding: 14px 20px;
+      margin: 14px auto 20px;
+      font-size: 0.96rem;
+      color: var(--quote-text);
+      line-height: 1.55;
+      backdrop-filter: blur(10px);
+      animation: fadeIn 0.8s ease-in-out;
+      transition: all 0.5s ease;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(-6px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    header h1 {
+      font-size: 2.4rem;
+      font-weight: 700;
+      background: var(--heading-gradient);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      margin-bottom: 6px;
+    }
+
+    header p {
+      color: #f3c2db;
+      font-size: 0.95rem;
+      font-weight: 400;
+    }
+
+    .search-box {
+      margin-bottom: 28px;
+      position: relative;
+    }
+
+    .search-box input {
+      width: 100%;
+      padding: 14px 20px 14px 48px;
+      background: rgba(255, 255, 255, 0.08);
+      border: 1px solid var(--card-border);
+      border-radius: 16px;
+      color: #fff;
+      font-size: 0.95rem;
+      backdrop-filter: blur(14px);
+      outline: none;
+      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    .search-box input:focus {
+      border-color: var(--accent-color);
+      background: rgba(255, 255, 255, 0.12);
+      box-shadow: 0 0 20px var(--accent-glow);
+    }
+
+    .search-box input::placeholder {
+      color: #b08d9f;
+    }
+
+    .search-box i {
+      position: absolute;
+      left: 18px;
+      top: 50%;
+      transform: translateY(-50%);
+      color: var(--accent-color);
+      font-size: 1.05rem;
+    }
+
+    .links-list {
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+
+    /* Cards */
+    .link-card {
+      background: var(--card-bg);
+      border: 1px solid var(--card-border);
+      border-radius: 18px;
+      padding: 18px 22px;
+      display: flex;
+      align-items: center;
+      gap: 18px;
+      text-decoration: none;
+      color: #fff;
+      backdrop-filter: blur(16px);
+      transition: transform 0.25s cubic-bezier(0.2, 0.8, 0.2, 1), background 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
+      position: relative;
+      overflow: hidden;
+      transform-style: preserve-3d;
+      will-change: transform;
+      cursor: pointer;
+    }
+
+    .link-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.08), transparent);
+      transition: 0.5s;
+    }
+
+    .link-card:hover::before {
+      left: 100%;
+    }
+
+    .link-card:hover {
+      transform: translateY(-4px) scale(1.015);
+      border-color: var(--card-hover-border);
+      background: var(--card-hover-bg);
+      box-shadow: 0 14px 28px var(--accent-glow);
+    }
+
+    .card-icon {
+      width: 52px;
+      height: 52px;
+      border-radius: 14px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.4rem;
+      flex-shrink: 0;
+      background: var(--card-icon-bg);
+      border: 1px solid var(--card-icon-border);
+      color: var(--card-icon-color);
+    }
+
+    .card-info {
+      flex: 1;
+    }
+
+    .card-info h3 {
+      font-size: 1.08rem;
+      font-weight: 600;
+      color: #fff;
+      margin-bottom: 4px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .card-info h3 span.heart-mini {
+      font-size: 0.85rem;
+      color: var(--accent-color);
+    }
+
+    .card-info p {
+      font-size: 0.82rem;
+      color: var(--card-subtext);
+    }
+
+    .arrow-box {
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      background: rgba(255, 255, 255, 0.05);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--badge-text);
+      transition: all 0.3s ease;
+    }
+
+    .link-card:hover .arrow-box {
+      background: var(--accent-color);
+      color: #fff;
+      transform: translateX(4px);
+    }
+
+    /* Accordions & Subfolders */
+    .expandable-container {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .expandable-container .link-card {
+      border-radius: 18px;
+      transition: all 0.3s ease;
+    }
+
+    .expandable-container.active > .link-card {
+      border-bottom-left-radius: 0;
+      border-bottom-right-radius: 0;
+      border-color: var(--card-hover-border);
+    }
+
+    .chevron-arrow {
+      transition: transform 0.3s ease;
+      font-size: 0.9rem;
+    }
+
+    .expandable-container.active > .link-card .chevron-arrow,
+    .subfolder-container.active > .nested-folder-card .chevron-arrow {
+      transform: rotate(180deg);
+    }
+
+    .subtopics-list {
+      display: none;
+      background: rgba(20, 7, 24, 0.8);
+      border: 1px solid var(--card-border);
+      border-top: none;
+      border-radius: 0 0 18px 18px;
+      padding: 12px;
+      backdrop-filter: blur(16px);
+      box-shadow: 0 10px 20px rgba(0, 0, 0, 0.25);
+    }
+
+    .expandable-container.active > .subtopics-list {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      animation: fadeIn 0.35s ease-in-out;
+    }
+
+    .sub-item {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 11px 16px;
+      color: #ffd8ec;
+      text-decoration: none;
+      border-radius: 12px;
+      background: rgba(255, 255, 255, 0.04);
+      border: 1px solid rgba(255, 255, 255, 0.05);
+      font-size: 0.92rem;
+      font-weight: 500;
+      transition: all 0.25s ease;
+    }
+
+    .sub-item:hover {
+      background: rgba(255, 77, 148, 0.18);
+      border-color: var(--accent-color);
+      color: #fff;
+      transform: translateX(4px);
+    }
+
+    .sub-item i {
+      color: var(--accent-color);
+      font-size: 0.85rem;
+      transition: transform 0.2s ease;
+    }
+
+    .sub-item:hover i {
+      transform: translateX(3px);
+    }
+
+    .sub-item.disabled {
+      opacity: 0.6;
+      cursor: not-allowed;
+    }
+
+    /* Nested Folder inside Folder */
+    .subfolder-container {
+      margin-top: 4px;
+    }
+
+    .nested-folder-card {
+      background: rgba(255, 255, 255, 0.06);
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      border-radius: 14px;
+      padding: 12px 18px;
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      cursor: pointer;
+      transition: all 0.25s ease;
+      color: #fff;
+    }
+
+    .nested-folder-card:hover {
+      background: rgba(255, 77, 148, 0.15);
+      border-color: var(--accent-color);
+    }
+
+    .subfolder-container.active .nested-folder-card {
+      border-bottom-left-radius: 0;
+      border-bottom-right-radius: 0;
+      border-color: var(--card-hover-border);
+    }
+
+    .nested-subtopics {
+      display: none;
+      background: rgba(10, 3, 14, 0.6);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      border-top: none;
+      border-radius: 0 0 14px 14px;
+      padding: 8px;
+      gap: 6px;
+    }
+
+    .subfolder-container.active .nested-subtopics {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+      animation: fadeIn 0.3s ease-in-out;
+    }
+
+    footer {
+      text-align: center;
+      margin-top: 40px;
+      color: #a3728f;
+      font-size: 0.85rem;
+    }
+
+    footer i {
+      color: var(--accent-color);
+    }
   </style>
 </head>
-<body class="bg-slate-900 text-slate-100 min-h-screen pb-16">
+<body class="theme-night">
 
-  <!-- Status Toast Bar -->
-  <div id="syncToast" class="hidden fixed bottom-4 right-4 z-[150] bg-slate-800 border border-slate-700 text-xs px-4 py-2.5 rounded-xl shadow-2xl flex items-center gap-2 transition-all">
-    <span id="syncToastDot" class="w-2 h-2 rounded-full bg-emerald-400"></span>
-    <span id="syncToastMsg" class="font-medium text-slate-200">Syncing...</span>
-  </div>
+  <div class="thunder-flash-overlay" id="thunderFlash"></div>
+  <div id="ambientLayer"></div>
 
-  <!-- Force Logout Alert Modal -->
-  <div id="forceLogoutModal" class="hidden fixed inset-0 z-[140] bg-slate-950/95 backdrop-blur-md flex items-center justify-center p-4">
-    <div class="bg-slate-900 border-2 border-rose-500 rounded-3xl p-6 max-w-sm w-full shadow-2xl text-center space-y-4">
-      <div class="w-14 h-14 bg-rose-500/20 text-rose-400 rounded-2xl flex items-center justify-center mx-auto border border-rose-500/40">
-        <i data-lucide="smartphone" class="w-7 h-7"></i>
-      </div>
-      <h3 class="text-lg font-bold text-white">Logged Out From This Device</h3>
-      <p class="text-xs text-slate-300">Aapka account kisi doosre device me login ho gaya hai. Security ke liye is device se logout kiya gaya hai.</p>
-      <button onclick="acknowledgeForceLogout()" class="w-full py-3 bg-rose-600 hover:bg-rose-500 text-white font-bold rounded-xl text-xs transition">
-        Theek Hai (OK)
-      </button>
-    </div>
-  </div>
-
-  <!-- Simple Name + Email Login Modal -->
-  <div id="authModal" class="hidden fixed inset-0 z-[120] bg-slate-950/90 backdrop-blur-md flex items-center justify-center p-4">
-    <div class="bg-slate-900 border border-slate-700 rounded-3xl p-6 max-w-sm w-full shadow-2xl space-y-4">
-      <div class="text-center space-y-1">
-        <div class="w-12 h-12 bg-indigo-600/20 text-indigo-400 border border-indigo-500/30 rounded-2xl flex items-center justify-center mx-auto mb-2">
-          <i data-lucide="user-check" class="w-6 h-6"></i>
-        </div>
-        <h3 class="text-lg font-bold text-white">StudyTracker Login</h3>
-        <p class="text-xs text-slate-400">Apna Name aur Email daal kar session start karein</p>
+  <div class="container">
+    <header>
+      <div class="love-badge" id="timeBadge">
+        <i class="fa-solid fa-heart" id="badgeIcon"></i> <span id="badgeText">Your heart beats 💓 is mine music 🎶🎵🤩</span>
       </div>
 
-      <form id="simpleLoginForm" class="space-y-3">
-        <div>
-          <label class="block text-xs font-medium text-slate-300 mb-1">Aapka Naam (Full Name)</label>
-          <input type="text" id="loginNameInput" required placeholder="e.g. Satyam Yadav" class="w-full bg-slate-950 border border-slate-700 rounded-xl px-3.5 py-2.5 text-sm text-white focus:border-indigo-500 focus:outline-none">
-        </div>
-        <div>
-          <label class="block text-xs font-medium text-slate-300 mb-1">Email ID</label>
-          <input type="email" id="loginEmailInput" required placeholder="name@example.com" class="w-full bg-slate-950 border border-slate-700 rounded-xl px-3.5 py-2.5 text-sm text-white focus:border-indigo-500 focus:outline-none">
-        </div>
-
-        <p id="authErrorMsg" class="hidden text-xs text-rose-400 font-medium"></p>
-
-        <button type="submit" id="authSubmitBtn" class="w-full py-3 bg-indigo-600 hover:bg-indigo-500 text-white font-bold rounded-xl text-sm transition flex items-center justify-center gap-2">
-          <i data-lucide="log-in" class="w-4 h-4"></i> Login Here
-        </button>
-      </form>
-
-      <button type="button" onclick="closeAuthModal()" class="w-full py-2 bg-slate-800 hover:bg-slate-700 text-xs text-slate-400 rounded-xl">
-        Cancel / Close
-      </button>
-    </div>
-  </div>
-
-  <!-- Add Subject Modal -->
-  <div id="addSubjectModal" class="hidden fixed inset-0 z-[130] bg-slate-950/85 backdrop-blur-md flex items-center justify-center p-4">
-    <div class="bg-slate-900 border border-slate-700 rounded-3xl p-6 max-w-sm w-full shadow-2xl space-y-4">
-      <div class="flex items-center justify-between border-b border-slate-800 pb-3">
-        <h3 class="text-base font-bold text-white flex items-center gap-2">
-          <i data-lucide="book-plus" class="w-5 h-5 text-indigo-400"></i> Naya Subject Add Karein
-        </h3>
-        <button onclick="closeAddSubjectModal()" class="text-slate-400 hover:text-white p-1 rounded-lg">
-          <i data-lucide="x" class="w-5 h-5"></i>
-        </button>
-      </div>
-      <form id="addSubjectForm" class="space-y-4">
-        <div>
-          <label class="block text-xs font-medium text-slate-300 mb-1">Subject Ka Naam</label>
-          <input type="text" id="newSubjectNameInput" required placeholder="e.g. Economics, Polity, Physics"
-            class="w-full bg-slate-950 border border-slate-700 rounded-xl px-3.5 py-2.5 text-sm text-white focus:outline-none focus:border-indigo-500">
-        </div>
-        <div class="flex gap-2">
-          <button type="button" onclick="closeAddSubjectModal()" class="w-1/2 py-2.5 bg-slate-800 hover:bg-slate-700 text-xs font-bold text-slate-300 rounded-xl transition">
-            Cancel
-          </button>
-          <button type="submit" class="w-1/2 py-2.5 bg-indigo-600 hover:bg-indigo-500 text-xs font-bold text-white rounded-xl transition">
-            Save Subject
-          </button>
-        </div>
-      </form>
-    </div>
-  </div>
-
-  <!-- Target Achieved Prompt Modal -->
-  <div id="targetAchievedModal" class="hidden fixed inset-0 z-[110] bg-slate-950/85 backdrop-blur-md flex items-center justify-center p-4">
-    <div class="bg-slate-900 border-2 border-emerald-500/80 rounded-3xl p-6 max-w-md w-full shadow-2xl text-center space-y-5">
-      <div class="w-16 h-16 bg-emerald-500/20 text-emerald-400 rounded-full flex items-center justify-center mx-auto border border-emerald-500/40">
-        <i data-lucide="trophy" class="w-8 h-8 animate-bounce"></i>
-      </div>
-      <div>
-        <h3 class="text-2xl font-bold text-white">Shaandaar! Target Pura Hua 🎉</h3>
-        <p class="text-xs text-slate-300 mt-1">Aapne aaj ka <span id="achievedTargetText" class="font-bold text-emerald-400">6 Ghante</span> ka study goal achieve kar liya hai!</p>
-      </div>
-
-      <div class="bg-slate-800/80 p-4 rounded-2xl border border-slate-700/80 text-left space-y-3">
-        <label class="block text-xs font-semibold text-slate-300">Kya aap aaj ka target badhana chahte hain?</label>
-        <div class="grid grid-cols-3 gap-2">
-          <button onclick="extendDailyTarget(60)" class="py-2 bg-indigo-600/30 hover:bg-indigo-600 border border-indigo-500/40 rounded-xl text-xs font-bold text-indigo-200 transition">+1 Ghanta</button>
-          <button onclick="extendDailyTarget(120)" class="py-2 bg-indigo-600/30 hover:bg-indigo-600 border border-indigo-500/40 rounded-xl text-xs font-bold text-indigo-200 transition">+2 Ghante</button>
-          <button onclick="extendDailyTarget(180)" class="py-2 bg-indigo-600/30 hover:bg-indigo-600 border border-indigo-500/40 rounded-xl text-xs font-bold text-indigo-200 transition">+3 Ghante</button>
-        </div>
-      </div>
-
-      <div class="flex gap-2">
-        <button onclick="closeTargetModal()" class="w-full py-3 bg-slate-800 hover:bg-slate-700 text-slate-300 text-xs font-bold rounded-xl border border-slate-700 transition">
-          Bas Itna Hi Kafi Hai
-        </button>
-      </div>
-    </div>
-  </div>
-
-  <!-- Subject Drilldown Modal -->
-  <div id="subjectDrilldownModal" class="hidden fixed inset-0 z-[90] bg-slate-950/85 backdrop-blur-md flex items-center justify-center p-4">
-    <div class="bg-slate-900 border border-slate-700 rounded-3xl p-6 max-w-2xl w-full shadow-2xl space-y-6 max-h-[90vh] overflow-y-auto">
-      <div class="flex items-center justify-between border-b border-slate-800 pb-4">
-        <div class="flex items-center gap-3">
-          <div id="modalSubjectIconBadge" class="p-2.5 rounded-xl border">
-            <i data-lucide="bar-chart" class="w-6 h-6"></i>
-          </div>
-          <div>
-            <h3 id="modalSubjectTitle" class="text-xl font-bold text-white">Subject Analytics</h3>
-            <p class="text-xs text-slate-400">Weekly & Monthly Performance Breakdown</p>
-          </div>
-        </div>
-        <button onclick="closeSubjectModal()" class="text-slate-400 hover:text-white p-2 rounded-xl bg-slate-800 border border-slate-700">
-          <i data-lucide="x" class="w-5 h-5"></i>
-        </button>
-      </div>
-
-      <div class="grid grid-cols-2 gap-4">
-        <div class="bg-slate-800/60 border border-slate-700/60 rounded-2xl p-4">
-          <span class="text-xs font-medium text-slate-400 uppercase tracking-wider">Is Hafte Ka Total</span>
-          <h4 id="modalSubjectWeeklyHours" class="text-2xl font-bold text-cyan-400 mt-1">0h 0m</h4>
-          <p class="text-[11px] text-slate-400 mt-1">Last 7 Days Progress</p>
-        </div>
-        <div class="bg-slate-800/60 border border-slate-700/60 rounded-2xl p-4">
-          <span class="text-xs font-medium text-slate-400 uppercase tracking-wider">Is Mahine Ka Total</span>
-          <h4 id="modalSubjectMonthlyHours" class="text-2xl font-bold text-amber-400 mt-1">0h 0m</h4>
-          <p class="text-[11px] text-slate-400 mt-1">Current Month Progress</p>
-        </div>
-      </div>
-
-      <div class="bg-slate-800/40 border border-slate-700/60 rounded-2xl p-5 space-y-3">
-        <div class="flex items-center justify-between">
-          <h5 class="text-xs font-bold uppercase tracking-wider text-slate-300 flex items-center gap-1.5">
-            <i data-lucide="trending-up" class="w-4 h-4 text-indigo-400"></i> Subject Progress Trends
-          </h5>
-          <div class="flex gap-1 bg-slate-900 p-1 rounded-xl border border-slate-700/60 text-xs">
-            <button onclick="switchDrilldownChart('week')" id="drillWeekBtn" class="px-2.5 py-1 rounded-lg bg-indigo-600 text-white font-medium">7 Days Trend</button>
-            <button onclick="switchDrilldownChart('month')" id="drillMonthBtn" class="px-2.5 py-1 rounded-lg text-slate-400 hover:text-white font-medium">Month Trend</button>
-          </div>
-        </div>
-        <div class="relative h-48 w-full">
-          <canvas id="drilldownChartCanvas"></canvas>
-        </div>
-      </div>
-
-      <div class="space-y-3">
-        <h5 class="text-xs font-bold uppercase tracking-wider text-slate-300">Completed Topics In This Subject</h5>
-        <div id="modalTopicList" class="space-y-2 max-h-40 overflow-y-auto pr-1"></div>
-      </div>
-    </div>
-  </div>
-
-  <!-- Alarm Modal -->
-  <div id="alarmModal" class="hidden fixed inset-0 z-[100] bg-slate-950/85 backdrop-blur-md flex items-center justify-center p-4">
-    <div class="bg-slate-900 border-2 border-emerald-500 rounded-3xl p-6 max-w-sm w-full text-center shadow-2xl animate-bounce">
-      <div class="w-16 h-16 bg-emerald-500/20 text-emerald-400 rounded-full flex items-center justify-center mx-auto border border-emerald-500/40">
-        <i data-lucide="bell-ring" class="w-8 h-8 animate-pulse"></i>
-      </div>
-      <h3 class="text-xl font-bold text-white mb-1">Session Complete!</h3>
-      <p id="alarmTopicText" class="text-sm text-slate-300 mb-6">Aapka study session poora ho gaya hai.</p>
-      <button onclick="stopAlarm()" class="w-full py-3.5 bg-emerald-500 hover:bg-emerald-400 text-slate-950 font-bold rounded-xl shadow-lg transition">
-        Stop Alarm & Continue
-      </button>
-    </div>
-  </div>
-
-  <!-- Header -->
-  <header class="border-b border-slate-800 bg-slate-950/60 backdrop-blur sticky top-0 z-50">
-    <div class="max-w-6xl mx-auto px-4 py-4 flex justify-between items-center">
-      <div class="flex items-center gap-3">
-        <div class="p-2 bg-indigo-600 rounded-xl text-white shadow-lg shadow-indigo-600/30">
-          <i data-lucide="shield-check" class="w-6 h-6"></i>
-        </div>
-        <div>
-          <h1 class="text-xl font-bold tracking-tight">StudyTracker Pro</h1>
-          <p class="text-xs text-slate-400">Lock-Screen & Notification Alerts Enabled</p>
-        </div>
-      </div>
-      <div class="flex items-center gap-2">
-        <button onclick="openAuthModal()" id="userAuthStatusBtn" class="flex items-center gap-1.5 px-3.5 py-1.5 rounded-full bg-slate-800 border border-slate-700 text-xs font-semibold text-indigo-300 hover:bg-slate-700 transition">
-          <span id="cloudStatusIndicator" class="w-2 h-2 rounded-full bg-amber-400"></span>
-          <span id="userNameTag">Login (Name + Mail)</span>
-        </button>
-        <div class="flex items-center gap-2 bg-slate-800/80 px-3.5 py-1.5 rounded-full border border-slate-700">
-          <span class="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
-          <span id="currentDateDisplay" class="text-xs font-semibold text-slate-300"></span>
-        </div>
-      </div>
-    </div>
-  </header>
-
-  <main class="max-w-6xl mx-auto px-4 mt-8">
-
-    <!-- Active Live Timer Box -->
-    <div id="activeTimerCard" class="hidden mb-8 bg-gradient-to-r from-indigo-950 via-slate-900 to-indigo-950 border border-indigo-500/50 rounded-2xl p-6 shadow-2xl">
-      <div class="flex flex-col md:flex-row items-center justify-between gap-6">
-        <div class="flex items-center gap-4 text-left">
-          <div id="timerIconWrapper" class="p-3 bg-indigo-600/20 text-indigo-400 border border-indigo-500/30 rounded-xl">
-            <i id="timerHourglassIcon" data-lucide="hourglass" class="w-7 h-7 animate-spin"></i>
-          </div>
-          <div>
-            <div class="flex items-center gap-2">
-              <span id="sessionStatusTag" class="text-[11px] font-bold px-2 py-0.5 rounded bg-emerald-500/20 text-emerald-400 border border-emerald-500/30">LOCKED SESSION</span>
-              <span id="liveSubjectTag" class="text-xs font-bold text-indigo-300"></span>
-            </div>
-            <h4 id="activeSessionTopic" class="text-base font-bold text-white mt-1">Topic Details...</h4>
-            <p id="liveStartTimeTag" class="text-xs text-slate-400">Started at: --:-- --</p>
-          </div>
-        </div>
-
-        <div class="flex items-center gap-4">
-          <div class="text-right">
-            <span class="text-xs text-slate-400 block font-medium">Time Left</span>
-            <span id="countdownDisplay" class="text-3xl font-mono font-black text-amber-400">00:00:00</span>
-          </div>
-          
-          <button id="pauseResumeBtn" onclick="togglePauseResumeSession()" class="px-3.5 py-2 bg-amber-500/20 hover:bg-amber-500/30 border border-amber-500/40 text-amber-300 text-xs font-semibold rounded-xl transition flex items-center gap-1.5">
-            <i id="pauseResumeIcon" data-lucide="pause" class="w-3.5 h-3.5"></i>
-            <span id="pauseResumeText">Pause</span>
-          </button>
-
-          <button onclick="abandonActiveSession()" class="px-3.5 py-2 bg-rose-500/10 hover:bg-rose-500/20 border border-rose-500/30 text-rose-300 text-xs font-semibold rounded-xl transition">
-            Quit Session
-          </button>
-        </div>
-      </div>
-    </div>
-
-    <!-- KPI Summary Cards -->
-    <div class="grid grid-cols-1 md:grid-cols-4 gap-4 mb-8">
-      <div class="bg-slate-800/80 border border-slate-700/60 rounded-2xl p-4 shadow-sm">
-        <p class="text-xs font-medium text-slate-400 uppercase tracking-wider">Is Mahine Ka Total</p>
-        <h3 id="monthlyTotalHours" class="text-2xl font-bold text-amber-400 mt-1">0h 0m</h3>
-        <p class="text-xs text-slate-400 mt-2">This Month</p>
-      </div>
-
-      <div class="bg-slate-800/80 border border-slate-700/60 rounded-2xl p-4 shadow-sm">
-        <p class="text-xs font-medium text-slate-400 uppercase tracking-wider">Is Hafte Ka Total</p>
-        <h3 id="weeklyTotalHours" class="text-2xl font-bold text-cyan-400 mt-1">0h 0m</h3>
-        <p class="text-xs text-slate-400 mt-2">Last 7 Days</p>
-      </div>
-
-      <div class="bg-slate-800/80 border border-slate-700/60 rounded-2xl p-4 shadow-sm">
-        <p class="text-xs font-medium text-slate-400 uppercase tracking-wider">Aaj Ki Padhai</p>
-        <h3 id="todayTotalHours" class="text-2xl font-bold text-indigo-400 mt-1">0h 0m</h3>
-        <p id="todayGoalTag" class="text-xs text-slate-400 mt-2">Daily Goal: 6 hrs</p>
-      </div>
-
-      <div class="bg-slate-800/80 border border-slate-700/60 rounded-2xl p-4 shadow-sm">
-        <p class="text-xs font-medium text-slate-400 uppercase tracking-wider">Total Topics Aaj</p>
-        <h3 id="todayTopicCount" class="text-2xl font-bold text-emerald-400 mt-1">0</h3>
-        <p class="text-xs text-slate-400 mt-2">Completed entries</p>
-      </div>
-    </div>
-
-    <!-- Main Grid -->
-    <div class="grid grid-cols-1 lg:grid-cols-12 gap-8">
+      <h1>You are my CHARM 💓</h1>
       
-      <!-- Left Column -->
-      <div class="lg:col-span-5 space-y-6">
-        <div id="formWrapper" class="bg-slate-800/90 border border-slate-700 rounded-2xl p-6 shadow-xl">
-          <div class="flex justify-between items-center mb-4">
-            <h2 class="text-lg font-bold flex items-center gap-2">
-              <i data-lucide="play-circle" class="w-5 h-5 text-indigo-400"></i> Start Study Session
-            </h2>
-            <span class="text-[11px] font-semibold text-indigo-300 bg-indigo-500/10 border border-indigo-500/20 px-2.5 py-0.5 rounded-md">
-              Dropdown Select
-            </span>
+      <div class="dynamic-love-quote" id="romanticQuote">
+        ✨ Loading something sweet for you...
+      </div>
+
+      <p>Aapke sabhi important classes aur study links ek jagah 💕</p>
+    </header>
+
+    <div class="search-box">
+      <i class="fa-solid fa-magnifying-glass"></i>
+      <input type="text" id="searchInput" placeholder="Search batch, subject or teacher..." onkeyup="filterLinks()">
+    </div>
+
+    <!-- Cards List -->
+    <div class="links-list" id="linksList">
+      
+      <!-- 1. Hindi – Amarnath Sir -->
+      <a href="https://ydv-satyamm.github.io/Amarnath/" target="_blank" class="link-card searchable-entry">
+        <div class="card-icon">
+          <i class="fa-solid fa-book-bookmark"></i>
+        </div>
+        <div class="card-info">
+          <h3>Hindi – Amarnath Sir <span class="heart-mini">💖</span></h3>
+          <p>GitHub Pages Portal Access</p>
+        </div>
+        <div class="arrow-box">
+          <i class="fa-solid fa-arrow-up-right-from-square"></i>
+        </div>
+      </a>
+      
+      <!-- 2. Hindi – Arun Sir -->
+      <a href="https://ydv-satyamm.github.io/CW_ARUNHINDI/" target="_blank" class="link-card searchable-entry">
+        <div class="card-icon">
+          <i class="fa-solid fa-book-bookmark"></i>
+        </div>
+        <div class="card-info">
+          <h3>Hindi – Arun Sir <span class="heart-mini">💖</span></h3>
+          <p>GitHub Pages Portal Access</p>
+        </div>
+        <div class="arrow-box">
+          <i class="fa-solid fa-arrow-up-right-from-square"></i>
+        </div>
+      </a>
+
+      <!-- 3. Sachin UP TET (All Subjects) -->
+      <div class="expandable-container searchable-entry" id="sachinContainer">
+        <div class="link-card" onclick="toggleSubtopics('sachinContainer')">
+          <div class="card-icon" style="color: #26a5e4; border-color: rgba(38,165,228,0.4); background: rgba(38,165,228,0.15);">
+            <i class="fa-brands fa-telegram"></i>
           </div>
-          
-          <form id="studyForm" class="space-y-4">
-            <div>
-              <div class="flex justify-between items-center mb-1">
-                <label class="block text-xs font-medium text-slate-300">Subject Select Karein</label>
-                <div class="flex items-center gap-2">
-                  <button type="button" onclick="openAddSubjectModal()" class="text-xs text-indigo-400 hover:text-indigo-300 flex items-center gap-1 font-semibold">
-                    <i data-lucide="plus" class="w-3.5 h-3.5"></i> Add
-                  </button>
-                  <span class="text-slate-600">|</span>
-                  <button type="button" onclick="deleteCurrentSubject()" class="text-xs text-rose-400 hover:text-rose-300 flex items-center gap-1 font-semibold">
-                    <i data-lucide="trash-2" class="w-3.5 h-3.5"></i> Delete
-                  </button>
-                </div>
-              </div>
-              <div class="relative">
-                <select id="subjectSelect" required class="w-full bg-slate-900 border border-slate-700 rounded-xl px-3.5 py-2.5 text-sm focus:outline-none focus:border-indigo-500 text-white">
-                </select>
-              </div>
-            </div>
-
-            <div>
-              <label class="block text-xs font-medium text-slate-300 mb-1">Session Duration</label>
-              <div class="grid grid-cols-2 gap-3">
-                <div>
-                  <label class="block text-[11px] text-slate-400 mb-0.5">Hours</label>
-                  <select id="hoursSelect" class="w-full bg-slate-900 border border-slate-700 rounded-xl px-3.5 py-2.5 text-sm focus:outline-none focus:border-indigo-500 text-white font-medium">
-                    <option value="0">0 Hour</option>
-                    <option value="1" selected>1 Hour</option>
-                    <option value="2">2 Hours</option>
-                    <option value="3">3 Hours</option>
-                    <option value="4">4 Hours</option>
-                  </select>
-                </div>
-                <div>
-                  <label class="block text-[11px] text-slate-400 mb-0.5">Minutes</label>
-                  <select id="minutesSelect" class="w-full bg-slate-900 border border-slate-700 rounded-xl px-3.5 py-2.5 text-sm focus:outline-none focus:border-indigo-500 text-white font-medium">
-                    <option value="0">0 Min</option>
-                    <option value="5" selected>5 Mins</option>
-                    <option value="10">10 Mins</option>
-                    <option value="15">15 Mins</option>
-                    <option value="20">20 Mins</option>
-                    <option value="25">25 Mins</option>
-                    <option value="30">30 Mins</option>
-                    <option value="35">35 Mins</option>
-                    <option value="40">40 Mins</option>
-                    <option value="45">45 Mins</option>
-                    <option value="50">50 Mins</option>
-                    <option value="55">55 Mins</option>
-                  </select>
-                </div>
-              </div>
-            </div>
-
-            <div>
-              <label class="block text-xs font-medium text-slate-300 mb-1">Topic Name / Chapter Goal</label>
-              <textarea id="topicInput" rows="3" required placeholder="e.g. Page no 40-50 tak"
-                class="w-full bg-slate-900 border border-slate-700 rounded-xl px-3.5 py-2.5 text-sm focus:outline-none focus:border-indigo-500 text-white"></textarea>
-            </div>
-
-            <button type="submit" id="startBtn"
-              class="w-full py-3.5 px-4 bg-indigo-600 hover:bg-indigo-500 active:scale-[0.98] transition text-white text-sm font-bold rounded-xl shadow-lg shadow-indigo-600/30 flex items-center justify-center gap-2">
-              <i data-lucide="play" class="w-4 h-4"></i> Start Study Timer Now
-            </button>
-          </form>
+          <div class="card-info">
+            <h3>Sachin UP TET (All Subjects) <span class="heart-mini">💖</span></h3>
+            <p>Click to view 15 subject modules & materials</p>
+          </div>
+          <div class="arrow-box">
+            <i class="fa-solid fa-chevron-down chevron-arrow"></i>
+          </div>
         </div>
 
-        <!-- Subject Split Card -->
-        <div class="bg-slate-800/90 border border-slate-700 rounded-2xl p-6 shadow-xl space-y-4">
-          <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3 border-b border-slate-700/80 pb-3">
-            <div>
-              <h3 class="text-sm font-bold text-slate-200 flex items-center gap-2">
-                <i data-lucide="pie-chart" class="w-4 h-4 text-emerald-400"></i> Subject-Wise Split
-              </h3>
-              <span class="text-[10px] text-indigo-400 block mt-0.5">💡 Subject par click karke weekly/monthly graph dekhein</span>
-            </div>
-            
-            <div class="flex items-center gap-1 bg-slate-900 p-1 rounded-xl border border-slate-700/60 text-xs self-start sm:self-auto">
-              <button onclick="setChartTimeframe('today')" id="chartTabToday" class="px-2.5 py-1 rounded-lg text-slate-400 hover:text-white font-medium transition">Today</button>
-              <button onclick="setChartTimeframe('week')" id="chartTabWeek" class="px-2.5 py-1 rounded-lg bg-indigo-600 text-white font-medium shadow-sm transition">Weekly</button>
-              <button onclick="setChartTimeframe('month')" id="chartTabMonth" class="px-2.5 py-1 rounded-lg text-slate-400 hover:text-white font-medium transition">Monthly</button>
-            </div>
-          </div>
-
-          <div class="flex justify-between items-center text-xs text-slate-400 px-1">
-            <span>Duration: <b id="chartTotalTime" class="text-indigo-300 font-semibold">0h 0m</b></span>
-            <div class="flex items-center gap-2">
-              <button onclick="toggleChartType('doughnut')" id="btnDoughnut" class="p-1 rounded bg-slate-700 text-indigo-300 hover:bg-slate-600" title="Donut Chart">
-                <i data-lucide="circle-dot" class="w-3.5 h-3.5"></i>
-              </button>
-              <button onclick="toggleChartType('bar')" id="btnBar" class="p-1 rounded bg-slate-900 text-slate-400 hover:bg-slate-800" title="Bar Chart">
-                <i data-lucide="bar-chart-2" class="w-3.5 h-3.5"></i>
-              </button>
-            </div>
-          </div>
-
-          <div class="relative h-56 w-full flex items-center justify-center cursor-pointer">
-            <canvas id="subjectChart"></canvas>
-            <div id="noChartDataMsg" class="hidden absolute inset-0 flex flex-col items-center justify-center text-slate-500 text-xs">
-              <i data-lucide="pie-chart" class="w-8 h-8 mb-1 opacity-30"></i>
-              <span>Is timeframe me koi study entry nahi hai.</span>
-            </div>
-          </div>
+        <div id="sachinList" class="subtopics-list">
+          <a href="https://t.me/c/3913088196/332/333" target="_blank" class="sub-item">
+            <span>1. Hindi</span> <i class="fa-solid fa-arrow-right"></i>
+          </a>
+          <a href="https://t.me/c/3913088196/313/314" target="_blank" class="sub-item">
+            <span>2. History</span> <i class="fa-solid fa-arrow-right"></i>
+          </a>
+          <a href="https://t.me/c/3913088196/279/280" target="_blank" class="sub-item">
+            <span>3. Math</span> <i class="fa-solid fa-arrow-right"></i>
+          </a>
+          <a href="https://t.me/c/3913088196/326/327" target="_blank" class="sub-item">
+            <span>4. Biology</span> <i class="fa-solid fa-arrow-right"></i>
+          </a>
+          <a href="https://t.me/c/3913088196/319/320" target="_blank" class="sub-item">
+            <span>5. Statics</span> <i class="fa-solid fa-arrow-right"></i>
+          </a>
+          <a href="https://t.me/c/3913088196/316/317" target="_blank" class="sub-item">
+            <span>6. Reasoning</span> <i class="fa-solid fa-arrow-right"></i>
+          </a>
+          <a href="https://t.me/c/3913088196/308/309" target="_blank" class="sub-item">
+            <span>7. Geography</span> <i class="fa-solid fa-arrow-right"></i>
+          </a>
+          <a href="https://t.me/c/3913088196/295/296" target="_blank" class="sub-item">
+            <span>8. English</span> <i class="fa-solid fa-arrow-right"></i>
+          </a>
+          <a href="https://t.me/c/3913088196/292/293" target="_blank" class="sub-item">
+            <span>9. Hindi Vyakaran</span> <i class="fa-solid fa-arrow-right"></i>
+          </a>
+          <a href="https://t.me/c/3913088196/287/288" target="_blank" class="sub-item">
+            <span>10. Computer</span> <i class="fa-solid fa-arrow-right"></i>
+          </a>
+          <a href="https://t.me/c/3913088196/274/275" target="_blank" class="sub-item">
+            <span>11. Chemistry</span> <i class="fa-solid fa-arrow-right"></i>
+          </a>
+          <a href="https://t.me/c/3913088196/265/266" target="_blank" class="sub-item">
+            <span>12. CDP</span> <i class="fa-solid fa-arrow-right"></i>
+          </a>
+          <a href="https://t.me/c/3913088196/262/263" target="_blank" class="sub-item">
+            <span>13. Sanskrit</span> <i class="fa-solid fa-arrow-right"></i>
+          </a>
+          <a href="javascript:void(0)" class="sub-item disabled" title="Coming Soon">
+            <span>14. Current Affairs</span> <i class="fa-solid fa-hourglass-half"></i>
+          </a>
+          <a href="https://t.me/c/3913088196/145/146" target="_blank" class="sub-item">
+            <span>15. Physics</span> <i class="fa-solid fa-arrow-right"></i>
+          </a>
         </div>
       </div>
 
-      <!-- Right Column -->
-      <div class="lg:col-span-7 space-y-6">
-        <div class="bg-gradient-to-br from-indigo-950/80 via-slate-800 to-slate-900 border border-indigo-500/30 rounded-2xl p-6 shadow-xl">
-          <div class="flex justify-between items-center mb-3">
-            <h2 class="text-lg font-bold flex items-center gap-2 text-indigo-200">
-              <i data-lucide="sun-medium" class="w-5 h-5 text-amber-400"></i> Daily Performance Report
-            </h2>
-            <span class="text-xs text-indigo-300 font-medium">Real-Time Sync</span>
-          </div>
+      <!-- 4. SUPER TET 2023 – Primary Teacher -->
+      <a href="https://t.me/+mGjO9vEy6ig3NjFl" target="_blank" class="link-card searchable-entry">
+        <div class="card-icon" style="color: #4ade80; border-color: rgba(74, 222, 128, 0.4); background: rgba(74, 222, 128, 0.15);">
+          <i class="fa-solid fa-chalkboard-user"></i>
+        </div>
+        <div class="card-info">
+          <h3>SUPER TET 2023 – Primary Teacher <span class="heart-mini">🏆</span></h3>
+          <p>Telegram Materials & Preparation Batch</p>
+        </div>
+        <div class="arrow-box">
+          <i class="fa-solid fa-arrow-up-right-from-square"></i>
+        </div>
+      </a>
 
-          <!-- Comparison Card -->
-          <div class="bg-slate-900/90 border border-slate-700/80 rounded-xl p-4 mb-4">
-            <div class="flex items-center justify-between border-b border-slate-800 pb-2 mb-3">
-              <span class="text-xs font-semibold text-slate-400 flex items-center gap-1.5">
-                <i data-lucide="history" class="w-3.5 h-3.5 text-indigo-400"></i> Kal vs Aaj (Is Time Tak)
-              </span>
-              <span id="comparisonBadge" class="text-[11px] font-bold px-2.5 py-0.5 rounded-md">--</span>
-            </div>
-            
-            <div class="grid grid-cols-2 gap-4 text-center">
-              <div class="bg-slate-800/50 p-2.5 rounded-lg border border-slate-700/40">
-                <p class="text-[11px] text-slate-400">Kal Is Samay Tak</p>
-                <h4 id="yesterdayTimeTillNow" class="text-base font-bold text-slate-300 mt-0.5">0h 0m</h4>
-              </div>
-              <div class="bg-slate-800/50 p-2.5 rounded-lg border border-slate-700/40">
-                <p class="text-[11px] text-slate-400">Aaj Ab Tak</p>
-                <h4 id="todayTimeTillNow" class="text-base font-bold text-indigo-400 mt-0.5">0h 0m</h4>
-              </div>
-            </div>
-            <p id="comparisonDiffText" class="text-xs text-center mt-3 text-slate-300 font-medium">Comparison calculate ho raha hai...</p>
-          </div>
+      <!-- 5. Aman Vashisht Sir -->
+      <a href="https://selectionway.edgeone.app/#/batch/69f990eeb927c1a84afcbff8" target="_blank" class="link-card searchable-entry">
+        <div class="card-icon">
+          <i class="fa-solid fa-graduation-cap"></i>
+        </div>
+        <div class="card-info">
+          <h3>Aman Vashisht Sir <span class="heart-mini">🌸</span></h3>
+          <p>Selectionway App - Batch Access</p>
+        </div>
+        <div class="arrow-box">
+          <i class="fa-solid fa-arrow-up-right-from-square"></i>
+        </div>
+      </a>
 
-          <!-- Dynamic Progress Bar -->
-          <div class="space-y-1.5 mb-4">
-            <div class="flex justify-between text-xs font-semibold">
-              <span id="dynamicTargetLabel" class="text-slate-300">Daily Target (6 Hours)</span>
-              <span id="goalPercentText" class="text-indigo-400">0%</span>
-            </div>
-            <div class="w-full bg-slate-900 rounded-full h-2.5 overflow-hidden">
-              <div id="goalProgressBar" class="bg-indigo-500 h-full rounded-full transition-all duration-500" style="width: 0%"></div>
-            </div>
-          </div>
+      <!-- 6. Radhika Mam -->
+      <a href="https://selectionway.edgeone.app/#/batch/6a4e35315bac0ae4bab52444" target="_blank" class="link-card searchable-entry">
+        <div class="card-icon">
+          <i class="fa-solid fa-book-open-reader"></i>
+        </div>
+        <div class="card-info">
+          <h3>Radhika Mam <span class="heart-mini">✨</span></h3>
+          <p>Selectionway App - Batch Access</p>
+        </div>
+        <div class="arrow-box">
+          <i class="fa-solid fa-arrow-up-right-from-square"></i>
+        </div>
+      </a>
 
-          <p id="motivationalText" class="text-xs italic text-slate-400 border-l-2 border-indigo-400 pl-3 py-0.5">
-            Session complete karein aur apni progress analyze karein.
-          </p>
+      <!-- 7. NCERT Foundation Complete -->
+      <a href="https://selectionway.edgeone.app/#/batch/69204beb39642e9188a548b9" target="_blank" class="link-card searchable-entry">
+        <div class="card-icon">
+          <i class="fa-solid fa-book-open"></i>
+        </div>
+        <div class="card-info">
+          <h3>NCERT Foundation Complete <span class="heart-mini">📚</span></h3>
+          <p>Selectionway App - Batch Access</p>
+        </div>
+        <div class="arrow-box">
+          <i class="fa-solid fa-arrow-up-right-from-square"></i>
+        </div>
+      </a>
+
+      <!-- 8. Parmar GK 4.0 -->
+      <a href="https://t.me/+PuhafqlqljEwMDk1" target="_blank" class="link-card searchable-entry">
+        <div class="card-icon" style="color: #ff9e42; border-color: rgba(255, 158, 66, 0.4); background: rgba(255, 158, 66, 0.15);">
+          <i class="fa-solid fa-earth-americas"></i>
+        </div>
+        <div class="card-info">
+          <h3>Parmar GK 4.0 <span class="heart-mini">🌍</span></h3>
+          <p>General Knowledge & Static GK Channel</p>
+        </div>
+        <div class="arrow-box">
+          <i class="fa-solid fa-arrow-up-right-from-square"></i>
+        </div>
+      </a>
+
+      <!-- 9. Reasoning – Piyush Sir -->
+      <a href="https://t.me/c/3702564013/610/611" target="_blank" class="link-card searchable-entry">
+        <div class="card-icon" style="color: #f472b6; border-color: rgba(244, 114, 182, 0.4); background: rgba(244, 114, 182, 0.15);">
+          <i class="fa-solid fa-brain"></i>
+        </div>
+        <div class="card-info">
+          <h3>Reasoning – Piyush Sir <span class="heart-mini">💡</span></h3>
+          <p>Telegram Channel & Practice Sessions</p>
+        </div>
+        <div class="arrow-box">
+          <i class="fa-solid fa-arrow-up-right-from-square"></i>
+        </div>
+      </a>
+
+      <!-- 10. Math — Aditya Sir (Added above Winners) -->
+      <a href="Https://t.me/+SgF4rEISn1tlMjU0" target="_blank" class="link-card searchable-entry">
+        <div class="card-icon" style="color: #f59e0b; border-color: rgba(245, 158, 11, 0.4); background: rgba(245, 158, 11, 0.15);">
+          <i class="fa-solid fa-square-root-variable"></i>
+        </div>
+        <div class="card-info">
+          <h3>Math — Aditya Sir <span class="heart-mini">⚡</span></h3>
+          <p>Telegram Channel & Math Batch</p>
+        </div>
+        <div class="arrow-box">
+          <i class="fa-solid fa-arrow-up-right-from-square"></i>
+        </div>
+      </a>
+
+      <!-- 11. Math – Winners Institute -->
+      <a href="https://t.me/+K7AMKGxl40YwZGVl" target="_blank" class="link-card searchable-entry">
+        <div class="card-icon" style="color: #38bdf8; border-color: rgba(56, 189, 248, 0.4); background: rgba(56, 189, 248, 0.15);">
+          <i class="fa-solid fa-calculator"></i>
+        </div>
+        <div class="card-info">
+          <h3>Math – Winners Institute <span class="heart-mini">📐</span></h3>
+          <p>Telegram Channel & Course Access</p>
+        </div>
+        <div class="arrow-box">
+          <i class="fa-solid fa-arrow-up-right-from-square"></i>
+        </div>
+      </a>
+
+      <!-- 12. Math – Rakesh Yadav Sir -->
+      <a href="https://t.me/+toslsScpw-1kMmU1" target="_blank" class="link-card searchable-entry">
+        <div class="card-icon" style="color: #a78bfa; border-color: rgba(167, 139, 250, 0.4); background: rgba(167, 139, 250, 0.15);">
+          <i class="fa-solid fa-square-root-variable"></i>
+        </div>
+        <div class="card-info">
+          <h3>Math – Rakesh Yadav Sir <span class="heart-mini">⚡</span></h3>
+          <p>Telegram Channel & Special Math Batch</p>
+        </div>
+        <div class="arrow-box">
+          <i class="fa-solid fa-arrow-up-right-from-square"></i>
+        </div>
+      </a>
+
+      <!-- 13. SSC Pratham Batch (Rakesh Yadav) -->
+      <a href="https://vividxprathambatch.edgeone.app/" target="_blank" class="link-card searchable-entry">
+        <div class="card-icon">
+          <i class="fa-solid fa-chalkboard-user"></i>
+        </div>
+        <div class="card-info">
+          <h3>SSC Pratham Batch (Rakesh Yadav) <span class="heart-mini">🎯</span></h3>
+          <p>Vividx Pratham Web Portal Access</p>
+        </div>
+        <div class="arrow-box">
+          <i class="fa-solid fa-arrow-up-right-from-square"></i>
+        </div>
+      </a>
+
+      <!-- 14. NEW FOLDER: UPTET 2026 (With Rojgaar with Ankit Nested Subfolder) -->
+      <div class="expandable-container searchable-entry" id="uptet2026Container">
+        <div class="link-card" onclick="toggleSubtopics('uptet2026Container')">
+          <div class="card-icon" style="color: #10b981; border-color: rgba(16, 185, 129, 0.4); background: rgba(16, 185, 129, 0.15);">
+            <i class="fa-solid fa-folder-open"></i>
+          </div>
+          <div class="card-info">
+            <h3>UPTET 2026 <span class="heart-mini">🎯</span></h3>
+            <p>Click to open all batches & sub-modules</p>
+          </div>
+          <div class="arrow-box">
+            <i class="fa-solid fa-chevron-down chevron-arrow"></i>
+          </div>
         </div>
 
-        <!-- History Container -->
-        <div class="bg-slate-800/90 border border-slate-700 rounded-2xl p-6 shadow-xl">
-          <div class="flex items-center justify-between border-b border-slate-700/80 pb-4 mb-4">
-            <h3 class="text-md font-bold flex items-center gap-2">
-              <i data-lucide="list-checks" class="w-5 h-5 text-indigo-400"></i> Study Logs History
-            </h3>
-            <div class="flex gap-1 bg-slate-900 p-1 rounded-xl border border-slate-700/60 text-xs">
-              <button onclick="changeView('month')" id="tabMonth" class="px-3 py-1 rounded-lg text-slate-400 hover:text-white font-medium">Monthly</button>
-              <button onclick="changeView('week')" id="tabWeek" class="px-3 py-1 rounded-lg text-slate-400 hover:text-white font-medium">Weekly</button>
-              <button onclick="changeView('today')" id="tabToday" class="px-3 py-1 rounded-lg bg-indigo-600 text-white font-medium">Today</button>
+        <div id="uptet2026List" class="subtopics-list">
+          
+          <!-- Live Batch Selection Way -->
+          <a href="https://selectionway.edgeone.app/#/batch/6a7b12ffb50d9d2997e30125" target="_blank" class="sub-item">
+            <span>Live Batch — Selection Way</span> <i class="fa-solid fa-arrow-up-right-from-square"></i>
+          </a>
+
+          <!-- Target On -->
+          <a href="https://t.me/+yhW-DySzlrhlN2Rl" target="_blank" class="sub-item">
+            <span>Target On</span> <i class="fa-solid fa-arrow-up-right-from-square"></i>
+          </a>
+
+          <!-- Target with Ankit -->
+          <a href="https://t.me/TWA_UPSSSC_PET_2026" target="_blank" class="sub-item">
+            <span>Target with Ankit</span> <i class="fa-solid fa-arrow-up-right-from-square"></i>
+          </a>
+
+          <!-- Rojgaar with Ankit Nested Subfolder -->
+          <div class="subfolder-container" id="rwaContainer">
+            <div class="nested-folder-card" onclick="toggleSubfolder(event, 'rwaContainer')">
+              <i class="fa-solid fa-folder-tree" style="color: var(--accent-color);"></i>
+              <span style="font-weight: 600; flex: 1;">Rojgaar with Ankit</span>
+              <i class="fa-solid fa-chevron-down chevron-arrow"></i>
+            </div>
+
+            <div class="nested-subtopics" id="rwaList">
+              <a href="https://t.me/c/3746363088/1196" target="_blank" class="sub-item"><span>Physics</span> <i class="fa-solid fa-arrow-right"></i></a>
+              <a href="https://t.me/c/3746363088/1162" target="_blank" class="sub-item"><span>Chemistry</span> <i class="fa-solid fa-arrow-right"></i></a>
+              <a href="https://t.me/c/3746363088/1091" target="_blank" class="sub-item"><span>Reasoning</span> <i class="fa-solid fa-arrow-right"></i></a>
+              <a href="https://t.me/c/3746363088/1025" target="_blank" class="sub-item"><span>English</span> <i class="fa-solid fa-arrow-right"></i></a>
+              <a href="https://t.me/c/3746363088/959" target="_blank" class="sub-item"><span>Economic</span> <i class="fa-solid fa-arrow-right"></i></a>
+              <a href="https://t.me/c/3746363088/896" target="_blank" class="sub-item"><span>History (Adv)</span> <i class="fa-solid fa-arrow-right"></i></a>
+              <a href="https://t.me/c/3746363088/766" target="_blank" class="sub-item"><span>Old Affairs</span> <i class="fa-solid fa-arrow-right"></i></a>
+              <a href="https://t.me/c/3746363088/576" target="_blank" class="sub-item"><span>Static GK</span> <i class="fa-solid fa-arrow-right"></i></a>
+              <a href="https://t.me/c/3746363088/502" target="_blank" class="sub-item"><span>Geography</span> <i class="fa-solid fa-arrow-right"></i></a>
+              <a href="https://t.me/c/3746363088/446" target="_blank" class="sub-item"><span>Polity</span> <i class="fa-solid fa-arrow-right"></i></a>
+              <a href="https://t.me/c/3746363088/346" target="_blank" class="sub-item"><span>History</span> <i class="fa-solid fa-arrow-right"></i></a>
+              <a href="https://t.me/c/3746363088/278" target="_blank" class="sub-item"><span>Biology</span> <i class="fa-solid fa-arrow-right"></i></a>
+              <a href="https://t.me/c/3746363088/160" target="_blank" class="sub-item"><span>DI</span> <i class="fa-solid fa-arrow-right"></i></a>
+              <a href="https://t.me/c/3746363088/26" target="_blank" class="sub-item"><span>Hindi</span> <i class="fa-solid fa-arrow-right"></i></a>
+              <a href="https://t.me/c/3746363088/20" target="_blank" class="sub-item"><span>Demo</span> <i class="fa-solid fa-arrow-right"></i></a>
             </div>
           </div>
-          <div id="logsContainer" class="space-y-3 max-h-[380px] overflow-y-auto pr-1"></div>
+
         </div>
       </div>
 
     </div>
-  </main>
+
+    <footer>
+      Crafted with <i class="fa-solid fa-heart"></i> for focused study
+    </footer>
+  </div>
 
   <script>
-    const SUPABASE_PROJECT_URL = "https://yffohnbxwurnaajanvuc.supabase.co";
-    const SUPABASE_ANON_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InlmZm9obmJ4d3VybmFhamFudnVjIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODczMjQ0MjIsImV4cCI6MjEwMjkwMDQyMn0.RcOjYyuf2Ip_giYl6ppcMi-SS76WwS4lnQSWyVJ8fv0";
-    
-    let supabaseClient = null;
-    try {
-      if (window.supabase && typeof window.supabase.createClient === 'function') {
-        supabaseClient = window.supabase.createClient(SUPABASE_PROJECT_URL, SUPABASE_ANON_KEY);
+    // Accordion Toggle Function for Main Folders
+    function toggleSubtopics(containerId) {
+      const container = document.getElementById(containerId);
+      container.classList.toggle('active');
+    }
+
+    // Nested Subfolder Toggle
+    function toggleSubfolder(e, folderId) {
+      e.stopPropagation();
+      const folder = document.getElementById(folderId);
+      folder.classList.toggle('active');
+    }
+
+    // 100 Romantic & Flirt Lines Dataset
+    const flirtLines = {
+      morning: [
+        "Good Morning! सुबह का सूरज भी आपकी मुस्कान के आगे फीका लगता है।",
+        "उठते ही जो पहला ख्याल आया, वो बस आपका खूबसूरत चेहरा था। ☕❤️",
+        "आज की सुबह और भी प्यारी हो जाती, अगर सामने आपकी चाय और आप होते।",
+        "अलार्म की आवाज़ से नहीं, आपकी प्यारी यादों से मेरी नींद खुली है।",
+        "Good Morning Beautiful! आपकी एक मुस्कुराहट मेरा पूरा दिन बना सकती है।",
+        "सुबह की ताज़ा हवा में भी सिर्फ आपकी ही खुशबू महसूस हो रही है।",
+        "खुदा का शुक्रिया कि एक और सुबह मुझे आपको चाहने का मौका मिला।",
+        "Good Morning! आज ज़रा कम खूबसूरत लगना, दिल संभालना मुश्किल हो जाता है। 😉",
+        "मेरी हर सुबह की शुरुआत आपके नाम से और दिन का अंत आपके ख्याल से होता है।",
+        "उठ जाइए जनाब, सूरज भी आपके दीदार का इंतज़ार कर रहा है।",
+        "Good Morning Sweetheart! काश आज की सुबह आपके चेहरे को छूकर शुरू होती।",
+        "दुनिया के लिए यह बस एक सुबह है, पर मेरे लिए आपकी यादों की नई शुरुआत।",
+        "सुबह की पहली चाय में जितनी मिठास है, उससे कहीं ज़्यादा मीठे आपके बोल हैं।",
+        "Good Morning! मेरी आंखों की पहली ख्वाहिश सिर्फ आपको देखना है।",
+        "आपका ख्याल ही काफी है इस आलस भरी सुबह को हसीन बनाने के लिए।",
+        "Good Morning Gorgeous! आपकी चमकती आंखें सुबह की धूप से भी तेज़ हैं।",
+        "आज दिल ने फिर फरमाइश की है कि सुबह की शुरुआत आपके 'Hello' से हो।",
+        "मौसम चाहे जैसा भी हो, आपकी याद आते ही दिल में बहार आ जाती है।",
+        "Good Morning! क्या मैं आज आपका पूरा दिन चुरा सकता हूँ? ❤️",
+        "आपकी मुस्कान वो कॉफी है जिसकी मुझे हर सुबह सबसे ज्यादा जरूरत होती है।",
+        "गुड मॉर्निंग! मुस्कुराइए, क्योंकि आपकी मुस्कान किसी की जान ले सकती है।",
+        "सुबह-सुबह जब ठंडी हवा चलती है, तो आपकी बाहों की गर्माहट याद आती है।",
+        "Good Morning! आज का दिन आपके जितना ही हसीन और खास गुजरे।",
+        "नींद खुली तो लगा कोई सपना देख रहा था, फिर याद आया आप तो हकीकत हैं।",
+        "Good Morning Jaan! जब तक आपको याद न करूँ, दिन शुरू ही नहीं होता।"
+      ],
+      afternoon: [
+        "Good Afternoon! दोपहर की इस तपish में आपका ख्याल ठंडी छांव जैसा है।",
+        "लंच कर लिया या अभी भी मेरे ख्यालों में ही खोए हुए हैं? 😉",
+        "दोपहर की सारी थकान गायब हो जाती है, जब आपकी तस्वीर सामने आ जाती है।",
+        "काम में मन बिल्कुल नहीं लग रहा, सारा ध्यान तो आपकी तरफ भटक रहा है।",
+        "Good Afternoon! धूप चाहे कितनी भी हो, आपकी बातें हमेशा ठंडक देती हैं।",
+        "एक मीठी सी झपकी और उसमें आपका ख्वाब... दोपहर मुकम्मल हो जाए।",
+        "Good Afternoon Handsome/Beautiful! आज आप इतने याद क्यों आ रहे हैं?",
+        "दोपहर का खाना फीका लग रहा है, काश आपकी मीठी बातें साथ होतीं।",
+        "काम का बहाना करके बार-बार आपका फोन चेक करने की आदत हो गई है।",
+        "Good Afternoon! आपकी यादें दोपहर की सबसे खूबसूरत ब्रेक हैं।",
+        "सूरज अपने शबाब पर है, और आपकी मोहब्बत मेरे दिल के उरूज पर।",
+        "दोपहर की सुस्ती मिटाने के लिए मुझे बस आपकी एक आवाज़ की जरूरत है।",
+        "Good Afternoon! दिल कर रहा है कि सारे काम छोड़कर आपसे बातें करूँ।",
+        "आपकी यादों ने दोपहर के सन्नाटे को भी एक मीठा संगीत बना दिया है।",
+        "लंच टाइम में पेट भरे या न भरे, आपका ख्याल दिल ज़रूर भर देता है।",
+        "Good Afternoon! क्या आपको पता है कि आप मेरे दिन का सबसे पसंदीदा हिस्सा हैं?",
+        "दोपहर की धूप भी आपकी खूबसूरती की बराबरी नहीं कर सकती।",
+        "व्यस्त दिन में भी आपके ख्याल का एक पल सुकून दे जाता है।",
+        "Good Afternoon! आज लंच में क्या खाया? मेरी जान या कुछ और? 😉",
+        "घड़ी की सुइयां बहुत धीरे चल रही हैं, शाम को आपसे मिलने का सब्र नहीं हो रहा।",
+        "दोपहर की धूप में जो चमक है, वो आपकी आंखों की चमक के सामने कुछ भी नहीं।",
+        "Good Afternoon Love! बस यह बताने के लिए याद किया कि आप बहुत खास हैं।",
+        "काम के बीच में अचानक से मुस्कुरा देना... वजह सिर्फ आप हैं।",
+        "Good Afternoon! आपकी बातें किसी एनर्जी बूस्टर से कम नहीं हैं।",
+        "दिन का आधा हिस्सा बीत गया, पर आपकी यादों का सिलसिला अभी भी पूरा है।"
+      ],
+      evening: [
+        "Good Evening! ढलती शाम और आपकी यादें, दोनों ही बेहद हसीन हैं।",
+        "चाय का प्याला हाथ में हो और सामने आप, शाम जन्नत बन जाए। ☕",
+        "शाम का ये सुहाना मौसम पूछ रहा है कि आप इतने प्यारे क्यों हैं?",
+        "सूरज डूब रहा है, पर मेरे दिल में आपकी मोहब्बत का उजाला बढ़ रहा है।",
+        "Good Evening! इस गुलाबी शाम में आपकी गैर-मौजूदगी बहुत सता रही है।",
+        "दिन भर की थकान के बाद शाम को आपका ख्याल एक मरहम जैसा लगता है।",
+        "शाम की ठंडी हवाएं जैसे कान में आकर सिर्फ आपका नाम गुनगुनाती हैं।",
+        "Good Evening Gorgeous! काश इस शाम की सैर आपके हाथ में हाथ डालकर होती।",
+        "आसमान का रंग लाल हो रहा है, शायद उसे भी आपसे प्यार हो गया है।",
+        "Good Evening! दिन ढलने लगा है, अब तो आ जाइए मेरे ख्यालों की दुनिया से बाहर।",
+        "शाम की खामोशी में भी आपका नाम सबसे ज्यादा गूंजता है।",
+        "एक कप चाय, थोड़ी सी बातें और बहुत सारा आपका साथ... परफेक्ट शाम!",
+        "Good Evening Jaan! आपकी एक झलक इस शाम को यादगार बना सकती है।",
+        "सूरज ने रुखसत ले ली है, अब तो आपकी मीठी बातों का वक्त हो गया है।",
+        "शाम का हर लम्हा आपकी खुशबू से महक रहा है।",
+        "Good Evening! दिल की धड़कनें तेज हो जाती हैं जब शाम को आपका मैसेज आता है।",
+        "इस शहर की शाम जितनी खूबसूरत है, आप उससे कहीं ज्यादा हसीन हैं।",
+        "Good Evening! शाम ढलते ही दिल पर आपका कब्जा और गहरा हो जाता है।",
+        "चाय तो बहाना है, असल में तो इस शाम में आपकी यादों को घोलना है।",
+        "Good Evening Sweetheart! आपकी हंसी इस शाम की रोशनी से भी चमकदार है।",
+        "शाम की इस मदहोश हवा में सिर्फ आपकी मौजूदगी की कमी खल रही है।",
+        "दिन भर भागदौड़ के बाद, शाम को आपके बारे में सोचना ही सबसे बड़ा सुकून है।",
+        "Good Evening! काश ये शाम कभी खत्म न हो और आपकी बातें चलती रहें।",
+        "शाम की लालिमा देखकर मुझे आपके चेहरे की वो प्यारी सी शर्म याद आ गई।",
+        "Good Evening Love! आज की शाम पूरी तरह आपके नाम समर्पित है।"
+      ],
+      night: [
+        "Good Night! चांद तो यूं ही इतराता है, उसने अभी तक आपका चेहरा नहीं देखा।",
+        "सोने की कोशिश तो बहुत की, पर आपकी यादें सोने कहाँ देती हैं! ❤️",
+        "Good Night Sweetheart! सपनों में भी सिर्फ आपका ही साथ चाहिए।",
+        "रात गहरी है, खामोशी है... पर दिल में सिर्फ आपका नाम गूंज रहा है।",
+        "आसमान के सारे तारे मिलकर भी आपकी आंखों की चमक की बराबरी नहीं कर सकते।",
+        "Good Night! तकिए को गले लगाकर सो रहा हूँ, काश इसकी जगह आप होते।",
+        "रात को जब सब सो जाते हैं, तब आपकी यादों की महफिल सजती है।",
+        "Good Night Beautiful! आज रात मेरे ख्वाबों में आने का रास्ता मत भूलना।",
+        "चांदनी रात में आपकी याद का आना, किसी खूबसूरत जादू जैसा है।",
+        "Good Night! अपनी आंखें बंद कीजिए, मैं आपके सपनों में इंतज़ार कर रहा हूँ।",
+        "रात की तन्हाई में दिल बार-बार पूछता है—आप कब मेरे करीब होंगे?",
+        "Good Night Jaan! आपके बिना रातें बहुत लंबी और अधूरी लगती हैं।",
+        "आसमान का सबसे चमकता सितारा भी आपके आगे फीका लगता है।",
+        "Good Night! सोने से पहले मेरी आखिरी और उठने के बाद पहली सोच आप ही हैं।",
+        "चांद बादलों में छुप गया, शायद वो आपके हुस्न से जलने लगा है।",
+        "Good Night! काश इस ठंडी रात में आपकी बाहों की गर्माहट मिल जाती।",
+        "रात के सन्नाटे में भी सिर्फ आपके दिल की धड़कन सुनाई देती है।",
+        "Good Night My Love! अपने सबसे प्यारे ख्वाब को सच करने के लिए सो जाइए।",
+        "जब तक आपको Good Night न कह दूँ, नींद को भी आने में शर्म आती है।",
+        "चांद से कह दिया है कि आज रात मेरे प्यार पर पहरा रखे। 🌙",
+        "Good Night! दिल चाहता है कि रात की ये खामोशी आपके साथ बांट सकूँ।",
+        "सो जाइए हुजूर, कहीं आपकी नींद चुराने का इल्ज़ाम मेरे सर न लग जाए।",
+        "Good Night! आपके चेहरे की मासूमियत रात को और भी हसीन बना देती है।",
+        "चांदनी रात, ठंडी हवा और आपका ख्याल... बस आप ही की कमी है।",
+        "Good Night My Everything! सपनों की दुनिया में मिलते हैं, वहीं ढेर सारी बातें करेंगे। 💕"
+      ]
+    };
+
+    let thunderInterval = null;
+
+    function applyTimeBasedThemeAndAtmosphere() {
+      const currentHour = new Date().getHours();
+      const ambient = document.getElementById('ambientLayer');
+      ambient.innerHTML = '';
+
+      if (thunderInterval) {
+        clearInterval(thunderInterval);
+        thunderInterval = null;
       }
-    } catch(err) {
-      console.warn("Supabase initialization bypassed:", err);
-    }
 
-    // Register Background Service Worker
-    let swRegistration = null;
-    if ('serviceWorker' in navigator) {
-      navigator.serviceWorker.register('sw.js').then((reg) => {
-        swRegistration = reg;
-      }).catch((err) => {
-        console.warn("Service Worker registration bypassed:", err);
-      });
-    }
+      let slot = 'morning';
+      let themeClass = 'theme-morning';
+      let badgeLabel = 'Golden Morning ☀️';
+      let badgeIcon = 'fa-sun';
 
-    // Ask System Notification Permission
-    function requestNotificationPermission() {
-      if ('Notification' in window && Notification.permission !== 'granted') {
-        Notification.requestPermission();
-      }
-    }
+      if (currentHour >= 5 && currentHour < 12) {
+        slot = 'morning';
+        themeClass = 'theme-morning';
+        badgeLabel = 'Golden Sunrise ☀️';
+        badgeIcon = 'fa-sun';
 
-    // Dispatch Lock-Screen & Panel Push Alert
-    function triggerSystemLockScreenNotification(topicName, durationMins) {
-      const title = "Study Session Complete! 🏆";
-      const body = `Shaandaar! Aapka "${topicName}" session (${formatTime(durationMins)}) complete ho gaya hai.`;
+        const sunGlow = document.createElement('div');
+        sunGlow.className = 'morning-sun-glow';
+        const sunRays = document.createElement('div');
+        sunRays.className = 'sun-rays';
+        ambient.appendChild(sunGlow);
+        ambient.appendChild(sunRays);
 
-      if (swRegistration && swRegistration.active) {
-        swRegistration.active.postMessage({
-          type: 'TRIGGER_SESSION_NOTIFICATION',
-          title: title,
-          body: body,
-          icon: 'https://cdn-icons-png.flaticon.com/512/3281/3281329.png'
-        });
-      } else if ('Notification' in window && Notification.permission === 'granted') {
-        new Notification(title, {
-          body: body,
-          icon: 'https://cdn-icons-png.flaticon.com/512/3281/3281329.png'
-        });
-      }
-    }
-
-    const initialDefaultSubjects = [
-      'General Studies (GS)',
-      'Mathematics',
-      'Reasoning',
-      'Hindi',
-      'English',
-      'History',
-      'Geography',
-      'Science'
-    ];
-
-    let storedSubjects = null;
-    try {
-      storedSubjects = JSON.parse(localStorage.getItem('study_subjects_list'));
-    } catch(e) {
-      storedSubjects = null;
-    }
-
-    let subjects = (Array.isArray(storedSubjects) && storedSubjects.length > 0) ? storedSubjects : initialDefaultSubjects;
-    
-    let storedLogs = null;
-    try {
-      storedLogs = JSON.parse(localStorage.getItem('study_logs_data'));
-    } catch(e) {
-      storedLogs = null;
-    }
-    let logs = Array.isArray(storedLogs) ? storedLogs : [];
-
-    let storedActive = null;
-    try {
-      storedActive = JSON.parse(localStorage.getItem('active_study_session'));
-    } catch(e) {
-      storedActive = null;
-    }
-    let activeSession = storedActive;
-
-    let currentProfile = null;
-    try {
-      currentProfile = JSON.parse(localStorage.getItem('study_user_profile'));
-    } catch(e) {
-      currentProfile = null;
-    }
-
-    let currentSessionToken = localStorage.getItem('study_device_session_token');
-    if (!currentSessionToken) {
-      currentSessionToken = 'sess_' + Date.now() + '_' + Math.random().toString(36).substring(2, 9);
-      localStorage.setItem('study_device_session_token', currentSessionToken);
-    }
-
-    let dailyTargetMins = parseInt(localStorage.getItem('daily_target_mins')) || 360;
-    let targetPromptShownForToday = localStorage.getItem('target_prompt_date') === getTodayDateString();
-
-    let currentFilter = 'today';
-    let currentChartTimeframe = 'week';
-    let currentChartType = 'doughnut';
-    let chartInstance = null;
-    let drilldownChartInstance = null;
-    let selectedDrilldownSubject = null;
-    let currentDrilldownView = 'week';
-    let timerInterval = null;
-    let alarmAudioInterval = null;
-    let sessionWatcherInterval = null;
-    let audioCtx = null;
-
-    const PALETTE_COLORS = [
-      '#6366f1', '#10b981', '#f59e0b', '#06b6d4', '#ec4899', '#8b5cf6',
-      '#3b82f6', '#14b8a6', '#f43f5e', '#eab308', '#a855f7', '#22c55e'
-    ];
-
-    function showToast(msg, isSuccess = true) {
-      const toast = document.getElementById('syncToast');
-      const dot = document.getElementById('syncToastDot');
-      const text = document.getElementById('syncToastMsg');
-      dot.className = `w-2 h-2 rounded-full ${isSuccess ? 'bg-emerald-400' : 'bg-rose-500 animate-ping'}`;
-      text.innerText = msg;
-      toast.classList.remove('hidden');
-      setTimeout(() => toast.classList.add('hidden'), 3500);
-    }
-
-    function getSubjectColor(subjectName) {
-      if (!subjectName) return '#6366f1';
-      let index = subjects.indexOf(subjectName);
-      if (index === -1) {
-        let hash = 0;
-        for (let i = 0; i < subjectName.length; i++) {
-          hash = subjectName.charCodeAt(i) + ((hash << 5) - hash);
+        for (let i = 0; i < 14; i++) {
+          const sparkle = document.createElement('i');
+          sparkle.className = 'fa-solid fa-sparkles morning-sparkle';
+          sparkle.style.left = `${Math.random() * 100}%`;
+          sparkle.style.fontSize = `${Math.random() * 14 + 10}px`;
+          sparkle.style.animationDuration = `${Math.random() * 4 + 5}s`;
+          sparkle.style.animationDelay = `${Math.random() * 5}s`;
+          ambient.appendChild(sparkle);
         }
-        index = Math.abs(hash) % PALETTE_COLORS.length;
-      }
-      return PALETTE_COLORS[index % PALETTE_COLORS.length];
-    }
 
-    function getFormattedDate(d) {
-      return `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, '0')}-${String(d.getDate()).padStart(2, '0')}`;
-    }
+      } else if (currentHour >= 12 && currentHour < 17) {
+        slot = 'afternoon';
+        themeClass = 'theme-afternoon';
+        badgeLabel = 'Stormy Afternoon ⛈️🌪️';
+        badgeIcon = 'fa-bolt-lightning';
 
-    function getTodayDateString() {
-      return getFormattedDate(new Date());
-    }
+        for (let i = 0; i < 4; i++) {
+          const cloud = document.createElement('i');
+          cloud.className = 'fa-solid fa-cloud storm-cloud';
+          cloud.style.top = `${i * 14 + 5}%`;
+          cloud.style.animationDuration = `${Math.random() * 10 + 16}s`;
+          cloud.style.animationDelay = `${i * 3.5}s`;
+          ambient.appendChild(cloud);
+        }
 
-    function getYesterdayDateString() {
-      const yesterday = new Date();
-      yesterday.setDate(yesterday.getDate() - 1);
-      return getFormattedDate(yesterday);
-    }
+        for (let i = 0; i < 40; i++) {
+          const drop = document.createElement('div');
+          drop.className = 'rain-drop';
+          drop.style.left = `${Math.random() * 105}%`;
+          drop.style.height = `${Math.random() * 22 + 18}px`;
+          drop.style.animationDuration = `${Math.random() * 0.4 + 0.55}s`;
+          drop.style.animationDelay = `${Math.random() * 2}s`;
+          ambient.appendChild(drop);
+        }
 
-    function formatTime12Hour(input) {
-      if (!input) return '--:-- --';
-      if (typeof input === 'string' && (input.includes('AM') || input.includes('PM'))) return input;
+        for (let i = 0; i < 7; i++) {
+          const wind = document.createElement('div');
+          wind.className = 'wind-trail';
+          wind.style.top = `${Math.random() * 90}%`;
+          wind.style.width = `${Math.random() * 180 + 120}px`;
+          wind.style.animationDuration = `${Math.random() * 2 + 2}s`;
+          wind.style.animationDelay = `${Math.random() * 3}s`;
+          ambient.appendChild(wind);
+        }
 
-      let hours, minutes;
-      if (input instanceof Date) {
-        hours = input.getHours();
-        minutes = input.getMinutes();
-      } else if (typeof input === 'string' && input.includes(':')) {
-        const parts = input.split(':');
-        hours = parseInt(parts[0], 10);
-        minutes = parseInt(parts[1], 10);
+        const flashOverlay = document.getElementById('thunderFlash');
+        function triggerLightning() {
+          flashOverlay.classList.remove('flash-active');
+          void flashOverlay.offsetWidth;
+          flashOverlay.classList.add('flash-active');
+        }
+        thunderInterval = setInterval(() => {
+          triggerLightning();
+        }, Math.floor(Math.random() * 4000) + 4500);
+
+      } else if (currentHour >= 17 && currentHour < 21) {
+        slot = 'evening';
+        themeClass = 'theme-evening';
+        badgeLabel = 'Sunset Twilight 🌇';
+        badgeIcon = 'fa-dove';
+
+        const sunsetDisc = document.createElement('div');
+        sunsetDisc.className = 'evening-sunset-disc';
+        ambient.appendChild(sunsetDisc);
+
+        for (let i = 0; i < 7; i++) {
+          const bird = document.createElement('i');
+          bird.className = 'fa-solid fa-dove flying-bird';
+          bird.style.top = `${Math.random() * 45 + 10}%`;
+          bird.style.fontSize = `${Math.random() * 10 + 14}px`;
+          bird.style.animationDuration = `${Math.random() * 6 + 10}s`;
+          bird.style.animationDelay = `${i * 2}s`;
+          ambient.appendChild(bird);
+        }
+
       } else {
-        return input;
-      }
+        slot = 'night';
+        themeClass = 'theme-night';
+        badgeLabel = 'Your heart beats 💓 is mine music 🎶🎵🤩';
+        badgeIcon = 'fa-heart';
 
-      const ampm = hours >= 12 ? 'PM' : 'AM';
-      hours = hours % 12;
-      hours = hours ? hours : 12;
-      const strMinutes = minutes < 10 ? '0' + minutes : minutes;
-      const strHours = hours < 10 ? '0' + hours : hours;
-      return `${strHours}:${strMinutes} ${ampm}`;
-    }
-
-    document.getElementById('currentDateDisplay').innerText = new Date().toLocaleDateString('en-IN', {
-      weekday: 'short', day: 'numeric', month: 'short', year: 'numeric'
-    });
-
-    // ==========================================
-    // 2. MODAL & DROPDOWN MANAGEMENT
-    // ==========================================
-    function renderSubjectDropdown(selectedSubject = '') {
-      const select = document.getElementById('subjectSelect');
-      if (!select) return;
-      if (!subjects || subjects.length === 0) {
-        subjects = [...initialDefaultSubjects];
-        localStorage.setItem('study_subjects_list', JSON.stringify(subjects));
-      }
-
-      select.innerHTML = subjects.map(sub => `
-        <option value="${sub}" ${sub === selectedSubject ? 'selected' : ''}>${sub}</option>
-      `).join('');
-    }
-
-    function openAddSubjectModal() {
-      document.getElementById('newSubjectNameInput').value = '';
-      document.getElementById('addSubjectModal').classList.remove('hidden');
-      setTimeout(() => document.getElementById('newSubjectNameInput').focus(), 50);
-      lucide.createIcons();
-    }
-
-    function closeAddSubjectModal() {
-      document.getElementById('addSubjectModal').classList.add('hidden');
-    }
-
-    document.getElementById('addSubjectForm').addEventListener('submit', function(e) {
-      e.preventDefault();
-      const input = document.getElementById('newSubjectNameInput');
-      const clean = input.value.trim();
-      if (!clean) return;
-
-      if (!subjects.includes(clean)) {
-        subjects.push(clean);
-        localStorage.setItem('study_subjects_list', JSON.stringify(subjects));
-        saveSubjectToCloud(clean);
-        renderSubjectDropdown(clean);
-        renderAll();
-      } else {
-        renderSubjectDropdown(clean);
-      }
-      closeAddSubjectModal();
-    });
-
-    function deleteCurrentSubject() {
-      const select = document.getElementById('subjectSelect');
-      const subjectToDelete = select.value;
-      if (!subjectToDelete) return;
-
-      if (subjects.length <= 1) {
-        alert("Kam se kam ek subject ka hona zaroori hai!");
-        return;
-      }
-
-      if (confirm(`Kya aap subject "${subjectToDelete}" ko list se hatana chahte hain?`)) {
-        subjects = subjects.filter(s => s !== subjectToDelete);
-        localStorage.setItem('study_subjects_list', JSON.stringify(subjects));
-        deleteSubjectFromCloud(subjectToDelete);
-        renderSubjectDropdown(subjects[0]);
-        renderAll();
-      }
-    }
-
-    // ==========================================
-    // 3. SINGLE ACTIVE DEVICE SESSION ENGINE
-    // ==========================================
-    function updateUserUI() {
-      const tag = document.getElementById('userNameTag');
-      const ind = document.getElementById('cloudStatusIndicator');
-      if (currentProfile && currentProfile.name) {
-        tag.innerText = currentProfile.name;
-        ind.className = "w-2 h-2 rounded-full bg-emerald-400";
-      } else {
-        tag.innerText = 'Login (Name + Mail)';
-        ind.className = "w-2 h-2 rounded-full bg-amber-400 animate-pulse";
-      }
-    }
-
-    function openAuthModal() {
-      if (currentProfile) {
-        if (confirm(`Aap currently "${currentProfile.name}" (${currentProfile.email}) ke roop me logged in hain. Logout karna chahte hain?`)) {
-          performLogout();
-          showToast("Logged out successfully");
+        for (let i = 0; i < 15; i++) {
+          const heart = document.createElement('i');
+          heart.className = 'fa-solid fa-heart heart-particle';
+          heart.style.left = `${Math.random() * 100}%`;
+          heart.style.fontSize = `${Math.random() * 16 + 12}px`;
+          heart.style.animationDuration = `${Math.random() * 5 + 6}s`;
+          heart.style.animationDelay = `${Math.random() * 5}s`;
+          ambient.appendChild(heart);
         }
-        return;
-      }
-      document.getElementById('loginNameInput').value = '';
-      document.getElementById('loginEmailInput').value = '';
-      document.getElementById('authErrorMsg').classList.add('hidden');
-      document.getElementById('authModal').classList.remove('hidden');
-      lucide.createIcons();
-    }
-
-    function closeAuthModal() {
-      document.getElementById('authModal').classList.add('hidden');
-    }
-
-    function performLogout() {
-      currentProfile = null;
-      localStorage.removeItem('study_user_profile');
-      if (sessionWatcherInterval) {
-        clearInterval(sessionWatcherInterval);
-        sessionWatcherInterval = null;
-      }
-      updateUserUI();
-    }
-
-    function triggerForceLogoutUI() {
-      performLogout();
-      document.getElementById('forceLogoutModal').classList.remove('hidden');
-      lucide.createIcons();
-    }
-
-    function acknowledgeForceLogout() {
-      document.getElementById('forceLogoutModal').classList.add('hidden');
-      location.reload();
-    }
-
-    function startSessionWatcher() {
-      if (sessionWatcherInterval) clearInterval(sessionWatcherInterval);
-      if (!supabaseClient || !currentProfile) return;
-
-      sessionWatcherInterval = setInterval(async () => {
-        if (!currentProfile) return;
-        try {
-          const { data, error } = await supabaseClient
-            .from('profiles')
-            .select('current_session_id')
-            .eq('email', currentProfile.email)
-            .maybeSingle();
-
-          if (!error && data && data.current_session_id) {
-            if (data.current_session_id !== currentSessionToken) {
-              triggerForceLogoutUI();
-            }
-          }
-        } catch (e) {
-          console.warn("Session check bypass:", e);
-        }
-      }, 5000);
-    }
-
-    document.getElementById('simpleLoginForm').addEventListener('submit', async function(e) {
-      e.preventDefault();
-      const nameInput = document.getElementById('loginNameInput').value.trim();
-      const emailInput = document.getElementById('loginEmailInput').value.trim().toLowerCase();
-      const errorMsg = document.getElementById('authErrorMsg');
-
-      if (!emailInput || !nameInput) return;
-
-      currentSessionToken = 'sess_' + Date.now() + '_' + Math.random().toString(36).substring(2, 9);
-      localStorage.setItem('study_device_session_token', currentSessionToken);
-
-      if (!supabaseClient) {
-        currentProfile = { name: nameInput, email: emailInput };
-        localStorage.setItem('study_user_profile', JSON.stringify(currentProfile));
-        closeAuthModal();
-        updateUserUI();
-        showToast("Offline Profile Set");
-        return;
       }
 
-      try {
-        const { data: existingUser, error: fetchErr } = await supabaseClient
-          .from('profiles')
-          .select('*')
-          .eq('email', emailInput)
-          .maybeSingle();
-
-        if (fetchErr) throw fetchErr;
-
-        if (existingUser) {
-          if (existingUser.name.trim().toLowerCase() !== nameInput.toLowerCase()) {
-            errorMsg.innerText = `⚠️ Ye email pehle se "${existingUser.name}" ke naam par registered hai! Kripya wahi naam enter karein.`;
-            errorMsg.classList.remove('hidden');
-            return;
-          }
-        }
-
-        const { error: upsertErr } = await supabaseClient
-          .from('profiles')
-          .upsert([{ 
-            email: emailInput, 
-            name: nameInput,
-            current_session_id: currentSessionToken 
-          }]);
-
-        if (upsertErr) throw upsertErr;
-
-        currentProfile = { name: nameInput, email: emailInput };
-        localStorage.setItem('study_user_profile', JSON.stringify(currentProfile));
-        closeAuthModal();
-        updateUserUI();
-        showToast(`Welcome, ${nameInput}! Active on this device 📱`);
-
-        await syncDataWithCloud();
-        startSessionWatcher();
-
-      } catch (err) {
-        console.error("Login Auth Error:", err);
-        errorMsg.innerText = "Error: " + (err.message || "Database connection error");
-        errorMsg.classList.remove('hidden');
-      }
-    });
-
-    async function syncDataWithCloud() {
-      if (!supabaseClient || !currentProfile) return;
-
-      try {
-        const { data: cloudLogs, error: logErr } = await supabaseClient
-          .from('study_logs')
-          .select('*')
-          .eq('user_email', currentProfile.email);
-
-        if (logErr) throw logErr;
-
-        const cloudIds = new Set((cloudLogs || []).map(l => l.id));
-        const localLogsToUpload = logs.filter(l => !cloudIds.has(l.id));
-
-        if (localLogsToUpload.length > 0) {
-          const payload = localLogsToUpload.map(l => ({
-            id: l.id,
-            user_email: currentProfile.email,
-            subject: l.subject,
-            topic: l.topic,
-            duration: l.duration,
-            start_time: l.startTime,
-            end_time: l.endTime,
-            end_timestamp: l.endTimestamp || new Date().getTime(),
-            date: l.date
-          }));
-          await supabaseClient.from('study_logs').upsert(payload);
-        }
-
-        const { data: refreshedLogs } = await supabaseClient
-          .from('study_logs')
-          .select('*')
-          .eq('user_email', currentProfile.email)
-          .order('created_at', { ascending: false });
-
-        if (refreshedLogs) {
-          logs = refreshedLogs.map(l => ({
-            id: l.id,
-            subject: l.subject,
-            topic: l.topic,
-            duration: l.duration,
-            startTime: l.start_time,
-            endTime: l.end_time,
-            endTimestamp: l.end_timestamp,
-            date: l.date,
-            createdAt: l.created_at
-          }));
-          localStorage.setItem('study_logs_data', JSON.stringify(logs));
-        }
-
-        const { data: cloudSubs } = await supabaseClient
-          .from('study_subjects')
-          .select('name')
-          .eq('user_email', currentProfile.email);
-
-        const cloudSubNames = new Set((cloudSubs || []).map(s => s.name));
-        const localSubsToUpload = subjects.filter(s => !initialDefaultSubjects.includes(s) && !cloudSubNames.has(s));
-
-        if (localSubsToUpload.length > 0) {
-          const subPayload = localSubsToUpload.map(name => ({
-            user_email: currentProfile.email,
-            name: name
-          }));
-          await supabaseClient.from('study_subjects').insert(subPayload);
-        }
-
-        if (cloudSubs && cloudSubs.length > 0) {
-          cloudSubs.forEach(s => {
-            if (!subjects.includes(s.name)) subjects.push(s.name);
-          });
-          localStorage.setItem('study_subjects_list', JSON.stringify(subjects));
-        }
-
-        renderSubjectDropdown();
-        renderAll();
-        showToast("🟢 Cloud Synced Successfully!");
-      } catch (err) {
-        console.error("Sync error:", err);
-        showToast("⚠️ Cloud Sync Warning", false);
-      }
+      document.body.className = themeClass;
+      const availableLines = flirtLines[slot];
+      const randomIndex = Math.floor(Math.random() * availableLines.length);
+      document.getElementById('romanticQuote').innerHTML = `❝ ${availableLines[randomIndex]} ❞`;
+      document.getElementById('badgeText').innerText = badgeLabel;
+      document.getElementById('badgeIcon').className = `fa-solid ${badgeIcon}`;
     }
 
-    async function saveLogToCloud(newLog) {
-      if (!supabaseClient || !currentProfile) return;
-      try {
-        const { error } = await supabaseClient.from('study_logs').upsert([{
-          id: newLog.id,
-          user_email: currentProfile.email,
-          subject: newLog.subject,
-          topic: newLog.topic,
-          duration: newLog.duration,
-          start_time: newLog.startTime,
-          end_time: newLog.endTime,
-          end_timestamp: newLog.endTimestamp,
-          date: newLog.date
-        }]);
-        if (error) throw error;
-        showToast("Session saved to Cloud ☁️");
-      } catch (err) {
-        console.error("Cloud log save error:", err);
-        showToast("Saved Locally", false);
-      }
-    }
+    applyTimeBasedThemeAndAtmosphere();
 
-    async function saveSubjectToCloud(subjectName) {
-      if (!supabaseClient || !currentProfile) return;
-      try {
-        await supabaseClient.from('study_subjects').insert([{
-          user_email: currentProfile.email,
-          name: subjectName
-        }]);
-      } catch (err) {
-        console.error("Cloud subject save error:", err);
-      }
-    }
-
-    async function deleteSubjectFromCloud(subjectName) {
-      if (!supabaseClient || !currentProfile) return;
-      try {
-        await supabaseClient.from('study_subjects').delete().eq('name', subjectName).eq('user_email', currentProfile.email);
-      } catch (err) {
-        console.error("Cloud subject delete error:", err);
-      }
-    }
-
-    // ==========================================
-    // 4. TIMER & SESSION HANDLERS
-    // ==========================================
-    function playBeep() {
-      try {
-        if (!audioCtx) audioCtx = new (window.AudioContext || window.webkitAudioContext)();
-        const osc = audioCtx.createOscillator();
-        const gain = audioCtx.createGain();
-        osc.type = 'sine';
-        osc.frequency.setValueAtTime(900, audioCtx.currentTime);
-        gain.gain.setValueAtTime(0.4, audioCtx.currentTime);
-        osc.connect(gain);
-        gain.connect(audioCtx.destination);
-        osc.start();
-        osc.stop(audioCtx.currentTime + 0.4);
-      } catch (err) {
-        console.error(err);
-      }
-    }
-
-    function triggerAlarm(topicName, durationMins) {
-      document.getElementById('alarmTopicText').innerText = `"${topicName}" session complete & permanently saved!`;
-      document.getElementById('alarmModal').classList.remove('hidden');
-
-      // Trigger system & lock screen notifications
-      triggerSystemLockScreenNotification(topicName, durationMins);
-
-      if (navigator.vibrate) navigator.vibrate([600, 300, 600, 300, 600]);
-
-      playBeep();
-      alarmAudioInterval = setInterval(() => {
-        playBeep();
-        if (navigator.vibrate) navigator.vibrate([600, 300, 600]);
-      }, 1000);
-    }
-
-    function stopAlarm() {
-      if (alarmAudioInterval) {
-        clearInterval(alarmAudioInterval);
-        alarmAudioInterval = null;
-      }
-      if (navigator.vibrate) navigator.vibrate(0);
-      document.getElementById('alarmModal').classList.add('hidden');
-    }
-
-    function togglePauseResumeSession() {
-      if (!activeSession) return;
-
-      if (!activeSession.isPaused) {
-        const now = new Date().getTime();
-        const remaining = Math.max(0, activeSession.endTimestamp - now);
-        activeSession.isPaused = true;
-        activeSession.remainingMs = remaining;
-        localStorage.setItem('active_study_session', JSON.stringify(activeSession));
-        checkActiveSessionTimer();
-      } else {
-        const now = new Date().getTime();
-        activeSession.isPaused = false;
-        activeSession.endTimestamp = now + (activeSession.remainingMs || 0);
-        localStorage.setItem('active_study_session', JSON.stringify(activeSession));
-        checkActiveSessionTimer();
-      }
-    }
-
-    function showTargetAchievedModal() {
-      document.getElementById('achievedTargetText').innerText = formatTime(dailyTargetMins);
-      document.getElementById('targetAchievedModal').classList.remove('hidden');
-      localStorage.setItem('target_prompt_date', getTodayDateString());
-      targetPromptShownForToday = true;
-      lucide.createIcons();
-    }
-
-    function extendDailyTarget(additionalMinutes) {
-      dailyTargetMins += additionalMinutes;
-      localStorage.setItem('daily_target_mins', dailyTargetMins.toString());
-      closeTargetModal();
-      renderAll();
-    }
-
-    function closeTargetModal() {
-      document.getElementById('targetAchievedModal').classList.add('hidden');
-    }
-
-    function checkActiveSessionTimer() {
-      if (timerInterval) clearInterval(timerInterval);
-
-      if (!activeSession) {
-        document.getElementById('activeTimerCard').classList.add('hidden');
-        document.getElementById('startBtn').disabled = false;
-        document.getElementById('startBtn').innerHTML = `<i data-lucide="play" class="w-4 h-4"></i> Start Study Timer Now`;
-        lucide.createIcons();
-        return;
-      }
-
-      document.getElementById('activeTimerCard').classList.remove('hidden');
+    // Universal Search Filter (Including Accordions & Nested Folders)
+    function filterLinks() {
+      const input = document.getElementById('searchInput').value.toLowerCase().trim();
+      const entries = document.querySelectorAll('.searchable-entry');
       
-      const subColor = getSubjectColor(activeSession.subject);
-      const subTag = document.getElementById('liveSubjectTag');
-      subTag.innerText = activeSession.subject;
-      subTag.style.color = subColor;
-
-      document.getElementById('activeSessionTopic').innerText = activeSession.topic;
-      document.getElementById('liveStartTimeTag').innerText = `Started at: ${formatTime12Hour(activeSession.startTime)}`;
-      
-      document.getElementById('startBtn').disabled = true;
-      document.getElementById('startBtn').innerHTML = `<i data-lucide="lock" class="w-4 h-4"></i> Session in Progress...`;
-
-      const pauseBtn = document.getElementById('pauseResumeBtn');
-      const pauseText = document.getElementById('pauseResumeText');
-      const statusTag = document.getElementById('sessionStatusTag');
-      const hourglass = document.getElementById('timerHourglassIcon');
-
-      if (activeSession.isPaused) {
-        statusTag.innerText = "SESSION PAUSED";
-        statusTag.className = "text-[11px] font-bold px-2 py-0.5 rounded bg-amber-500/20 text-amber-400 border border-amber-500/30";
-        pauseText.innerText = "Resume";
-        pauseBtn.className = "px-3.5 py-2 bg-emerald-500/20 hover:bg-emerald-500/30 border border-emerald-500/40 text-emerald-300 text-xs font-semibold rounded-xl transition flex items-center gap-1.5";
-        hourglass.classList.remove('animate-spin');
-
-        const totalSec = Math.floor((activeSession.remainingMs || 0) / 1000);
-        const hours = Math.floor(totalSec / 3600);
-        const minutes = Math.floor((totalSec % 3600) / 60);
-        const seconds = totalSec % 60;
-        document.getElementById('countdownDisplay').innerText = 
-          `${String(hours).padStart(2, '0')}:${String(minutes).padStart(2, '0')}:${String(seconds).padStart(2, '0')}`;
-        lucide.createIcons();
-        return;
-      }
-
-      statusTag.innerText = "LOCKED SESSION";
-      statusTag.className = "text-[11px] font-bold px-2 py-0.5 rounded bg-emerald-500/20 text-emerald-400 border border-emerald-500/30";
-      pauseText.innerText = "Pause";
-      pauseBtn.className = "px-3.5 py-2 bg-amber-500/20 hover:bg-amber-500/30 border border-amber-500/40 text-amber-300 text-xs font-semibold rounded-xl transition flex items-center gap-1.5";
-      hourglass.classList.add('animate-spin');
-
-      function updateClock() {
-        const now = new Date().getTime();
-        const distance = activeSession.endTimestamp - now;
-
-        if (distance <= 0) {
-          clearInterval(timerInterval);
-          
-          const completedLog = {
-            id: Date.now().toString(),
-            subject: activeSession.subject,
-            topic: activeSession.topic,
-            duration: activeSession.duration,
-            startTime: formatTime12Hour(activeSession.startTime),
-            endTime: formatTime12Hour(new Date()),
-            endTimestamp: activeSession.endTimestamp,
-            date: activeSession.date,
-            createdAt: new Date().toISOString()
-          };
-
-          logs.unshift(completedLog);
-          localStorage.setItem('study_logs_data', JSON.stringify(logs));
-          saveLogToCloud(completedLog);
-          
-          const topicName = activeSession.topic;
-          const durationMins = activeSession.duration;
-          localStorage.removeItem('active_study_session');
-          activeSession = null;
-
-          document.getElementById('activeTimerCard').classList.add('hidden');
-          renderAll();
-          checkActiveSessionTimer();
-          triggerAlarm(topicName, durationMins);
+      entries.forEach(entry => {
+        const text = entry.textContent.toLowerCase();
+        if (text.includes(input)) {
+          entry.style.display = 'flex';
+          if (input.length > 1 && entry.classList.contains('expandable-container')) {
+            entry.classList.add('active');
+          }
         } else {
-          const totalSeconds = Math.floor(distance / 1000);
-          const hours = Math.floor(totalSeconds / 3600);
-          const minutes = Math.floor((totalSeconds % 3600) / 60);
-          const seconds = totalSeconds % 60;
-          
-          document.getElementById('countdownDisplay').innerText = 
-            `${String(hours).padStart(2, '0')}:${String(minutes).padStart(2, '0')}:${String(seconds).padStart(2, '0')}`;
+          entry.style.display = 'none';
         }
-      }
-
-      updateClock();
-      timerInterval = setInterval(updateClock, 1000);
-      lucide.createIcons();
+      });
     }
 
-    function abandonActiveSession() {
-      if (confirm("Kya aap session beech me chhodna chahte hain?")) {
-        if (timerInterval) clearInterval(timerInterval);
-        localStorage.removeItem('active_study_session');
-        activeSession = null;
-        checkActiveSessionTimer();
-      }
+    // Touch Popups Engine
+    const touchItems = [
+      { type: 'bubble', html: '<div class="touch-bubble"><i class="fa-solid fa-heart"></i></div>' },
+      { type: 'prompt', html: '<div class="touch-glass-pill">I love you 💕</div>' },
+      { type: 'prompt', html: '<div class="touch-glass-pill">Kiss you 😘</div>' },
+      { type: 'prompt', html: '<div class="touch-glass-pill">Ummah 💋</div>' }, 
+      { type: 'prompt', html: '<div class="touch-glass-pill">Miss You 😘</div>' }, 
+      { type: 'prompt', html: '<div class="touch-glass-pill">Kissi do na babu 😏</div>' },
+      { type: 'prompt', html: '<div class="touch-glass-pill">😘</div>' },
+      { type: 'prompt', html: '<div class="touch-glass-pill">💋</div>' }, 
+      { type: 'prompt', html: '<div class="touch-glass-pill">💕</div>' }, 
+      { type: 'prompt', html: '<div class="touch-glass-pill">😍</div>' }, 
+      { type: 'prompt', html: '<div class="touch-glass-pill">🥰</div>' }, 
+      { type: 'prompt', html: '<div class="touch-glass-pill">🩷</div>' }, 
+      { type: 'prompt', html: '<div class="touch-glass-pill">🩵</div>' }, 
+      { type: 'prompt', html: '<div class="touch-glass-pill">❤️‍🩹</div>' },  
+      { type: 'prompt', html: '<div class="touch-glass-pill">🌺</div>' }
+    ];
+
+    function spawnTouchEffect(x, y) {
+      const selected = touchItems[Math.floor(Math.random() * touchItems.length)];
+      const el = document.createElement('div');
+      el.className = 'touch-pop-item';
+      el.style.left = `${x}px`;
+      el.style.top = `${y}px`;
+      el.innerHTML = selected.html;
+
+      document.body.appendChild(el);
+
+      setTimeout(() => {
+        el.remove();
+      }, 1800);
     }
 
-    document.getElementById('studyForm').addEventListener('submit', function(e) {
-      e.preventDefault();
-      if (activeSession) {
-        alert("Ek session pehle se chal raha hai!");
-        return;
-      }
+    // Swipe Trails Engine
+    const swipeIcons = ['fa-heart', 'fa-sparkles', 'fa-star', 'fa-wand-magic-sparkles'];
+    let lastSwipeX = 0;
+    let lastSwipeY = 0;
+    let lastSwipeTime = 0;
 
-      // Request lock-screen & panel notification permission
-      requestNotificationPermission();
+    function spawnSwipeTrail(x, y, vx = 0) {
+      const now = performance.now();
+      if (now - lastSwipeTime < 24) return;
+      lastSwipeTime = now;
 
-      const subject = document.getElementById('subjectSelect').value;
-      const hours = parseInt(document.getElementById('hoursSelect').value, 10);
-      const minutes = parseInt(document.getElementById('minutesSelect').value, 10);
-      const durationMinutes = (hours * 60) + minutes;
+      const spark = document.createElement('i');
+      const randomIcon = swipeIcons[Math.floor(Math.random() * swipeIcons.length)];
+      spark.className = `fa-solid ${randomIcon} swipe-trail-spark`;
+      
+      const size = Math.random() * 12 + 10;
+      const dx = (Math.random() - 0.5) * 40 + (vx * 2);
+      
+      spark.style.left = `${x}px`;
+      spark.style.top = `${y}px`;
+      spark.style.fontSize = `${size}px`;
+      spark.style.color = 'var(--accent-color)';
+      spark.style.setProperty('--dx', `${dx}px`);
 
-      if (durationMinutes <= 0) {
-        alert("Kripya kam se kam 5 minutes ka session select karein!");
-        return;
-      }
+      document.body.appendChild(spark);
 
-      const topic = document.getElementById('topicInput').value.trim();
-      const startTimeObj = new Date();
-      const endTimeObj = new Date(startTimeObj.getTime() + durationMinutes * 60000);
+      setTimeout(() => {
+        spark.remove();
+      }, 1200);
+    }
 
-      if (!audioCtx) audioCtx = new (window.AudioContext || window.webkitAudioContext)();
-      if (audioCtx.state === 'suspended') audioCtx.resume();
+    // Event Listeners
+    window.addEventListener('touchstart', (e) => {
+      const touch = e.touches[0];
+      lastSwipeX = touch.clientX;
+      lastSwipeY = touch.clientY;
+      spawnTouchEffect(touch.clientX, touch.clientY);
+    }, { passive: true });
 
-      activeSession = {
-        subject,
-        topic,
-        duration: durationMinutes,
-        startTime: formatTime12Hour(startTimeObj),
-        endTime: formatTime12Hour(endTimeObj),
-        date: getTodayDateString(),
-        endTimestamp: endTimeObj.getTime(),
-        isPaused: false,
-        remainingMs: durationMinutes * 60000
-      };
+    window.addEventListener('touchmove', (e) => {
+      const touch = e.touches[0];
+      const vx = touch.clientX - lastSwipeX;
+      spawnSwipeTrail(touch.clientX, touch.clientY, vx);
+      lastSwipeX = touch.clientX;
+      lastSwipeY = touch.clientY;
+    }, { passive: true });
 
-      localStorage.setItem('active_study_session', JSON.stringify(activeSession));
-      document.getElementById('topicInput').value = '';
-      checkActiveSessionTimer();
+    let isMouseDown = false;
+    window.addEventListener('mousedown', (e) => {
+      isMouseDown = true;
+      lastSwipeX = e.clientX;
+      lastSwipeY = e.clientY;
+      spawnTouchEffect(e.clientX, e.clientY);
     });
 
-    function changeView(filter) {
-      currentFilter = filter;
-      ['tabToday', 'tabWeek', 'tabMonth'].forEach(tab => {
-        document.getElementById(tab).className = 'px-3 py-1 rounded-lg text-slate-400 hover:text-white font-medium';
-      });
-      if (filter === 'today') document.getElementById('tabToday').className = 'px-3 py-1 rounded-lg bg-indigo-600 text-white font-medium';
-      if (filter === 'week') document.getElementById('tabWeek').className = 'px-3 py-1 rounded-lg bg-indigo-600 text-white font-medium';
-      if (filter === 'month') document.getElementById('tabMonth').className = 'px-3 py-1 rounded-lg bg-indigo-600 text-white font-medium';
-      renderLogsList();
-    }
+    window.addEventListener('mouseup', () => { isMouseDown = false; });
 
-    function getFilteredLogs(filter) {
-      const now = new Date();
-      const todayStr = getTodayDateString();
-      return logs.filter(log => {
-        const logDate = new Date(log.date);
-        if (filter === 'today') return log.date === todayStr;
-        if (filter === 'week') {
-          const diffDays = (now - logDate) / (1000 * 60 * 60 * 24);
-          return diffDays >= 0 && diffDays <= 7;
-        }
-        if (filter === 'month') return logDate.getMonth() === now.getMonth() && logDate.getFullYear() === now.getFullYear();
-        return true;
-      });
-    }
+    window.addEventListener('mousemove', (e) => {
+      if (!isMouseDown) return;
+      const vx = e.clientX - lastSwipeX;
+      spawnSwipeTrail(e.clientX, e.clientY, vx);
+      lastSwipeX = e.clientX;
+      lastSwipeY = e.clientY;
+    });
 
-    function formatTime(minutes) {
-      return `${Math.floor(minutes / 60)}h ${minutes % 60}m`;
-    }
-
-    function updateComparisonData(todayMins) {
-      const yesterdayStr = getYesterdayDateString();
-      const now = new Date();
-      const currentTimestamp = now.getTime();
-
-      const yesterdayLogs = logs.filter(log => {
-        if (log.date !== yesterdayStr) return false;
-        if (log.endTimestamp) {
-          const yesterdayCorrespondingTime = currentTimestamp - (24 * 60 * 60 * 1000);
-          return log.endTimestamp <= yesterdayCorrespondingTime;
-        }
-        return true;
+    // 3D Card Interactive Tilt
+    document.querySelectorAll('.link-card').forEach(card => {
+      card.addEventListener('mousemove', (e) => {
+        const rect = card.getBoundingClientRect();
+        const x = e.clientX - rect.left - (rect.width / 2);
+        const y = e.clientY - rect.top - (rect.height / 2);
+        card.style.transform = `perspective(600px) rotateX(${-y * 0.04}deg) rotateY(${x * 0.04}deg) translateY(-3px) scale(1.012)`;
       });
 
-      const yesterdayMinsTillNow = yesterdayLogs.reduce((acc, curr) => acc + curr.duration, 0);
-
-      document.getElementById('yesterdayTimeTillNow').innerText = formatTime(yesterdayMinsTillNow);
-      
-      const todayElement = document.getElementById('todayTimeTillNow');
-      todayElement.innerText = formatTime(todayMins);
-
-      const diff = todayMins - yesterdayMinsTillNow;
-      const badge = document.getElementById('comparisonBadge');
-      const text = document.getElementById('comparisonDiffText');
-
-      if (diff > 0) {
-        todayElement.className = "text-base font-bold text-emerald-400 mt-0.5";
-        badge.className = "text-[11px] font-bold px-2.5 py-0.5 rounded-md bg-emerald-500/20 text-emerald-400 border border-emerald-500/30";
-        badge.innerText = `+${formatTime(diff)} Zyada 🚀`;
-        text.innerHTML = `Shaandaar! Aaj aapne kal se is time tak <b class="text-emerald-400 font-bold">${formatTime(diff)} zyada padhai</b> ki hai.`;
-      } else if (diff < 0) {
-        todayElement.className = "text-base font-bold text-rose-400 mt-0.5";
-        badge.className = "text-[11px] font-bold px-2.5 py-0.5 rounded-md bg-rose-500/20 text-rose-400 border border-rose-500/30";
-        badge.innerText = `-${formatTime(Math.abs(diff))} Kam ⚠️`;
-        text.innerHTML = `Savdhan! Aaj aap kal se is samay tak <b class="text-rose-400 font-bold">${formatTime(Math.abs(diff))} peeche</b> hain. Raat tak target pura karein!`;
-      } else {
-        todayElement.className = "text-base font-bold text-indigo-400 mt-0.5";
-        badge.className = "text-[11px] font-bold px-2.5 py-0.5 rounded-md bg-slate-700 text-slate-300";
-        badge.innerText = "Barabar (Equal)";
-        text.innerHTML = `Aaj aur kal is time tak padhai bilkul barabar (<b class="text-indigo-400">${formatTime(todayMins)}</b>) rahi hai.`;
-      }
-    }
-
-    function updateKPICards() {
-      const monthLogs = getFilteredLogs('month');
-      const monthMins = monthLogs.reduce((acc, curr) => acc + curr.duration, 0);
-      document.getElementById('monthlyTotalHours').innerText = formatTime(monthMins);
-
-      const weekLogs = getFilteredLogs('week');
-      const weekMins = weekLogs.reduce((acc, curr) => acc + curr.duration, 0);
-      document.getElementById('weeklyTotalHours').innerText = formatTime(weekMins);
-
-      const todayLogs = getFilteredLogs('today');
-      const todayMins = todayLogs.reduce((acc, curr) => acc + curr.duration, 0);
-      document.getElementById('todayTotalHours').innerText = formatTime(todayMins);
-      document.getElementById('todayGoalTag').innerText = `Daily Goal: ${formatTime(dailyTargetMins)}`;
-      document.getElementById('dynamicTargetLabel').innerText = `Daily Target (${formatTime(dailyTargetMins)})`;
-
-      document.getElementById('todayTopicCount').innerText = todayLogs.length;
-
-      updateComparisonData(todayMins);
-
-      const percent = Math.min(Math.round((todayMins / dailyTargetMins) * 100), 100);
-      document.getElementById('goalPercentText').innerText = `${percent}%`;
-      document.getElementById('goalProgressBar').style.width = `${percent}%`;
-
-      if (todayMins >= dailyTargetMins && !targetPromptShownForToday) {
-        showTargetAchievedModal();
-      }
-
-      const msg = document.getElementById('motivationalText');
-      if (todayMins >= dailyTargetMins) {
-        msg.innerText = `Shaandaar! Aaj ka ${formatTime(dailyTargetMins)} ka target pura ho gaya! Extra time add karke new record banayein.`;
-        msg.className = "text-xs font-semibold text-emerald-400 border-l-2 border-emerald-400 pl-3 py-0.5";
-      } else if (todayMins > 0) {
-        msg.innerText = `Shaam tak ${formatTime(todayMins)} real padhai hui hai. Target se ${formatTime(dailyTargetMins - todayMins)} bache hain.`;
-        msg.className = "text-xs italic text-slate-300 border-l-2 border-indigo-400 pl-3 py-0.5";
-      } else {
-        msg.innerText = "Live study session start karein!";
-        msg.className = "text-xs italic text-slate-400 border-l-2 border-slate-600 pl-3 py-0.5";
-      }
-    }
-
-    function renderLogsList() {
-      const container = document.getElementById('logsContainer');
-      const filtered = getFilteredLogs(currentFilter);
-
-      if (filtered.length === 0) {
-        container.innerHTML = `
-          <div class="text-center py-8 text-slate-500 text-sm">
-            <i data-lucide="inbox" class="w-8 h-8 mx-auto mb-2 opacity-50"></i>
-            Koi completed session nahi mila.
-          </div>
-        `;
-        lucide.createIcons();
-        return;
-      }
-
-      container.innerHTML = filtered.map(item => {
-        const subColor = getSubjectColor(item.subject);
-        return `
-          <div class="bg-slate-900/80 border border-slate-700/60 p-3.5 rounded-xl space-y-1.5 hover:border-slate-600 transition">
-            <div class="flex items-center gap-2 flex-wrap">
-              <span class="px-2.5 py-0.5 rounded-md text-xs font-bold transition" style="background-color: ${subColor}20; color: ${subColor}; border: 1px solid ${subColor}40;">
-                ${item.subject}
-              </span>
-              <span class="text-sm font-semibold text-slate-100">${item.topic}</span>
-            </div>
-
-            <div class="text-xs text-slate-300 font-mono flex items-center gap-1.5">
-              <i data-lucide="clock" class="w-3.5 h-3.5 text-indigo-400"></i>
-              <span>${formatTime(item.duration)} (${formatTime12Hour(item.startTime)} - ${formatTime12Hour(item.endTime)})</span>
-            </div>
-
-            <div class="text-xs text-slate-400 font-mono flex items-center gap-1.5">
-              <i data-lucide="calendar" class="w-3.5 h-3.5 text-emerald-400"></i>
-              <span>${item.date}</span>
-            </div>
-          </div>
-        `;
-      }).join('');
-
-      lucide.createIcons();
-    }
-
-    function setChartTimeframe(timeframe) {
-      currentChartTimeframe = timeframe;
-      ['chartTabToday', 'chartTabWeek', 'chartTabMonth'].forEach(tab => {
-        document.getElementById(tab).className = 'px-2.5 py-1 rounded-lg text-slate-400 hover:text-white font-medium transition';
+      card.addEventListener('mouseleave', () => {
+        card.style.transform = '';
       });
-      if (timeframe === 'today') document.getElementById('chartTabToday').className = 'px-2.5 py-1 rounded-lg bg-indigo-600 text-white font-medium shadow-sm transition';
-      if (timeframe === 'week') document.getElementById('chartTabWeek').className = 'px-2.5 py-1 rounded-lg bg-indigo-600 text-white font-medium shadow-sm transition';
-      if (timeframe === 'month') document.getElementById('chartTabMonth').className = 'px-2.5 py-1 rounded-lg bg-indigo-600 text-white font-medium shadow-sm transition';
-
-      updateChart();
-    }
-
-    function toggleChartType(type) {
-      currentChartType = type;
-      if (type === 'doughnut') {
-        document.getElementById('btnDoughnut').className = 'p-1 rounded bg-slate-700 text-indigo-300 hover:bg-slate-600';
-        document.getElementById('btnBar').className = 'p-1 rounded bg-slate-900 text-slate-400 hover:bg-slate-800';
-      } else {
-        document.getElementById('btnBar').className = 'p-1 rounded bg-slate-700 text-indigo-300 hover:bg-slate-600';
-        document.getElementById('btnDoughnut').className = 'p-1 rounded bg-slate-900 text-slate-400 hover:bg-slate-800';
-      }
-      updateChart();
-    }
-
-    function updateChart() {
-      const filteredForChart = getFilteredLogs(currentChartTimeframe);
-      const subjectMap = {};
-      let totalMins = 0;
-
-      filteredForChart.forEach(log => {
-        subjectMap[log.subject] = (subjectMap[log.subject] || 0) + log.duration;
-        totalMins += log.duration;
-      });
-
-      document.getElementById('chartTotalTime').innerText = formatTime(totalMins);
-
-      const labels = Object.keys(subjectMap);
-      const data = Object.values(subjectMap);
-      const noDataMsg = document.getElementById('noChartDataMsg');
-
-      if (chartInstance) chartInstance.destroy();
-
-      if (labels.length === 0) {
-        noDataMsg.classList.remove('hidden');
-        lucide.createIcons();
-        return;
-      } else {
-        noDataMsg.classList.add('hidden');
-      }
-
-      const ctx = document.getElementById('subjectChart').getContext('2d');
-      const chartColors = labels.map(sub => getSubjectColor(sub));
-
-      chartInstance = new Chart(ctx, {
-        type: currentChartType,
-        data: {
-          labels: labels,
-          datasets: [{
-            data: data,
-            backgroundColor: chartColors,
-            borderWidth: currentChartType === 'doughnut' ? 2 : 0,
-            borderColor: '#1e293b',
-            borderRadius: currentChartType === 'bar' ? 6 : 0
-          }]
-        },
-        options: {
-          responsive: true,
-          maintainAspectRatio: false,
-          onClick: (evt, elements) => {
-            if (elements && elements.length > 0) {
-              const elementIndex = elements[0].index;
-              const clickedSubject = labels[elementIndex];
-              openSubjectDrilldownModal(clickedSubject);
-            }
-          },
-          plugins: {
-            legend: {
-              display: currentChartType === 'doughnut',
-              position: 'bottom',
-              labels: { color: '#94a3b8', boxWidth: 10, font: { size: 10 } }
-            },
-            tooltip: {
-              callbacks: {
-                label: function(context) {
-                  return ` ${context.label}: ${formatTime(context.raw)} (Click for Deep Analytics)`;
-                }
-              }
-            }
-          },
-          scales: currentChartType === 'bar' ? {
-            x: { ticks: { color: '#94a3b8', font: { size: 10 } }, grid: { display: false } },
-            y: {
-              ticks: { color: '#94a3b8', font: { size: 10 }, callback: v => formatTime(v) },
-              grid: { color: '#334155' }
-            }
-          } : {}
-        }
-      });
-    }
-
-    function openSubjectDrilldownModal(subjectName) {
-      selectedDrilldownSubject = subjectName;
-      document.getElementById('modalSubjectTitle').innerText = subjectName;
-
-      const subColor = getSubjectColor(subjectName);
-      const iconBadge = document.getElementById('modalSubjectIconBadge');
-      iconBadge.style.backgroundColor = `${subColor}20`;
-      iconBadge.style.borderColor = `${subColor}40`;
-      iconBadge.style.color = subColor;
-
-      const subjectLogs = logs.filter(l => l.subject === subjectName);
-      const now = new Date();
-
-      const weeklyMins = subjectLogs.filter(l => {
-        const diffDays = (now - new Date(l.date)) / (1000 * 60 * 60 * 24);
-        return diffDays >= 0 && diffDays <= 7;
-      }).reduce((acc, curr) => acc + curr.duration, 0);
-
-      const monthlyMins = subjectLogs.filter(l => {
-        const d = new Date(l.date);
-        return d.getMonth() === now.getMonth() && d.getFullYear() === now.getFullYear();
-      }).reduce((acc, curr) => acc + curr.duration, 0);
-
-      document.getElementById('modalSubjectWeeklyHours').innerText = formatTime(weeklyMins);
-      document.getElementById('modalSubjectMonthlyHours').innerText = formatTime(monthlyMins);
-
-      const topicList = document.getElementById('modalTopicList');
-      if (subjectLogs.length === 0) {
-        topicList.innerHTML = `<p class="text-xs text-slate-500">Koi entry nahi mili.</p>`;
-      } else {
-        topicList.innerHTML = subjectLogs.map(l => `
-          <div class="bg-slate-800/80 border border-slate-700/60 p-2.5 rounded-xl space-y-1 text-xs">
-            <p class="font-semibold text-slate-200">${l.topic}</p>
-            <div class="text-[11px] text-slate-300 font-mono">${formatTime(l.duration)} (${formatTime12Hour(l.startTime)} - ${formatTime12Hour(l.endTime)})</div>
-            <div class="text-[10px] text-slate-400 font-mono">${l.date}</div>
-          </div>
-        `).join('');
-      }
-
-      currentDrilldownView = 'week';
-      updateDrilldownChartUI();
-      renderDrilldownChart();
-
-      document.getElementById('subjectDrilldownModal').classList.remove('hidden');
-      lucide.createIcons();
-    }
-
-    function closeSubjectModal() {
-      document.getElementById('subjectDrilldownModal').classList.add('hidden');
-      if (drilldownChartInstance) {
-        drilldownChartInstance.destroy();
-        drilldownChartInstance = null;
-      }
-    }
-
-    function switchDrilldownChart(view) {
-      currentDrilldownView = view;
-      updateDrilldownChartUI();
-      renderDrilldownChart();
-    }
-
-    function updateDrilldownChartUI() {
-      if (currentDrilldownView === 'week') {
-        document.getElementById('drillWeekBtn').className = 'px-2.5 py-1 rounded-lg bg-indigo-600 text-white font-medium';
-        document.getElementById('drillMonthBtn').className = 'px-2.5 py-1 rounded-lg text-slate-400 hover:text-white font-medium';
-      } else {
-        document.getElementById('drillMonthBtn').className = 'px-2.5 py-1 rounded-lg bg-indigo-600 text-white font-medium';
-        document.getElementById('drillWeekBtn').className = 'px-2.5 py-1 rounded-lg text-slate-400 hover:text-white font-medium';
-      }
-    }
-
-    function renderDrilldownChart() {
-      if (drilldownChartInstance) drilldownChartInstance.destroy();
-
-      const ctx = document.getElementById('drilldownChartCanvas').getContext('2d');
-      const subjectLogs = logs.filter(l => l.subject === selectedDrilldownSubject);
-      const subColor = getSubjectColor(selectedDrilldownSubject);
-
-      let labels = [];
-      let data = [];
-
-      if (currentDrilldownView === 'week') {
-        for (let i = 6; i >= 0; i--) {
-          const d = new Date();
-          d.setDate(d.getDate() - i);
-          const dateStr = getFormattedDate(d);
-          const dayName = d.toLocaleDateString('en-IN', { weekday: 'short' });
-          labels.push(dayName);
-
-          const dayMins = subjectLogs.filter(l => l.date === dateStr).reduce((acc, curr) => acc + curr.duration, 0);
-          data.push(dayMins);
-        }
-
-        drilldownChartInstance = new Chart(ctx, {
-          type: 'bar',
-          data: {
-            labels: labels,
-            datasets: [{
-              label: 'Minutes Studied',
-              data: data,
-              backgroundColor: subColor,
-              borderRadius: 6
-            }]
-          },
-          options: {
-            responsive: true,
-            maintainAspectRatio: false,
-            plugins: {
-              legend: { display: false },
-              tooltip: {
-                callbacks: { label: c => ` Time: ${formatTime(c.raw)}` }
-              }
-            },
-            scales: {
-              x: { ticks: { color: '#94a3b8', font: { size: 10 } }, grid: { display: false } },
-              y: { ticks: { color: '#94a3b8', font: { size: 10 }, callback: v => formatTime(v) }, grid: { color: '#334155' } }
-            }
-          }
-        });
-
-      } else {
-        labels = ['Week 1 (1-7)', 'Week 2 (8-14)', 'Week 3 (15-21)', 'Week 4 (22-31)'];
-        data = [0, 0, 0, 0];
-        const now = new Date();
-
-        subjectLogs.forEach(l => {
-          const d = new Date(l.date);
-          if (d.getMonth() === now.getMonth() && d.getFullYear() === now.getFullYear()) {
-            const dateNum = d.getDate();
-            if (dateNum <= 7) data[0] += l.duration;
-            else if (dateNum <= 14) data[1] += l.duration;
-            else if (dateNum <= 21) data[2] += l.duration;
-            else data[3] += l.duration;
-          }
-        });
-
-        drilldownChartInstance = new Chart(ctx, {
-          type: 'line',
-          data: {
-            labels: labels,
-            datasets: [{
-              label: 'Monthly Minutes',
-              data: data,
-              borderColor: subColor,
-              backgroundColor: `${subColor}25`,
-              fill: true,
-              tension: 0.3,
-              pointBackgroundColor: subColor,
-              pointRadius: 4
-            }]
-          },
-          options: {
-            responsive: true,
-            maintainAspectRatio: false,
-            plugins: {
-              legend: { display: false },
-              tooltip: {
-                callbacks: { label: c => ` Time: ${formatTime(c.raw)}` }
-              }
-            },
-            scales: {
-              x: { ticks: { color: '#94a3b8', font: { size: 10 } }, grid: { display: false } },
-              y: { ticks: { color: '#94a3b8', font: { size: 10 }, callback: v => formatTime(v) }, grid: { color: '#334155' } }
-            }
-          }
-        });
-      }
-    }
-
-    function renderAll() {
-      updateKPICards();
-      renderLogsList();
-      updateChart();
-      lucide.createIcons();
-    }
-
-    // Boot Sequence
-    renderSubjectDropdown();
-    renderAll();
-    checkActiveSessionTimer();
-    updateUserUI();
-    if (currentProfile) {
-      syncDataWithCloud();
-      startSessionWatcher();
-    }
+    });
   </script>
 </body>
 </html>
