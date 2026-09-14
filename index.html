@@ -5,6 +5,15 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Study Portal - Dynamic Atmospheric Theme</title>
   
+  <!-- PWA Manifest & App Icons -->
+  <link rel="manifest" href="manifest.json">
+  <meta name="theme-color" content="#ff4d94">
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="apple-mobile-web-app-title" content="Study Portal">
+  <link rel="apple-touch-icon" href="https://drive.google.com/thumbnail?id=1VC6Iw2foLA9FoGYgwNjU2AKrb2x_ZihX&sz=w192">
+  
   <!-- Google Fonts & FontAwesome -->
   <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
@@ -476,6 +485,93 @@
       color: var(--card-icon-color);
     }
 
+    /* Poster / Teacher Photo Styling */
+    .card-poster {
+      width: 54px;
+      height: 54px;
+      border-radius: 14px;
+      object-fit: cover;
+      flex-shrink: 0;
+      border: 1.5px solid var(--card-border);
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.25);
+      transition: transform 0.3s ease;
+    }
+
+    .link-card:hover .card-poster {
+      transform: scale(1.05);
+      border-color: var(--accent-color);
+    }
+
+    /* Live Badge & Time Glow */
+    .live-wrapper {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-end;
+      gap: 4px;
+      margin-left: auto;
+      flex-shrink: 0;
+    }
+
+    .blue-time-glow {
+      background: rgba(56, 189, 248, 0.15);
+      border: 1px solid rgba(56, 189, 248, 0.4);
+      color: #7dd3fc;
+      font-size: 0.72rem;
+      font-weight: 700;
+      padding: 3px 9px;
+      border-radius: 20px;
+      box-shadow: 0 0 10px rgba(56, 189, 248, 0.25);
+    }
+
+    .live-stream-badge-container {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-end;
+      gap: 2px;
+    }
+
+    .live-stream-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      background: rgba(239, 68, 68, 0.18);
+      border: 1px solid rgba(239, 68, 68, 0.5);
+      padding: 2px 8px;
+      border-radius: 12px;
+    }
+
+    .live-dot {
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: #ef4444;
+      box-shadow: 0 0 8px #ef4444;
+      animation: livePulse 1.4s infinite alternate ease-in-out;
+    }
+
+    @keyframes livePulse {
+      0% { opacity: 0.4; transform: scale(0.85); }
+      100% { opacity: 1; transform: scale(1.2); }
+    }
+
+    .live-text {
+      color: #f87171;
+      font-size: 0.7rem;
+      font-weight: 700;
+      letter-spacing: 0.5px;
+    }
+
+    .live-stream-waves {
+      color: #f87171;
+      font-size: 0.65rem;
+    }
+
+    .streaming-caption {
+      font-size: 0.6rem;
+      color: #94a3b8;
+      letter-spacing: 0.5px;
+    }
+
     .card-info {
       flex: 1;
     }
@@ -510,6 +606,7 @@
       justify-content: center;
       color: var(--badge-text);
       transition: all 0.3s ease;
+      flex-shrink: 0;
     }
 
     .link-card:hover .arrow-box {
@@ -641,8 +738,130 @@
 
     .subfolder-container.active .nested-subtopics {
       display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+      grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
       animation: fadeIn 0.3s ease-in-out;
+    }
+
+    /* =========================================================
+       INSTALL AS APP POPUP (PWA MODAL)
+       ========================================================= */
+    .pwa-install-overlay {
+      position: fixed;
+      inset: 0;
+      background: rgba(0, 0, 0, 0.68);
+      backdrop-filter: blur(10px);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 10000;
+      padding: 20px;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.4s ease;
+    }
+
+    .pwa-install-overlay.show {
+      opacity: 1;
+      pointer-events: auto;
+    }
+
+    .pwa-install-card {
+      width: 100%;
+      max-width: 360px;
+      background: rgba(35, 11, 31, 0.94);
+      border: 1.5px solid var(--accent-color);
+      border-radius: 24px;
+      padding: 24px;
+      text-align: center;
+      box-shadow: 0 20px 50px rgba(0, 0, 0, 0.6), 0 0 30px var(--accent-glow);
+      transform: scale(0.85) translateY(20px);
+      transition: transform 0.4s cubic-bezier(0.2, 0.8, 0.25, 1);
+      position: relative;
+    }
+
+    .pwa-install-overlay.show .pwa-install-card {
+      transform: scale(1) translateY(0);
+    }
+
+    .pwa-app-icon {
+      width: 86px;
+      height: 86px;
+      border-radius: 20px;
+      object-fit: cover;
+      margin: 0 auto 14px;
+      display: block;
+      border: 2px solid var(--accent-color);
+      box-shadow: 0 8px 24px var(--accent-glow);
+    }
+
+    .pwa-install-card h2 {
+      font-size: 1.35rem;
+      font-weight: 700;
+      background: var(--heading-gradient);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      margin-bottom: 6px;
+    }
+
+    .pwa-install-card p {
+      font-size: 0.88rem;
+      color: #f3c2db;
+      line-height: 1.45;
+      margin-bottom: 20px;
+    }
+
+    .pwa-actions {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .pwa-btn-install {
+      background: linear-gradient(135deg, #ff4d94 0%, #ff758c 100%);
+      border: none;
+      color: #fff;
+      padding: 13px;
+      border-radius: 14px;
+      font-size: 0.98rem;
+      font-weight: 600;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      box-shadow: 0 6px 20px rgba(255, 77, 148, 0.4);
+      transition: transform 0.2s ease, filter 0.2s ease;
+    }
+
+    .pwa-btn-install:hover {
+      transform: scale(1.02);
+      filter: brightness(1.1);
+    }
+
+    .pwa-btn-dismiss {
+      background: transparent;
+      border: none;
+      color: #b08d9f;
+      font-size: 0.85rem;
+      cursor: pointer;
+      padding: 8px;
+      transition: color 0.2s ease;
+    }
+
+    .pwa-btn-dismiss:hover {
+      color: #fff;
+    }
+
+    .pwa-ios-instructions {
+      display: none;
+      background: rgba(255, 255, 255, 0.08);
+      border-radius: 12px;
+      padding: 10px 12px;
+      font-size: 0.82rem;
+      color: #ffd8ec;
+      margin-top: 10px;
+      line-height: 1.4;
+      text-align: left;
     }
 
     footer {
@@ -661,6 +880,29 @@
 
   <div class="thunder-flash-overlay" id="thunderFlash"></div>
   <div id="ambientLayer"></div>
+
+  <!-- Install as App Popup Modal -->
+  <div class="pwa-install-overlay" id="pwaInstallModal">
+    <div class="pwa-install-card">
+      <img src="https://drive.google.com/thumbnail?id=1VC6Iw2foLA9FoGYgwNjU2AKrb2x_ZihX&sz=w512" alt="App Icon" class="pwa-app-icon">
+      <h2>Install as App 📲</h2>
+      <p>Aapke sabhi important batches aur study tools ko mobile screen par direct open karein!</p>
+      
+      <div class="pwa-actions">
+        <button class="pwa-btn-install" id="pwaInstallBtn">
+          <i class="fa-solid fa-download"></i> Install Now
+        </button>
+        <button class="pwa-btn-dismiss" id="pwaDismissBtn">
+          Not Now
+        </button>
+      </div>
+
+      <!-- Instructions for iPhone / Safari -->
+      <div class="pwa-ios-instructions" id="pwaIosHint">
+        <i class="fa-solid fa-circle-info"></i> iPhone users: Tap <b>Share <i class="fa-solid fa-arrow-up-from-bracket"></i></b> and then select <b>"Add to Home Screen" <i class="fa-regular fa-square-plus"></i></b>.
+      </div>
+    </div>
+  </div>
 
   <div class="container">
     <header>
@@ -685,16 +927,14 @@
     <!-- Cards List -->
     <div class="links-list" id="linksList">
       
-
-
-      <!-- 1. MY TOOLS  -->
-      <div class="expandable-container searchable-entry" id="MY TOOLSContainer">
-        <div class="link-card" onclick="toggleSubtopics('MY TOOLSContainer')">
+      <!-- 0. MY TOOLS -->
+      <div class="expandable-container searchable-entry" id="myToolsContainer">
+        <div class="link-card" onclick="toggleSubtopics('myToolsContainer')">
           <div class="card-icon" style="color: #26a5e4; border-color: rgba(38,165,228,0.4); background: rgba(38,165,228,0.15);">
             <i class="fa-solid fa-screwdriver-wrench"></i>
           </div>
           <div class="card-info">
-            <h3>MY TOOLS  <span class="heart-mini">💖</span></h3>
+            <h3>MY TOOLS <span class="heart-mini">💖</span></h3>
             <p>Click to view materials</p>
           </div>
           <div class="arrow-box">
@@ -702,21 +942,44 @@
           </div>
         </div>
 
-        <div id="MY TOOLSList" class="subtopics-list">
+        <div id="myToolsList" class="subtopics-list">
           <a href="https://ydv-satyamm.github.io/STUDY_TRACKER/" target="_blank" class="sub-item">
             <span>1. STUDY TRACKER</span> <i class="fa-solid fa-arrow-right"></i>
           </a>
           <a href="https://t.me/Free_Education_bot" target="_blank" class="sub-item">
             <span>2. TELEGRAM BOT </span> <i class="fa-solid fa-arrow-right"></i>
           </a>
-         </div>
+        </div>
       </div>
+
+      <!-- 1. करेंट अफेयर्स KUMAR GAURAV (SUBAH 6 BAJE) 6AM LIVE -->
+      <a href="https://www.youtube.com/results?search_query=live+phool+patti+wali+class" target="_blank" class="link-card searchable-entry">
+        <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSBEykdkTmxEiYgtWvMziuxMM9uGwHrA8vexMOPGcVmgg&s=10" alt="Kumar Gaurav Sir" class="card-poster">
+        <div class="card-info">
+          <h3>करेंट अफेयर्स - कुमार गौरव सर <span class="heart-mini">💖</span></h3>
+          <p>फूल पत्ती वाली क्लास • सुबह 6:00 बजे</p>
+        </div>
+        
+        <div class="live-wrapper">
+          <div class="blue-time-glow"><span>6 AM</span></div>
+          <div class="live-stream-badge-container">
+            <div class="live-stream-pill">
+              <span class="live-dot"></span>
+              <span class="live-text">LIVE</span>
+              <i class="fa-solid fa-wifi live-stream-waves"></i>
+            </div>
+            <span class="streaming-caption">STREAMING</span>
+          </div>
+        </div>
+
+        <div class="arrow-box">
+          <i class="fa-solid fa-arrow-up-right-from-square"></i>
+        </div>
+      </a>
 
       <!-- 2. Hindi – Amarnath Sir -->
       <a href="https://amarnath-satyam.vercel.app/" target="_blank" class="link-card searchable-entry">
-        <div class="card-icon">
-          <i class="fa-solid fa-book-bookmark"></i>
-        </div>
+        <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSkGFuKitaQfCjho6WA5VM3kkNOG2S4iBDRNLgyRAPnXw&s=10" alt="Amarnath Sir" class="card-poster">
         <div class="card-info">
           <h3>Hindi – Amarnath Sir <span class="heart-mini">💖</span></h3>
           <p>GitHub Pages Portal Access</p>
@@ -728,9 +991,7 @@
       
       <!-- 3. Hindi – Arun Sir -->
       <a href="https://cw-arunhindi.vercel.app/" target="_blank" class="link-card searchable-entry">
-        <div class="card-icon">
-          <i class="fa-solid fa-book-bookmark"></i>
-        </div>
+        <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTB8KibFFyu4gf_hu7VV3rTMH5mftCvZBwt98tG98tu3g&s=10" alt="Arun Sir" class="card-poster">
         <div class="card-info">
           <h3>Hindi – Arun Sir <span class="heart-mini">💖</span></h3>
           <p>GitHub Pages Portal Access</p>
@@ -743,9 +1004,7 @@
       <!-- 4. Sachin UP TET (All Subjects) -->
       <div class="expandable-container searchable-entry" id="sachinContainer">
         <div class="link-card" onclick="toggleSubtopics('sachinContainer')">
-          <div class="card-icon" style="color: #26a5e4; border-color: rgba(38,165,228,0.4); background: rgba(38,165,228,0.15);">
-            <i class="fa-brands fa-telegram"></i>
-          </div>
+          <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ94jluufUVEnOO9mxaAa8f1DdlYvmnvdhSU4ghDcYrtw&s=10" alt="Sachin Sir" class="card-poster">
           <div class="card-info">
             <h3>Sachin UP TET (All Subjects) <span class="heart-mini">💖</span></h3>
             <p>Click to view 15 subject modules & materials</p>
@@ -804,11 +1063,9 @@
         </div>
       </div>
 
-     <!-- 5. SUPER TET 2023 – Primary Teacher -->
+      <!-- 5. SUPER TET 2023 – Primary Teacher -->
       <a href="https://t.me/+mGjO9vEy6ig3NjFl" target="_blank" class="link-card searchable-entry">
-        <div class="card-icon" style="color: #4ade80; border-color: rgba(74, 222, 128, 0.4); background: rgba(74, 222, 128, 0.15);">
-          <i class="fa-solid fa-chalkboard-user"></i>
-        </div>
+        <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRIliQUTxt5qwqYKPNFtuUs1gANWkTXjxzn6y_Q-2f3kQ&s=10" alt="Super TET" class="card-poster">
         <div class="card-info">
           <h3>SUPER TET 2023 – Primary Teacher <span class="heart-mini">🏆</span></h3>
           <p>Telegram Materials & Preparation Batch</p>
@@ -818,29 +1075,49 @@
         </div>
       </a>
 
-      <!-- 6. Aman Vashisht Sir -->
+      <!-- 6. Aman Vashisht Sir 11 AM LIVE -->
       <a href="https://selectionway-satyam.vercel.app/#/batch/6a9c1a6b4d63c7a6710471a3" target="_blank" class="link-card searchable-entry">
-        <div class="card-icon">
-          <i class="fa-solid fa-graduation-cap"></i>
-        </div>
+        <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS1HBi73zeVbm19t4AyNZ1KeJ2p0HpZAQiptW_dD6SLzA&s=10" alt="Aman Vashisht Sir" class="card-poster">
         <div class="card-info">
           <h3>Aman Vashisht Sir <span class="heart-mini">🌸</span></h3>
-          <p>Selectionway App - Batch Access</p>
+          <p>Selectionway App • 11:00 AM LIVE</p>
         </div>
+        
+        <div class="live-wrapper">
+          <div class="blue-time-glow"><span>11 AM</span></div>
+          <div class="live-stream-badge-container">
+            <div class="live-stream-pill">
+              <span class="live-dot"></span>
+              <span class="live-text">LIVE</span>
+              <i class="fa-solid fa-wifi live-stream-waves"></i>
+            </div>
+          </div>
+        </div>
+
         <div class="arrow-box">
           <i class="fa-solid fa-arrow-up-right-from-square"></i>
         </div>
       </a>
 
-      <!-- 7. Radhika Mam -->
+      <!-- 7. Radhika Mam 10 AM LIVE -->
       <a href="https://selectionway-satyam.vercel.app/#/batch/6a4e35315bac0ae4bab52444" target="_blank" class="link-card searchable-entry">
-        <div class="card-icon">
-          <i class="fa-solid fa-book-open-reader"></i>
-        </div>
+        <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS3gZFs9kRiYDbZNFN3isrAKeK57X-XCBUz3EyVLb-Uve_yflAXMueUWPIW&s=10" alt="Radhika Mam" class="card-poster">
         <div class="card-info">
           <h3>Radhika Mam <span class="heart-mini">✨</span></h3>
-          <p>Selectionway App - Batch Access</p>
+          <p>Selectionway App • 10:00 AM LIVE</p>
         </div>
+
+        <div class="live-wrapper">
+          <div class="blue-time-glow"><span>10 AM</span></div>
+          <div class="live-stream-badge-container">
+            <div class="live-stream-pill">
+              <span class="live-dot"></span>
+              <span class="live-text">LIVE</span>
+              <i class="fa-solid fa-wifi live-stream-waves"></i>
+            </div>
+          </div>
+        </div>
+
         <div class="arrow-box">
           <i class="fa-solid fa-arrow-up-right-from-square"></i>
         </div>
@@ -848,9 +1125,7 @@
 
       <!-- 8. NCERT Foundation Complete -->
       <a href="https://selectionway-satyam.vercel.app/#/batch/69204beb39642e9188a548b9" target="_blank" class="link-card searchable-entry">
-        <div class="card-icon">
-          <i class="fa-solid fa-book-open"></i>
-        </div>
+        <img src="https://selectionwayserver-proxy.hranker.com:8443/courses/banners/1786621012221-963y.jpg" alt="NCERT Foundation" class="card-poster">
         <div class="card-info">
           <h3>NCERT Foundation Complete <span class="heart-mini">📚</span></h3>
           <p>Selectionway App - Batch Access</p>
@@ -862,9 +1137,7 @@
 
       <!-- 9. Parmar GK 4.0 -->
       <a href="https://t.me/+PuhafqlqljEwMDk1" target="_blank" class="link-card searchable-entry">
-        <div class="card-icon" style="color: #ff9e42; border-color: rgba(255, 158, 66, 0.4); background: rgba(255, 158, 66, 0.15);">
-          <i class="fa-solid fa-earth-americas"></i>
-        </div>
+        <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSCalxKK-xmPKRy7FTu9PGmLRyx4OStLaD_FpA91sXTgQ&s=10" alt="Parmar Sir" class="card-poster">
         <div class="card-info">
           <h3>Parmar GK 4.0 <span class="heart-mini">🌍</span></h3>
           <p>General Knowledge & Static GK Channel</p>
@@ -876,9 +1149,7 @@
 
       <!-- 10. Reasoning – Piyush Sir -->
       <a href="https://vividxreasoningspl60batch.edgeone.app/" target="_blank" class="link-card searchable-entry">
-        <div class="card-icon" style="color: #f472b6; border-color: rgba(244, 114, 182, 0.4); background: rgba(244, 114, 182, 0.15);">
-          <i class="fa-solid fa-brain"></i>
-        </div>
+        <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQm0r6WrPFjFRGj1YmaQ8ivcmfx6KYxxXS6a3uYrhRwLw&s=10" alt="Piyush Sir" class="card-poster">
         <div class="card-info">
           <h3>Reasoning – Piyush Sir <span class="heart-mini">💡</span></h3>
           <p>Telegram Channel & Practice Sessions</p>
@@ -888,13 +1159,11 @@
         </div>
       </a>
 
-      <!-- 11. Math — Aditya Sir (Added above Winners) -->
-      <a href="Https://t.me/+SgF4rEISn1tlMjU0" target="_blank" class="link-card searchable-entry">
-        <div class="card-icon" style="color: #f59e0b; border-color: rgba(245, 158, 11, 0.4); background: rgba(245, 158, 11, 0.15);">
-          <i class="fa-solid fa-square-root-variable"></i>
-        </div>
+      <!-- 11. ADITYA RANJAN -->
+      <a href="https://t.me/+SgF4rEISn1tlMjU0" target="_blank" class="link-card searchable-entry">
+        <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSWMMX_qeIt6KVHls2N-d0YJChQzqfIXtAWRHmn1x353TdEzEuSJoUcmbg&s=10" alt="Aditya Ranjan Sir" class="card-poster">
         <div class="card-info">
-          <h3>Math — Aditya Sir <span class="heart-mini">⚡</span></h3>
+          <h3>Math — Aditya Ranjan Sir <span class="heart-mini">⚡</span></h3>
           <p>Telegram Channel & Math Batch</p>
         </div>
         <div class="arrow-box">
@@ -902,25 +1171,21 @@
         </div>
       </a>
 
-      <!-- 12. Math – Winners Institute -->
+      <!-- 12. ADITYA PATEL (Winners Institute) -->
       <a href="https://t.me/+K7AMKGxl40YwZGVl" target="_blank" class="link-card searchable-entry">
-        <div class="card-icon" style="color: #38bdf8; border-color: rgba(56, 189, 248, 0.4); background: rgba(56, 189, 248, 0.15);">
-          <i class="fa-solid fa-calculator"></i>
-        </div>
+        <img src="https://bookscape-s3-bucket.s3.ap-south-1.amazonaws.com/authors-oct-23/Aditya-Patel.jpg" alt="Aditya Patel Sir" class="card-poster">
         <div class="card-info">
-          <h3>Math – Winners Institute <span class="heart-mini">📐</span></h3>
-          <p>Telegram Channel & Course Access</p>
+          <h3>Math – Aditya Patel Sir <span class="heart-mini">📐</span></h3>
+          <p>Winners Institute • Telegram & Course Access</p>
         </div>
         <div class="arrow-box">
           <i class="fa-solid fa-arrow-up-right-from-square"></i>
         </div>
       </a>
 
-      <!-- 13. Math – Rakesh Yadav Sir -->
+      <!-- 13. RAKESH YADAV -->
       <a href="https://t.me/+toslsScpw-1kMmU1" target="_blank" class="link-card searchable-entry">
-        <div class="card-icon" style="color: #a78bfa; border-color: rgba(167, 139, 250, 0.4); background: rgba(167, 139, 250, 0.15);">
-          <i class="fa-solid fa-square-root-variable"></i>
-        </div>
+        <img src="https://pbs.twimg.com/profile_images/1957339223666671616/ANR5JBKd_400x400.jpg" alt="Rakesh Yadav Sir" class="card-poster">
         <div class="card-info">
           <h3>Math – Rakesh Yadav Sir <span class="heart-mini">⚡</span></h3>
           <p>Telegram Channel & Special Math Batch</p>
@@ -932,9 +1197,7 @@
 
       <!-- 14. SSC Pratham Batch (Rakesh Yadav) -->
       <a href="https://vividxprathambatch.edgeone.app/" target="_blank" class="link-card searchable-entry">
-        <div class="card-icon">
-          <i class="fa-solid fa-chalkboard-user"></i>
-        </div>
+        <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSmYE_faasYwfAs0rQKDf4GcuoV7_Ws6ZUqWwmIpuHVSw&s" alt="SSC Pratham Batch" class="card-poster">
         <div class="card-info">
           <h3>SSC Pratham Batch (Rakesh Yadav) <span class="heart-mini">🎯</span></h3>
           <p>Vividx Pratham Web Portal Access</p>
@@ -944,12 +1207,10 @@
         </div>
       </a>
 
-      <!-- 15. NEW FOLDER: UPPET 2026 (With Rojgaar with Ankit Nested Subfolder) -->
-      <div class="expandable-container searchable-entry" id="uptet2026Container">
-        <div class="link-card" onclick="toggleSubtopics('uptet2026Container')">
-          <div class="card-icon" style="color: #10b981; border-color: rgba(16, 185, 129, 0.4); background: rgba(16, 185, 129, 0.15);">
-            <i class="fa-solid fa-folder-open"></i>
-          </div>
+      <!-- 15. UPPET 2026 -->
+      <div class="expandable-container searchable-entry" id="uppet2026Container">
+        <div class="link-card" onclick="toggleSubtopics('uppet2026Container')">
+          <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcScv9PC7FF9v3yww99BQSU1tmxAHHQkS0ozAFho8PYnGA&s=10" alt="UPPET 2026" class="card-poster">
           <div class="card-info">
             <h3>UPPET 2026 <span class="heart-mini">🎯</span></h3>
             <p>Click to open all batches & sub-modules</p>
@@ -960,18 +1221,14 @@
         </div>
 
         <div id="uppet2026List" class="subtopics-list">
-          
-          <!-- Live Batch Selection Way -->
           <a href="https://selection-way-lake.vercel.app/#/batch/6a7b12ffb50d9d2997e30125" target="_blank" class="sub-item">
             <span>Live Batch — Selection Way</span> <i class="fa-solid fa-arrow-up-right-from-square"></i>
           </a>
 
-          <!-- Target On -->
           <a href="https://t.me/+yhW-DySzlrhlN2Rl" target="_blank" class="sub-item">
             <span>Target On</span> <i class="fa-solid fa-arrow-up-right-from-square"></i>
           </a>
 
-          <!-- Target with Ankit -->
           <a href="https://t.me/TWA_UPSSSC_PET_2026" target="_blank" class="sub-item">
             <span>Target with Ankit</span> <i class="fa-solid fa-arrow-up-right-from-square"></i>
           </a>
@@ -1014,17 +1271,93 @@
   </div>
 
   <script>
-    // Accordion Toggle Function for Main Folders
+    // =========================================================
+    // PWA REGISTRATION & AUTOMATIC INSTALL POPUP ENGINE
+    // =========================================================
+    if ('serviceWorker' in navigator) {
+      window.addEventListener('load', () => {
+        navigator.serviceWorker.register('./sw.js').catch((err) => {
+          console.log('SW registration skipped:', err);
+        });
+      });
+    }
+
+    let deferredPrompt = null;
+    const pwaModal = document.getElementById('pwaInstallModal');
+    const installBtn = document.getElementById('pwaInstallBtn');
+    const dismissBtn = document.getElementById('pwaDismissBtn');
+    const iosHint = document.getElementById('pwaIosHint');
+
+    const isIos = () => {
+      const userAgent = window.navigator.userAgent.toLowerCase();
+      return /iphone|ipad|ipod/.test(userAgent);
+    };
+
+    const isInStandaloneMode = () => {
+      return ('standalone' in window.navigator) && (window.navigator.standalone) || (window.matchMedia('(display-mode: standalone)').matches);
+    };
+
+    // Show popup immediately when visitor lands on page (if not already installed)
+    window.addEventListener('load', () => {
+      if (!isInStandaloneMode()) {
+        const dismissedAt = localStorage.getItem('pwa_dismissed_time');
+        const now = Date.now();
+        // Show if not dismissed in the last 6 hours
+        if (!dismissedAt || (now - dismissedAt) > (6 * 60 * 60 * 1000)) {
+          setTimeout(() => {
+            pwaModal.classList.add('show');
+            if (isIos()) {
+              iosHint.style.display = 'block';
+              installBtn.innerHTML = '<i class="fa-solid fa-arrow-up-from-bracket"></i> How to Install on iOS';
+            }
+          }, 900);
+        }
+      }
+    });
+
+    window.addEventListener('beforeinstallprompt', (e) => {
+      e.preventDefault();
+      deferredPrompt = e;
+      pwaModal.classList.add('show');
+    });
+
+    installBtn.addEventListener('click', async () => {
+      if (deferredPrompt) {
+        deferredPrompt.prompt();
+        const { outcome } = await deferredPrompt.userChoice;
+        if (outcome === 'accepted') {
+          pwaModal.classList.remove('show');
+        }
+        deferredPrompt = null;
+      } else if (isIos()) {
+        alert('Safari me neeche Share button dabakar "Add to Home Screen" par click karein.');
+      } else {
+        // Fallback for Chrome/Firefox/Edge menu trigger
+        alert('Browser ke top-right 3 dots (⋮) menu par click karein aur "Install app" ya "Add to Home screen" chunein.');
+        pwaModal.classList.remove('show');
+      }
+    });
+
+    dismissBtn.addEventListener('click', () => {
+      pwaModal.classList.remove('show');
+      localStorage.setItem('pwa_dismissed_time', Date.now());
+    });
+
+    // Main Folders Accordion Toggle
     function toggleSubtopics(containerId) {
       const container = document.getElementById(containerId);
-      container.classList.toggle('active');
+      if (container) {
+        container.classList.toggle('active');
+      }
     }
 
     // Nested Subfolder Toggle
     function toggleSubfolder(e, folderId) {
       e.stopPropagation();
       const folder = document.getElementById(folderId);
-      folder.classList.toggle('active');
+      if (folder) {
+        folder.classList.toggle('active');
+      }
     }
 
     // 100 Romantic & Flirt Lines Dataset
@@ -1057,7 +1390,7 @@
         "Good Morning Jaan! जब तक आपको याद न करूँ, दिन शुरू ही नहीं होता।"
       ],
       afternoon: [
-        "Good Afternoon! दोपहर की इस तपish में आपका ख्याल ठंडी छांव जैसा है।",
+        "Good Afternoon! दोपहर की इस तपिश में आपका ख्याल ठंडी छांव जैसा है।",
         "लंच कर लिया या अभी भी मेरे ख्यालों में ही खोए हुए हैं? 😉",
         "दोपहर की सारी थकान गायब हो जाती है, जब आपकी तस्वीर सामने आ जाती है।",
         "काम में मन बिल्कुल नहीं लग रहा, सारा ध्यान तो आपकी तरफ भटक रहा है।",
@@ -1171,9 +1504,9 @@
 
         for (let i = 0; i < 14; i++) {
           const sparkle = document.createElement('i');
-          sparkle.className = 'fa-solid fa-sparkles morning-sparkle';
+          sparkle.className = 'fa-solid fa-star morning-sparkle';
           sparkle.style.left = `${Math.random() * 100}%`;
-          sparkle.style.fontSize = `${Math.random() * 14 + 10}px`;
+          sparkle.style.fontSize = `${Math.random() * 12 + 8}px`;
           sparkle.style.animationDuration = `${Math.random() * 4 + 5}s`;
           sparkle.style.animationDelay = `${Math.random() * 5}s`;
           ambient.appendChild(sparkle);
@@ -1271,7 +1604,7 @@
 
     applyTimeBasedThemeAndAtmosphere();
 
-    // Universal Search Filter (Including Accordions & Nested Folders)
+    // Universal Search Filter
     function filterLinks() {
       const input = document.getElementById('searchInput').value.toLowerCase().trim();
       const entries = document.querySelectorAll('.searchable-entry');
@@ -1282,6 +1615,10 @@
           entry.style.display = 'flex';
           if (input.length > 1 && entry.classList.contains('expandable-container')) {
             entry.classList.add('active');
+            const nested = entry.querySelector('.subfolder-container');
+            if (nested && nested.textContent.toLowerCase().includes(input)) {
+              nested.classList.add('active');
+            }
           }
         } else {
           entry.style.display = 'none';
@@ -1324,7 +1661,7 @@
     }
 
     // Swipe Trails Engine
-    const swipeIcons = ['fa-heart', 'fa-sparkles', 'fa-star', 'fa-wand-magic-sparkles'];
+    const swipeIcons = ['fa-heart', 'fa-star', 'fa-wand-magic-sparkles'];
     let lastSwipeX = 0;
     let lastSwipeY = 0;
     let lastSwipeTime = 0;
@@ -1354,7 +1691,7 @@
       }, 1200);
     }
 
-    // Event Listeners
+    // Touch and Mouse Interactions
     window.addEventListener('touchstart', (e) => {
       const touch = e.touches[0];
       lastSwipeX = touch.clientX;
