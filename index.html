@@ -884,7 +884,7 @@
   <!-- Install as App Popup Modal -->
   <div class="pwa-install-overlay" id="pwaInstallModal">
     <div class="pwa-install-card">
-      <img src="https://drive.google.com/thumbnail?id=1VC6Iw2foLA9FoGYgwNjU2AKrb2x_ZihX&sz=w512" alt="App Icon" class="pwa-app-icon">
+      <img src="icon-512.png" alt="App Icon" class="pwa-app-icon">
       <h2>Install as App 📲</h2>
       <p>Aapke sabhi important batches aur study tools ko mobile screen par direct open karein!</p>
       
@@ -1274,74 +1274,73 @@
     // =========================================================
     // PWA REGISTRATION & AUTOMATIC INSTALL POPUP ENGINE
     // =========================================================
-    if ('serviceWorker' in navigator) {
-      window.addEventListener('load', () => {
-        navigator.serviceWorker.register('./sw.js').catch((err) => {
-          console.log('SW registration skipped:', err);
-        });
-      });
+   // Service Worker Registration
+if ('serviceWorker' in navigator) {
+  window.addEventListener('load', () => {
+    navigator.serviceWorker.register('./sw.js').catch((err) => {
+      console.log('SW Registration Failed:', err);
+    });
+  });
+}
+
+let deferredPrompt = null;
+const pwaModal = document.getElementById('pwaInstallModal');
+const installBtn = document.getElementById('pwaInstallBtn');
+const dismissBtn = document.getElementById('pwaDismissBtn');
+const iosHint = document.getElementById('pwaIosHint');
+
+const isIos = () => {
+  const ua = window.navigator.userAgent.toLowerCase();
+  return /iphone|ipad|ipod/.test(ua);
+};
+
+const isStandalone = () => {
+  return ('standalone' in window.navigator && window.navigator.standalone) || 
+         window.matchMedia('(display-mode: standalone)').matches;
+};
+
+// Android/Chrome/Edge: Only open popup when browser is ACTUALLY ready to install
+window.addEventListener('beforeinstallprompt', (e) => {
+  e.preventDefault();
+  deferredPrompt = e;
+  
+  const dismissedAt = localStorage.getItem('pwa_dismissed_time');
+  const now = Date.now();
+  if (!dismissedAt || (now - dismissedAt) > (6 * 60 * 60 * 1000)) {
+    pwaModal.classList.add('show');
+  }
+});
+
+// iOS specific handling
+window.addEventListener('load', () => {
+  if (isIos() && !isStandalone()) {
+    const dismissedAt = localStorage.getItem('pwa_dismissed_time');
+    const now = Date.now();
+    if (!dismissedAt || (now - dismissedAt) > (6 * 60 * 60 * 1000)) {
+      setTimeout(() => {
+        pwaModal.classList.add('show');
+        iosHint.style.display = 'block';
+        installBtn.style.display = 'none';
+      }, 1000);
     }
+  }
+});
 
-    let deferredPrompt = null;
-    const pwaModal = document.getElementById('pwaInstallModal');
-    const installBtn = document.getElementById('pwaInstallBtn');
-    const dismissBtn = document.getElementById('pwaDismissBtn');
-    const iosHint = document.getElementById('pwaIosHint');
-
-    const isIos = () => {
-      const userAgent = window.navigator.userAgent.toLowerCase();
-      return /iphone|ipad|ipod/.test(userAgent);
-    };
-
-    const isInStandaloneMode = () => {
-      return ('standalone' in window.navigator) && (window.navigator.standalone) || (window.matchMedia('(display-mode: standalone)').matches);
-    };
-
-    // Show popup immediately when visitor lands on page (if not already installed)
-    window.addEventListener('load', () => {
-      if (!isInStandaloneMode()) {
-        const dismissedAt = localStorage.getItem('pwa_dismissed_time');
-        const now = Date.now();
-        // Show if not dismissed in the last 6 hours
-        if (!dismissedAt || (now - dismissedAt) > (6 * 60 * 60 * 1000)) {
-          setTimeout(() => {
-            pwaModal.classList.add('show');
-            if (isIos()) {
-              iosHint.style.display = 'block';
-              installBtn.innerHTML = '<i class="fa-solid fa-arrow-up-from-bracket"></i> How to Install on iOS';
-            }
-          }, 900);
-        }
-      }
-    });
-
-    window.addEventListener('beforeinstallprompt', (e) => {
-      e.preventDefault();
-      deferredPrompt = e;
-      pwaModal.classList.add('show');
-    });
-
-    installBtn.addEventListener('click', async () => {
-      if (deferredPrompt) {
-        deferredPrompt.prompt();
-        const { outcome } = await deferredPrompt.userChoice;
-        if (outcome === 'accepted') {
-          pwaModal.classList.remove('show');
-        }
-        deferredPrompt = null;
-      } else if (isIos()) {
-        alert('Safari me neeche Share button dabakar "Add to Home Screen" par click karein.');
-      } else {
-        // Fallback for Chrome/Firefox/Edge menu trigger
-        alert('Browser ke top-right 3 dots (⋮) menu par click karein aur "Install app" ya "Add to Home screen" chunein.');
-        pwaModal.classList.remove('show');
-      }
-    });
-
-    dismissBtn.addEventListener('click', () => {
+installBtn.addEventListener('click', async () => {
+  if (deferredPrompt) {
+    deferredPrompt.prompt();
+    const choiceResult = await deferredPrompt.userChoice;
+    if (choiceResult.outcome === 'accepted') {
       pwaModal.classList.remove('show');
-      localStorage.setItem('pwa_dismissed_time', Date.now());
-    });
+    }
+    deferredPrompt = null;
+  }
+});
+
+dismissBtn.addEventListener('click', () => {
+  pwaModal.classList.remove('show');
+  localStorage.setItem('pwa_dismissed_time', Date.now());
+});
 
     // Main Folders Accordion Toggle
     function toggleSubtopics(containerId) {
