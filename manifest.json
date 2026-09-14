@@ -2,12 +2,12 @@
   "name": "Study Portal - You are my CHARM",
   "short_name": "Study Portal",
   "description": "Important classes aur study links ek jagah",
-  "start_url": "./",
+  "start_url": "./index.html",
   "scope": "./",
   "display": "standalone",
   "background_color": "#2b092b",
   "theme_color": "#ff4d94",
-  "orientation": "portrait-primary",
+  "orientation": "any",
   "icons": [
     {
       "src": "icon-512.png",
