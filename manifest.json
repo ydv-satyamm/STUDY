@@ -1,0 +1,25 @@
+{
+  "name": "Study Portal",
+  "short_name": "StudyPortal",
+  "description": "Aapke sabhi important classes aur study links ek jagah.",
+  "start_url": "./index.html",
+  "scope": "./",
+  "display": "standalone",
+  "background_color": "#18091f",
+  "theme_color": "#18091f",
+  "orientation": "any",
+  "icons": [
+    {
+      "src": "icon.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "icon.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any maskable"
+    }
+  ]
+}
