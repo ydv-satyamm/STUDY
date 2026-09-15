@@ -11,8 +11,8 @@
   <meta name="apple-mobile-web-app-title" content="Study Portal">
   
   <!-- APP ICONS -->
-  <link rel="apple-touch-icon" href="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSXXcp7oF4Km9FFnc_fgj8RFrnvRui7M0TBRhwqmVtXiQ&s=10">
-  <link rel="icon" type="image/jpeg" href="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSXXcp7oF4Km9FFnc_fgj8RFrnvRui7M0TBRhwqmVtXiQ&s=10">
+  <link rel="apple-touch-icon" href="icon.png">
+  <link rel="icon" type="image/png" href="icon.png">
 
   <!-- REAL MANIFEST LINK -->
   <link rel="manifest" href="manifest.json">
@@ -150,7 +150,6 @@
       overflow: hidden;
     }
 
-    /* Atmospheres */
     .morning-sun-glow {
       position: absolute;
       top: -80px;
@@ -676,9 +675,6 @@
       100% { opacity: 1; transform: scale(1.1); }
     }
 
-    /* =========================================================
-       MODAL POPUP: INSTALL AS APP (CENTER GLASS POPUP)
-       ========================================================= */
     .pwa-modal-overlay {
       display: none;
       position: fixed;
@@ -784,7 +780,6 @@
       color: #fff;
     }
 
-    /* Timetable */
     .schedule-box {
       background: rgba(255, 255, 255, 0.03);
       border: 1px solid rgba(255, 255, 255, 0.08);
@@ -848,6 +843,46 @@
       font-family: monospace;
     }
 
+    /* Nested subfolder styles */
+    .subfolder-container {
+      margin-top: 6px;
+      background: rgba(255, 255, 255, 0.02);
+      border: 1px solid rgba(255, 255, 255, 0.06);
+      border-radius: 12px;
+      overflow: hidden;
+    }
+
+    .nested-folder-card {
+      display: flex;
+      align-items: center;
+      padding: 10px 14px;
+      cursor: pointer;
+      gap: 10px;
+      color: #ffe4e6;
+      font-size: 0.9rem;
+      transition: background 0.2s;
+    }
+
+    .nested-folder-card:hover {
+      background: rgba(255, 77, 148, 0.1);
+    }
+
+    .nested-subtopics {
+      display: none;
+      flex-direction: column;
+      gap: 6px;
+      padding: 8px;
+      background: rgba(15, 4, 18, 0.6);
+    }
+
+    .subfolder-container.active .nested-subtopics {
+      display: flex;
+    }
+
+    .subfolder-container.active .nested-folder-card .chevron-arrow {
+      transform: rotate(180deg);
+    }
+
     footer {
       text-align: center;
       margin-top: 40px;
@@ -860,94 +895,30 @@
     }
 
     @media (max-width: 600px) {
-      body {
-        padding: 16px 8px;
-      }
-
-      header h1 {
-        font-size: 1.7rem;
-      }
-
-      header p {
-        font-size: 0.8rem;
-      }
-
-      .link-card {
-        padding: 12px 10px;
-        gap: 10px;
-        flex-wrap: wrap;
-      }
-
-      .card-poster, .card-icon {
-        width: 42px;
-        height: 42px;
-        font-size: 1.1rem;
-      }
-
-      .card-info {
-        flex: 1 1 calc(100% - 90px);
-      }
-
-      .card-info h3 {
-        font-size: 0.9rem;
-      }
-
-      .card-info p {
-        font-size: 0.74rem;
-      }
-
-      .link-card > .live-wrapper {
-        order: 3;
-        width: 100%;
-        justify-content: flex-start;
-        margin-top: 6px;
-        padding-top: 6px;
-        border-top: 1px dashed rgba(255, 255, 255, 0.08);
-      }
-
-      .arrow-box {
-        width: 28px;
-        height: 28px;
-        font-size: 0.75rem;
-      }
-
-      .sub-item {
-        flex-direction: row !important;
-        align-items: center !important;
-        justify-content: space-between !important;
-        padding: 8px 10px;
-      }
-
-      .sub-item-content {
-        flex: 1;
-        min-width: 0;
-      }
-
-      .sub-item-content span {
-        font-size: 0.82rem;
-      }
-
-      .schedule-entry-item {
-        flex-direction: column;
-        align-items: flex-start;
-        gap: 2px;
-      }
-
-      .schedule-time {
-        font-size: 0.7rem;
-      }
+      body { padding: 16px 8px; }
+      header h1 { font-size: 1.7rem; }
+      header p { font-size: 0.8rem; }
+      .link-card { padding: 12px 10px; gap: 10px; flex-wrap: wrap; }
+      .card-poster, .card-icon { width: 42px; height: 42px; font-size: 1.1rem; }
+      .card-info { flex: 1 1 calc(100% - 90px); }
+      .card-info h3 { font-size: 0.9rem; }
+      .card-info p { font-size: 0.74rem; }
+      .link-card > .live-wrapper { order: 3; width: 100%; justify-content: flex-start; margin-top: 6px; padding-top: 6px; border-top: 1px dashed rgba(255, 255, 255, 0.08); }
+      .arrow-box { width: 28px; height: 28px; font-size: 0.75rem; }
+      .sub-item { flex-direction: row !important; align-items: center !important; justify-content: space-between !important; padding: 8px 10px; }
+      .sub-item-content { flex: 1; min-width: 0; }
+      .sub-item-content span { font-size: 0.82rem; }
+      .schedule-entry-item { flex-direction: column; align-items: flex-start; gap: 2px; }
+      .schedule-time { font-size: 0.7rem; }
     }
   </style>
 </head>
 <body class="theme-night">
 
-  <!-- =========================================================
-       INSTALL AS APP POPUP DIALOG
-       ========================================================= -->
   <div class="pwa-modal-overlay" id="pwaModalOverlay">
     <div class="pwa-modal-card">
       <div class="pwa-modal-icon-wrap">
-        <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSXXcp7oF4Km9FFnc_fgj8RFrnvRui7M0TBRhwqmVtXiQ&s=10" alt="App Icon">
+        <img src="icon.png" alt="App Icon">
       </div>
       <h2>Study Portal</h2>
       <p>Aapke sabhi important classes aur study links ek jagah. Isko seedhe apne Mobile / PC Home Screen me install karein!</p>
@@ -979,10 +950,9 @@
       <input type="text" id="searchInput" placeholder="Search batch, subject or teacher..." onkeyup="filterLinks()">
     </div>
 
-    <!-- Cards List -->
     <div class="links-list" id="linksList">
 
-      <!-- 1. करेंट अफेयर्स KUMAR GAURAV -->
+      <!-- 1. करेंट अफेयर्स -->
       <a href="https://www.youtube.com/results?search_query=live+phool+patti+wali+class" target="_blank" class="link-card searchable-entry">
         <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSBEykdkTmxEiYgtWvMziuxMM9uGwHrA8vexMOPGcVmgg&s=10" alt="Kumar Gaurav Sir" class="card-poster">
         <div class="card-info">
@@ -1061,22 +1031,18 @@
             <i class="fa-brands fa-telegram"></i>
           </a>
 
-<a href="https://t.me/+PuhafqlqljEwMDk1" target="_blank" class="sub-item">
-  <div class="sub-item-content">
-    <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSCalxKK-xmPKRy7FTu9PGmLRyx4OStLaD_FpA91sXTgQ&s=10" alt="Parmar GK 4.0" class="sub-poster">
-    <span>3. Parmar GK 4.0</span>
-  </div>
-
-  <div class="live-wrapper mini">
-    <div class="live-stream-badge-container">
-      <div class="live-stream-pill">
-        <span class="live-text">COMPLETE</span>
-      </div>
-    </div>
-  </div>
-
-  <i class="fa-brands fa-telegram"></i>
-</a>
+          <a href="https://t.me/+PuhafqlqljEwMDk1" target="_blank" class="sub-item">
+            <div class="sub-item-content">
+              <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSCalxKK-xmPKRy7FTu9PGmLRyx4OStLaD_FpA91sXTgQ&s=10" alt="Parmar GK 4.0" class="sub-poster">
+              <span>3. Parmar GK 4.0</span>
+            </div>
+            <div class="live-wrapper mini">
+              <div class="live-stream-badge-container">
+                <div class="live-stream-pill"><span class="live-text">COMPLETE</span></div>
+              </div>
+            </div>
+            <i class="fa-brands fa-telegram"></i>
+          </a>
         </div>
       </div>
 
@@ -1115,7 +1081,7 @@
             <i class="fa-solid fa-arrow-up-right-from-square"></i>
           </a>
 
-	<a href="https://amarnath-satyam.vercel.app/" target="_blank" class="sub-item">
+          <a href="https://amarnath-satyam.vercel.app/" target="_blank" class="sub-item">
             <div class="sub-item-content">
               <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSkGFuKitaQfCjho6WA5VM3kkNOG2S4iBDRNLgyRAPnXw&s=10" alt="Amarnath Sir" class="sub-poster">
               <span>2. HINDI — AMARNATH SIR</span>
@@ -1142,7 +1108,7 @@
             <i class="fa-solid fa-arrow-up-right-from-square"></i>
           </a>
 
-	  <a href="https://www.youtube.com/playlist?list=PLVGKTJAtRpeY" target="_blank" class="sub-item">
+          <a href="https://www.youtube.com/playlist?list=PLVGKTJAtRpeY" target="_blank" class="sub-item">
             <div class="sub-item-content">
               <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQNVExWkTIPRTYl0J9YS3L93pL0qOGnpDWOgTBV8sNFow&s=10" alt="Gyan Ganga" class="sub-poster">
               <span>4. SANSKRIT — GYAN GANGA</span>
@@ -1152,110 +1118,60 @@
         </div>
       </div>
 
-  <!-- 4. Sachin UP SUPERTET (All Subjects) -->
+      <!-- 4. Sachin UP SUPERTET -->
       <div class="expandable-container searchable-entry" id="sachinContainer">
         <div class="link-card" onclick="toggleSubtopics('sachinContainer')">
-  <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ94jluufUVEnOO9mxaAa8f1DdlYvmnvdhSU4ghDcYrtw&s=10" alt="Sachin Sir" class="card-poster">
-
-  <div class="card-info">
-    <h3>Sachin UP SUPERTET (All Subjects) <span class="heart-mini">💖</span></h3>
-    <p>Click to view 15 subject modules & materials</p>
-  </div>
-
-  <span style="
-    margin-left:auto;
-    margin-right:12px;
-    color:#ffffff;
-    font-weight:900;
-    font-size:18px;
-    padding:4px 12px;
-    border:1px solid #00A3A3;
-    border-radius:9px;
-    background:rgba(0,163,163,0.10);
-    text-shadow:0 0 5px #00A3A3, 0 0 10px #00A3A3;
-    box-shadow:0 0 6px #00A3A3, 0 0 12px rgba(0,163,163,0.7), inset 0 0 5px rgba(0,163,163,0.2);
-    white-space:nowrap;
-  ">₹ 100</span>
-
-  <div class="arrow-box">
-    <i class="fa-solid fa-chevron-down chevron-arrow"></i>
-  </div>
-</div>
+          <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ94jluufUVEnOO9mxaAa8f1DdlYvmnvdhSU4ghDcYrtw&s=10" alt="Sachin Sir" class="card-poster">
+          <div class="card-info">
+            <h3>Sachin UP SUPERTET (All Subjects) <span class="heart-mini">💖</span></h3>
+            <p>Click to view 15 subject modules & materials</p>
+          </div>
+          <span style="margin-left:auto; margin-right:12px; color:#ffffff; font-weight:900; font-size:18px; padding:4px 12px; border:1px solid #00A3A3; border-radius:9px; background:rgba(0,163,163,0.10); text-shadow:0 0 5px #00A3A3; box-shadow:0 0 6px #00A3A3;">₹ 100</span>
+          <div class="arrow-box">
+            <i class="fa-solid fa-chevron-down chevron-arrow"></i>
+          </div>
+        </div>
 
         <div id="sachinList" class="subtopics-list">
-          <a href="https://t.me/c/3913088196/332/333" target="_blank" class="sub-item">
-            <span>1. Hindi</span> <i class="fa-solid fa-arrow-right"></i>
-          </a>
-          <a href="https://t.me/c/3913088196/313/314" target="_blank" class="sub-item">
-            <span>2. History</span> <i class="fa-solid fa-arrow-right"></i>
-          </a>
-          <a href="https://t.me/c/3913088196/279/280" target="_blank" class="sub-item">
-            <span>3. Math</span> <i class="fa-solid fa-arrow-right"></i>
-          </a>
-          <a href="https://t.me/c/3913088196/326/327" target="_blank" class="sub-item">
-            <span>4. Biology</span> <i class="fa-solid fa-arrow-right"></i>
-          </a>
-          <a href="https://t.me/c/3913088196/319/320" target="_blank" class="sub-item">
-            <span>5. Statics</span> <i class="fa-solid fa-arrow-right"></i>
-          </a>
-          <a href="https://t.me/c/3913088196/316/317" target="_blank" class="sub-item">
-            <span>6. Reasoning</span> <i class="fa-solid fa-arrow-right"></i>
-          </a>
-          <a href="https://t.me/c/3913088196/308/309" target="_blank" class="sub-item">
-            <span>7. Geography</span> <i class="fa-solid fa-arrow-right"></i>
-          </a>
-          <a href="https://t.me/c/3913088196/295/296" target="_blank" class="sub-item">
-            <span>8. English</span> <i class="fa-solid fa-arrow-right"></i>
-          </a>
-          <a href="https://t.me/c/3913088196/292/293" target="_blank" class="sub-item">
-            <span>9. Hindi Vyakaran</span> <i class="fa-solid fa-arrow-right"></i>
-          </a>
-          <a href="https://t.me/c/3913088196/287/288" target="_blank" class="sub-item">
-            <span>10. Computer</span> <i class="fa-solid fa-arrow-right"></i>
-          </a>
-          <a href="https://t.me/c/3913088196/274/275" target="_blank" class="sub-item">
-            <span>11. Chemistry</span> <i class="fa-solid fa-arrow-right"></i>
-          </a>
-          <a href="https://t.me/c/3913088196/265/266" target="_blank" class="sub-item">
-            <span>12. CDP</span> <i class="fa-solid fa-arrow-right"></i>
-          </a>
-          <a href="https://t.me/c/3913088196/262/263" target="_blank" class="sub-item">
-            <span>13. Sanskrit</span> <i class="fa-solid fa-arrow-right"></i>
-          </a>
-          <a href="https://t.me/c/3913088196/176/177" target="_blank" class="sub-item">
-            <span>13. Current Affairs</span> <i class="fa-solid fa-arrow-right"></i>
-          </a>
-          <a href="https://t.me/c/3913088196/176/177" target="_blank" class="sub-item">
-            <span>15. Physics</span> <i class="fa-solid fa-arrow-right"></i>
-          </a>
+          <a href="https://t.me/c/3913088196/332/333" target="_blank" class="sub-item"><span>1. Hindi</span> <i class="fa-solid fa-arrow-right"></i></a>
+          <a href="https://t.me/c/3913088196/313/314" target="_blank" class="sub-item"><span>2. History</span> <i class="fa-solid fa-arrow-right"></i></a>
+          <a href="https://t.me/c/3913088196/279/280" target="_blank" class="sub-item"><span>3. Math</span> <i class="fa-solid fa-arrow-right"></i></a>
+          <a href="https://t.me/c/3913088196/326/327" target="_blank" class="sub-item"><span>4. Biology</span> <i class="fa-solid fa-arrow-right"></i></a>
+          <a href="https://t.me/c/3913088196/319/320" target="_blank" class="sub-item"><span>5. Statics</span> <i class="fa-solid fa-arrow-right"></i></a>
+          <a href="https://t.me/c/3913088196/316/317" target="_blank" class="sub-item"><span>6. Reasoning</span> <i class="fa-solid fa-arrow-right"></i></a>
+          <a href="https://t.me/c/3913088196/308/309" target="_blank" class="sub-item"><span>7. Geography</span> <i class="fa-solid fa-arrow-right"></i></a>
+          <a href="https://t.me/c/3913088196/295/296" target="_blank" class="sub-item"><span>8. English</span> <i class="fa-solid fa-arrow-right"></i></a>
+          <a href="https://t.me/c/3913088196/292/293" target="_blank" class="sub-item"><span>9. Hindi Vyakaran</span> <i class="fa-solid fa-arrow-right"></i></a>
+          <a href="https://t.me/c/3913088196/287/288" target="_blank" class="sub-item"><span>10. Computer</span> <i class="fa-solid fa-arrow-right"></i></a>
+          <a href="https://t.me/c/3913088196/274/275" target="_blank" class="sub-item"><span>11. Chemistry</span> <i class="fa-solid fa-arrow-right"></i></a>
+          <a href="https://t.me/c/3913088196/265/266" target="_blank" class="sub-item"><span>12. CDP</span> <i class="fa-solid fa-arrow-right"></i></a>
+          <a href="https://t.me/c/3913088196/262/263" target="_blank" class="sub-item"><span>13. Sanskrit</span> <i class="fa-solid fa-arrow-right"></i></a>
+          <a href="https://t.me/c/3913088196/176/177" target="_blank" class="sub-item"><span>14. Current Affairs</span> <i class="fa-solid fa-arrow-right"></i></a>
+          <a href="https://t.me/c/3913088196/176/177" target="_blank" class="sub-item"><span>15. Physics</span> <i class="fa-solid fa-arrow-right"></i></a>
         </div>
       </div>
 
-     <!-- 5. SUPER TET 2023 – Primary Teacher -->
+      <!-- 5. SUPER TET 2023 -->
       <a href="https://t.me/+mGjO9vEy6ig3NjFl" target="_blank" class="link-card searchable-entry">
         <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRIliQUTxt5qwqYKPNFtuUs1gANWkTXjxzn6y_Q-2f3kQ&s=10" alt="Super TET" class="card-poster">
         <div class="card-info">
           <h3>SUPER TET 2023 – Primary Teacher <span class="heart-mini">🏆</span></h3>
           <p>Telegram Materials & Preparation Batch</p>
         </div>
-        <div class="arrow-box">
-          <i class="fa-solid fa-arrow-up-right-from-square"></i>
-        </div>
+        <div class="arrow-box"><i class="fa-solid fa-arrow-up-right-from-square"></i></div>
       </a>
 
-      <!-- 5. REASONING PIYUSH SIR -->
+      <!-- 6. REASONING PIYUSH SIR -->
       <a href="https://vividxreasoningspl60batch.edgeone.app/" target="_blank" class="link-card searchable-entry">
         <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQm0r6WrPFjFRGj1YmaQ8ivcmfx6KYxxXS6a3uYrhRwLw&s=10" alt="Piyush Sir Reasoning" class="card-poster">
         <div class="card-info">
           <h3>REASONING - पीयूष सर <span class="heart-mini">💖</span></h3>
           <p>Reasoning Spl 60 Batch Portal</p>
         </div>
-        <div class="arrow-box">
-          <i class="fa-solid fa-arrow-up-right-from-square"></i>
-        </div>
+        <div class="arrow-box"><i class="fa-solid fa-arrow-up-right-from-square"></i></div>
       </a>
 
-      <!-- 6. FOLDER: MATH -->
+      <!-- 7. FOLDER: MATH -->
       <div class="expandable-container searchable-entry" id="mathContainer">
         <div class="link-card" onclick="toggleSubtopics('mathContainer')">
           <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTqVydYdqayywRn2Fz77GWMNqJljFHR7OZLGcEg4jpArg&s=10" alt="Math" class="card-poster">
@@ -1263,9 +1179,7 @@
             <h3>MATH SPECIAL BATCHES <span class="heart-mini">💖</span></h3>
             <p>Aditya Ranjan, Aditya Patel, Rakesh Yadav</p>
           </div>
-          <div class="arrow-box">
-            <i class="fa-solid fa-chevron-down chevron-arrow"></i>
-          </div>
+          <div class="arrow-box"><i class="fa-solid fa-chevron-down chevron-arrow"></i></div>
         </div>
 
         <div id="mathList" class="subtopics-list">
@@ -1276,7 +1190,6 @@
             </div>
             <i class="fa-brands fa-telegram"></i>
           </a>
-
           <a href="https://t.me/+K7AMKGxl40YwZGVl" target="_blank" class="sub-item">
             <div class="sub-item-content">
               <img src="https://bookscape-s3-bucket.s3.ap-south-1.amazonaws.com/authors-oct-23/Aditya-Patel.jpg" alt="Aditya Patel Sir" class="sub-poster">
@@ -1284,7 +1197,6 @@
             </div>
             <i class="fa-brands fa-telegram"></i>
           </a>
-
           <a href="https://t.me/+toslsScpw-1kMmU1" target="_blank" class="sub-item">
             <div class="sub-item-content">
               <img src="https://pbs.twimg.com/profile_images/1957339223666671616/ANR5JBKd_400x400.jpg" alt="Rakesh Yadav Sir" class="sub-poster">
@@ -1295,142 +1207,109 @@
         </div>
       </div>
 
- <!-- 7. FOLDER: UPPET 2026 -->
-<div class="expandable-container searchable-entry" id="uppetContainer">
-  <div class="link-card" onclick="toggleSubtopics('uppetContainer')">
-    <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcScv9PC7FF9v3yww99BQSU1tmxAHHQkS0ozAFho8PYnGA&s=10" alt="UPPET 2026" class="card-poster">
-    <div class="card-info">
-      <h3>UPPET 2026 TARGET BATCHES <span class="heart-mini">💖</span></h3>
-      <p>Selection Way Timetable & RWA Math+DI</p>
-    </div>
-    <div class="arrow-box">
-      <i class="fa-solid fa-chevron-down chevron-arrow"></i>
-    </div>
-  </div>
+      <!-- 8. FOLDER: UPPET 2026 -->
+      <div class="expandable-container searchable-entry" id="uppetContainer">
+        <div class="link-card" onclick="toggleSubtopics('uppetContainer')">
+          <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcScv9PC7FF9v3yww99BQSU1tmxAHHQkS0ozAFho8PYnGA&s=10" alt="UPPET 2026" class="card-poster">
+          <div class="card-info">
+            <h3>UPPET 2026 TARGET BATCHES <span class="heart-mini">💖</span></h3>
+            <p>Selection Way Timetable & RWA Math+DI</p>
+          </div>
+          <div class="arrow-box"><i class="fa-solid fa-chevron-down chevron-arrow"></i></div>
+        </div>
 
-  <div id="uppetList" class="subtopics-list">
-    <!-- 1. Selection Way Schedule Box -->
-    <div class="schedule-box">
-      <div class="schedule-header">
-        <div style="display: flex; align-items: center; gap: 8px;">
-          <img src="https://selectionwayserver-proxy2.hranker.com:8443/courses/banners/1786456855681-pet_banner.jpg" alt="Selection Way" class="sub-poster">
-          <span style="font-weight: 600; font-size: 0.85rem; color: #fed7aa;">1. UPPET 2026 SELECTION WAY</span>
-        </div>
-        <a href="https://sw.learntopper.in/content?courseId=6a7b12ffb50d9d2997e30125" target="_blank">
-          Open Course <i class="fa-solid fa-arrow-up-right-from-square"></i>
-        </a>
-      </div>
+        <div id="uppetList" class="subtopics-list">
+          <div class="schedule-box">
+            <div class="schedule-header">
+              <div style="display: flex; align-items: center; gap: 8px;">
+                <img src="https://selectionwayserver-proxy2.hranker.com:8443/courses/banners/1786456855681-pet_banner.jpg" alt="Selection Way" class="sub-poster">
+                <span style="font-weight: 600; font-size: 0.85rem; color: #fed7aa;">1. UPPET 2026 SELECTION WAY</span>
+              </div>
+              <a href="https://sw.learntopper.in/content?courseId=6a7b12ffb50d9d2997e30125" target="_blank">Open Course <i class="fa-solid fa-arrow-up-right-from-square"></i></a>
+            </div>
 
-      <div class="schedule-grid">
-        <div class="schedule-entry-item">
-          <span class="schedule-subject">Hindi</span>
-          <span class="schedule-time">08:30 AM - 09:30 AM</span>
-        </div>
-        <div class="schedule-entry-item">
-          <span class="schedule-subject">GS (Jeet Rana)</span>
-          <span class="schedule-time">09:30 AM - 10:30 AM</span>
-        </div>
-        <div class="schedule-entry-item">
-          <span class="schedule-subject">Reasoning (Vikramjeet)</span>
-          <span class="schedule-time">11:00 AM - 12:00 PM</span>
-        </div>
-        <div class="schedule-entry-item">
-          <span class="schedule-subject">Science</span>
-          <span class="schedule-time">04:00 PM - 05:00 PM</span>
-        </div>
-        <div class="schedule-entry-item">
-          <span class="schedule-subject">Maths</span>
-          <span class="schedule-time">07:00 PM - 08:00 PM</span>
-        </div>
-        <div class="schedule-entry-item">
-          <span class="schedule-subject">GS (Shubham sir)</span>
-          <span class="schedule-time">08:15 PM - 09:15 PM</span>
-        </div>
-      </div>
-    </div>
- <!-- 2. RWA Math + DI -->
-    <a href="https://t.me/c/4383858554/303/304" target="_blank" class="sub-item" style="margin-top: 4px;">
-      <div class="sub-item-content">
-        <img src="https://i.ytimg.com/vi/Qnm6Dj9Kz8A/hq720.jpg?sqp=-oaymwEnCNAFEJQDSFryq4qpAxkIARUAAIhCGAHYAQHiAQoIGBACGAY4AUAB&rs=AOn4CLBHh_tsvK1YBoxqkTkcnzuw3FUeYA" alt="RWA UPPET" class="sub-poster">
-        <span>2. UPPET 2026 RWA — MATH + DI</span>
-      </div>
-      <i class="fa-brands fa-telegram"></i>
-    </a>
+            <div class="schedule-grid">
+              <div class="schedule-entry-item"><span class="schedule-subject">Hindi</span><span class="schedule-time">08:30 AM - 09:30 AM</span></div>
+              <div class="schedule-entry-item"><span class="schedule-subject">GS (Jeet Rana)</span><span class="schedule-time">09:30 AM - 10:30 AM</span></div>
+              <div class="schedule-entry-item"><span class="schedule-subject">Reasoning (Vikramjeet)</span><span class="schedule-time">11:00 AM - 12:00 PM</span></div>
+              <div class="schedule-entry-item"><span class="schedule-subject">Science</span><span class="schedule-time">04:00 PM - 05:00 PM</span></div>
+              <div class="schedule-entry-item"><span class="schedule-subject">Maths</span><span class="schedule-time">07:00 PM - 08:00 PM</span></div>
+              <div class="schedule-entry-item"><span class="schedule-subject">GS (Shubham sir)</span><span class="schedule-time">08:15 PM - 09:15 PM</span></div>
+            </div>
+          </div>
 
-    <!-- 3. Target On -->
-    <a href="https://t.me/+yhW-DySzlrhlN2Rl" target="_blank" class="sub-item" style="margin-top: 4px;">
-      <div class="sub-item-content">
-        <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQNDus3NQhjGzyFiF5BgxrvEJTR7UUPzcc37QJzaLdV2q4PtnIrnEu4&usqp=CAE&s" alt="TARGET ON" class="sub-poster">
-        <span>3. TARGET ON</span>
-      </div>
-      <i class="fa-brands fa-telegram"></i>
-    </a>
+          <a href="https://t.me/c/4383858554/303/304" target="_blank" class="sub-item" style="margin-top: 4px;">
+            <div class="sub-item-content">
+              <img src="https://i.ytimg.com/vi/Qnm6Dj9Kz8A/hq720.jpg" alt="RWA UPPET" class="sub-poster">
+              <span>2. UPPET 2026 RWA — MATH + DI</span>
+            </div>
+            <i class="fa-brands fa-telegram"></i>
+          </a>
 
-    <!-- 4. TWA UPSSSC PET 2026 -->
-    <a href="https://t.me/TWA_UPSSSC_PET_2026" target="_blank" class="sub-item" style="margin-top: 4px;">
-      <div class="sub-item-content">
-        <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcREyt1etL4FiFC9a_wkX6GTzg3jTQhlCGQQzsztTxUA1w&s=10" alt="RWA UPPET" class="sub-poster">
-        <span>4. TWA UPSSSC PET 2026</span>
-      </div>
-      <i class="fa-brands fa-telegram"></i>
-    </a>
-    <!-- Rojgaar with Ankit Nested Subfolder -->
-    <div class="subfolder-container" id="rwaContainer">
-      <div class="nested-folder-card" onclick="toggleSubfolder(event, 'rwaContainer')">
-        <i class="fa-solid fa-folder-tree" style="color: var(--accent-color);"></i>
-        <span style="font-weight: 600; flex: 1;">Rojgaar with Ankit</span>
-        <i class="fa-solid fa-chevron-down chevron-arrow"></i>
+          <a href="https://t.me/+yhW-DySzlrhlN2Rl" target="_blank" class="sub-item" style="margin-top: 4px;">
+            <div class="sub-item-content">
+              <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQNDus3NQhjGzyFiF5BgxrvEJTR7UUPzcc37QJzaLdV2q4PtnIrnEu4&usqp=CAE&s" alt="TARGET ON" class="sub-poster">
+              <span>3. TARGET ON</span>
+            </div>
+            <i class="fa-brands fa-telegram"></i>
+          </a>
+
+          <a href="https://t.me/TWA_UPSSSC_PET_2026" target="_blank" class="sub-item" style="margin-top: 4px;">
+            <div class="sub-item-content">
+              <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcREyt1etL4FiFC9a_wkX6GTzg3jTQhlCGQQzsztTxUA1w&s=10" alt="TWA" class="sub-poster">
+              <span>4. TWA UPSSSC PET 2026</span>
+            </div>
+            <i class="fa-brands fa-telegram"></i>
+          </a>
+
+          <!-- Rojgaar with Ankit Nested Subfolder -->
+          <div class="subfolder-container" id="rwaContainer">
+            <div class="nested-folder-card" onclick="toggleSubfolder(event, 'rwaContainer')">
+              <i class="fa-solid fa-folder-tree" style="color: var(--accent-color);"></i>
+              <span style="font-weight: 600; flex: 1;">Rojgaar with Ankit</span>
+              <i class="fa-solid fa-chevron-down chevron-arrow"></i>
+            </div>
+
+            <div class="nested-subtopics" id="rwaList">
+              <a href="https://t.me/c/3746363088/1196" target="_blank" class="sub-item"><span>Physics</span> <i class="fa-solid fa-arrow-right"></i></a>
+              <a href="https://t.me/c/3746363088/1162" target="_blank" class="sub-item"><span>Chemistry</span> <i class="fa-solid fa-arrow-right"></i></a>
+              <a href="https://t.me/c/3746363088/1091" target="_blank" class="sub-item"><span>Reasoning</span> <i class="fa-solid fa-arrow-right"></i></a>
+              <a href="https://t.me/c/3746363088/1025" target="_blank" class="sub-item"><span>English</span> <i class="fa-solid fa-arrow-right"></i></a>
+              <a href="https://t.me/c/3746363088/959" target="_blank" class="sub-item"><span>Economic</span> <i class="fa-solid fa-arrow-right"></i></a>
+              <a href="https://t.me/c/3746363088/896" target="_blank" class="sub-item"><span>History (Adv)</span> <i class="fa-solid fa-arrow-right"></i></a>
+              <a href="https://t.me/c/3746363088/766" target="_blank" class="sub-item"><span>Old Affairs</span> <i class="fa-solid fa-arrow-right"></i></a>
+              <a href="https://t.me/c/3746363088/576" target="_blank" class="sub-item"><span>Static GK</span> <i class="fa-solid fa-arrow-right"></i></a>
+              <a href="https://t.me/c/3746363088/502" target="_blank" class="sub-item"><span>Geography</span> <i class="fa-solid fa-arrow-right"></i></a>
+              <a href="https://t.me/c/3746363088/446" target="_blank" class="sub-item"><span>Polity</span> <i class="fa-solid fa-arrow-right"></i></a>
+              <a href="https://t.me/c/3746363088/346" target="_blank" class="sub-item"><span>History</span> <i class="fa-solid fa-arrow-right"></i></a>
+              <a href="https://t.me/c/3746363088/278" target="_blank" class="sub-item"><span>Biology</span> <i class="fa-solid fa-arrow-right"></i></a>
+              <a href="https://t.me/c/3746363088/160" target="_blank" class="sub-item"><span>DI</span> <i class="fa-solid fa-arrow-right"></i></a>
+              <a href="https://t.me/c/3746363088/26" target="_blank" class="sub-item"><span>Hindi</span> <i class="fa-solid fa-arrow-right"></i></a>
+              <a href="https://t.me/c/3746363088/20" target="_blank" class="sub-item"><span>Demo</span> <i class="fa-solid fa-arrow-right"></i></a>
+            </div>
+          </div>
+
+        </div>
       </div>
 
-      <div class="nested-subtopics" id="rwaList">
-        <a href="https://t.me/c/3746363088/1196" target="_blank" class="sub-item"><span>Physics</span> <i class="fa-solid fa-arrow-right"></i></a>
-        <a href="https://t.me/c/3746363088/1162" target="_blank" class="sub-item"><span>Chemistry</span> <i class="fa-solid fa-arrow-right"></i></a>
-        <a href="https://t.me/c/3746363088/1091" target="_blank" class="sub-item"><span>Reasoning</span> <i class="fa-solid fa-arrow-right"></i></a>
-        <a href="https://t.me/c/3746363088/1025" target="_blank" class="sub-item"><span>English</span> <i class="fa-solid fa-arrow-right"></i></a>
-        <a href="https://t.me/c/3746363088/959" target="_blank" class="sub-item"><span>Economic</span> <i class="fa-solid fa-arrow-right"></i></a>
-        <a href="https://t.me/c/3746363088/896" target="_blank" class="sub-item"><span>History (Adv)</span> <i class="fa-solid fa-arrow-right"></i></a>
-        <a href="https://t.me/c/3746363088/766" target="_blank" class="sub-item"><span>Old Affairs</span> <i class="fa-solid fa-arrow-right"></i></a>
-        <a href="https://t.me/c/3746363088/576" target="_blank" class="sub-item"><span>Static GK</span> <i class="fa-solid fa-arrow-right"></i></a>
-        <a href="https://t.me/c/3746363088/502" target="_blank" class="sub-item"><span>Geography</span> <i class="fa-solid fa-arrow-right"></i></a>
-        <a href="https://t.me/c/3746363088/446" target="_blank" class="sub-item"><span>Polity</span> <i class="fa-solid fa-arrow-right"></i></a>
-        <a href="https://t.me/c/3746363088/346" target="_blank" class="sub-item"><span>History</span> <i class="fa-solid fa-arrow-right"></i></a>
-        <a href="https://t.me/c/3746363088/278" target="_blank" class="sub-item"><span>Biology</span> <i class="fa-solid fa-arrow-right"></i></a>
-        <a href="https://t.me/c/3746363088/160" target="_blank" class="sub-item"><span>DI</span> <i class="fa-solid fa-arrow-right"></i></a>
-        <a href="https://t.me/c/3746363088/26" target="_blank" class="sub-item"><span>Hindi</span> <i class="fa-solid fa-arrow-right"></i></a>
-        <a href="https://t.me/c/3746363088/20" target="_blank" class="sub-item"><span>Demo</span> <i class="fa-solid fa-arrow-right"></i></a>
-      </div>
-    </div>
-
-   
-      </div>
-      </div>
-
-      <!-- 8. I PAD - GOOGLE MEET -->
+      <!-- 9. IPAD GOOGLE MEET -->
       <a href="https://meet.google.com/vsd-yrcw-zju" target="_blank" class="link-card searchable-entry">
-        <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS6uB2xSVcuNsIFTIiPsap2z-nh00DVS6fKuLhaoPnV6g&s=10" alt="I PAD Discussion" class="card-poster">
+        <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS6uB2xSVcuNsIFTIiPsap2z-nh00DVS6fKuLhaoPnV6g&s=10" alt="I PAD" class="card-poster">
         <div class="card-info">
           <h3>I PAD - GOOGLE MEET <span class="heart-mini">💖</span></h3>
           <p>Daily Live Discussion • 9:00 PM</p>
         </div>
-
         <div class="live-wrapper">
           <div class="blue-time-glow"><span>9 PM</span></div>
           <div class="live-stream-badge-container">
-            <div class="live-stream-pill">
-              <span class="live-dot"></span>
-              <span class="live-text">LIVE</span>
-              <i class="fa-solid fa-wifi live-stream-waves"></i>
-            </div>
+            <div class="live-stream-pill"><span class="live-dot"></span><span class="live-text">LIVE</span></div>
             <span class="streaming-caption">Support</span>
           </div>
         </div>
-
-        <div class="arrow-box">
-          <i class="fa-solid fa-arrow-up-right-from-square"></i>
-        </div>
+        <div class="arrow-box"><i class="fa-solid fa-arrow-up-right-from-square"></i></div>
       </a>
 
-      <!-- 9. MY TOOLS -->
+      <!-- 10. MY TOOLS -->
       <div class="expandable-container searchable-entry" id="myToolsContainer">
         <div class="link-card" onclick="toggleSubtopics('myToolsContainer')">
           <div class="card-icon" style="color: #26a5e4; border-color: rgba(38,165,228,0.4); background: rgba(38,165,228,0.15);">
@@ -1440,9 +1319,7 @@
             <h3>MY TOOLS <span class="heart-mini">💖</span></h3>
             <p>Click to view materials</p>
           </div>
-          <div class="arrow-box">
-            <i class="fa-solid fa-chevron-down chevron-arrow"></i>
-          </div>
+          <div class="arrow-box"><i class="fa-solid fa-chevron-down chevron-arrow"></i></div>
         </div>
 
         <div id="myToolsList" class="subtopics-list">
@@ -1469,6 +1346,12 @@
       if (container) container.classList.toggle('active');
     }
 
+    function toggleSubfolder(event, folderId) {
+      event.stopPropagation();
+      const folder = document.getElementById(folderId);
+      if (folder) folder.classList.toggle('active');
+    }
+
     let thunderInterval = null;
 
     function applyTimeBasedThemeAndAtmosphere() {
@@ -1490,107 +1373,38 @@
         themeClass = 'theme-morning';
         badgeLabel = 'Golden Sunrise ☀️';
         badgeIcon = 'fa-sun';
-
         const sunGlow = document.createElement('div');
         sunGlow.className = 'morning-sun-glow';
         const sunRays = document.createElement('div');
         sunRays.className = 'sun-rays';
         ambient.appendChild(sunGlow);
         ambient.appendChild(sunRays);
-
-        for (let i = 0; i < 14; i++) {
-          const sparkle = document.createElement('i');
-          sparkle.className = 'fa-solid fa-sparkles morning-sparkle';
-          sparkle.style.left = `${Math.random() * 100}%`;
-          sparkle.style.fontSize = `${Math.random() * 14 + 10}px`;
-          sparkle.style.animationDuration = `${Math.random() * 4 + 5}s`;
-          sparkle.style.animationDelay = `${Math.random() * 5}s`;
-          ambient.appendChild(sparkle);
-        }
-
       } else if (currentHour >= 12 && currentHour < 17) {
         themeClass = 'theme-afternoon';
         badgeLabel = 'Stormy Afternoon ⛈️🌪️';
         badgeIcon = 'fa-bolt-lightning';
-
         for (let i = 0; i < 4; i++) {
           const cloud = document.createElement('i');
           cloud.className = 'fa-solid fa-cloud storm-cloud';
           cloud.style.top = `${i * 14 + 5}%`;
-          cloud.style.animationDuration = `${Math.random() * 10 + 16}s`;
-          cloud.style.animationDelay = `${i * 3.5}s`;
           ambient.appendChild(cloud);
         }
-
-        for (let i = 0; i < 30; i++) {
-          const drop = document.createElement('div');
-          drop.className = 'rain-drop';
-          drop.style.left = `${Math.random() * 100}%`;
-          drop.style.height = `${Math.random() * 22 + 18}px`;
-          drop.style.animationDuration = `${Math.random() * 0.4 + 0.55}s`;
-          drop.style.animationDelay = `${Math.random() * 2}s`;
-          ambient.appendChild(drop);
-        }
-
-        for (let i = 0; i < 6; i++) {
-          const wind = document.createElement('div');
-          wind.className = 'wind-trail';
-          wind.style.top = `${Math.random() * 90}%`;
-          wind.style.width = `${Math.random() * 180 + 120}px`;
-          wind.style.animationDuration = `${Math.random() * 2 + 2}s`;
-          wind.style.animationDelay = `${Math.random() * 3}s`;
-          ambient.appendChild(wind);
-        }
-
-        const flashOverlay = document.getElementById('thunderFlash');
-        function triggerLightning() {
-          if (!flashOverlay) return;
-          flashOverlay.classList.remove('flash-active');
-          void flashOverlay.offsetWidth;
-          flashOverlay.classList.add('flash-active');
-        }
-        thunderInterval = setInterval(triggerLightning, Math.floor(Math.random() * 4000) + 4500);
-
       } else if (currentHour >= 17 && currentHour < 21) {
         themeClass = 'theme-evening';
         badgeLabel = 'Sunset Twilight 🌇';
         badgeIcon = 'fa-dove';
-
         const sunsetDisc = document.createElement('div');
         sunsetDisc.className = 'evening-sunset-disc';
         ambient.appendChild(sunsetDisc);
-
-        for (let i = 0; i < 6; i++) {
-          const bird = document.createElement('i');
-          bird.className = 'fa-solid fa-dove flying-bird';
-          bird.style.top = `${Math.random() * 45 + 10}%`;
-          bird.style.fontSize = `${Math.random() * 10 + 14}px`;
-          bird.style.animationDuration = `${Math.random() * 6 + 10}s`;
-          bird.style.animationDelay = `${i * 2}s`;
-          ambient.appendChild(bird);
-        }
-
       } else {
         themeClass = 'theme-night';
         badgeLabel = 'Night Focus 🌙';
         badgeIcon = 'fa-heart';
-
-        for (let i = 0; i < 15; i++) {
-          const heart = document.createElement('i');
-          heart.className = 'fa-solid fa-heart heart-particle';
-          heart.style.left = `${Math.random() * 100}%`;
-          heart.style.fontSize = `${Math.random() * 16 + 12}px`;
-          heart.style.animationDuration = `${Math.random() * 5 + 6}s`;
-          heart.style.animationDelay = `${Math.random() * 5}s`;
-          ambient.appendChild(heart);
-        }
       }
 
       document.body.className = themeClass;
-
       const badgeTextEl = document.getElementById('badgeText');
       if (badgeTextEl) badgeTextEl.innerText = badgeLabel;
-
       const badgeIconEl = document.getElementById('badgeIcon');
       if (badgeIconEl) badgeIconEl.className = `fa-solid ${badgeIcon}`;
     }
@@ -1600,7 +1414,6 @@
     function filterLinks() {
       const input = document.getElementById('searchInput').value.toLowerCase().trim();
       const entries = document.querySelectorAll('.searchable-entry');
-      
       entries.forEach(entry => {
         const text = entry.textContent.toLowerCase();
         if (text.includes(input)) {
@@ -1617,127 +1430,78 @@
     /* Swipe Particles Engine */
     const swipeIcons = ['fa-heart', 'fa-sparkles', 'fa-star', 'fa-wand-magic-sparkles'];
     let lastSwipeTime = 0;
-    let lastSwipeX = 0;
-    let lastSwipeY = 0;
 
     function spawnSwipeTrail(x, y, vx = 0) {
       const now = performance.now();
       if (now - lastSwipeTime < 24) return;
       lastSwipeTime = now;
-
       const spark = document.createElement('i');
       const randomIcon = swipeIcons[Math.floor(Math.random() * swipeIcons.length)];
       spark.className = `fa-solid ${randomIcon} swipe-trail-spark`;
-      
       const size = Math.random() * 12 + 10;
       const dx = (Math.random() - 0.5) * 40 + (vx * 2);
-      
       spark.style.left = `${x}px`;
       spark.style.top = `${y}px`;
       spark.style.fontSize = `${size}px`;
       spark.style.color = 'var(--accent-color)';
       spark.style.setProperty('--dx', `${dx}px`);
-
       document.body.appendChild(spark);
       setTimeout(() => spark.remove(), 1200);
     }
 
-    window.addEventListener('touchstart', (e) => {
-      lastSwipeX = e.touches[0].clientX;
-      lastSwipeY = e.touches[0].clientY;
-    }, { passive: true });
-
+    let lastX = 0, lastY = 0;
+    window.addEventListener('touchstart', (e) => { lastX = e.touches[0].clientX; lastY = e.touches[0].clientY; }, { passive: true });
     window.addEventListener('touchmove', (e) => {
-      const touch = e.touches[0];
-      const vx = touch.clientX - lastSwipeX;
-      spawnSwipeTrail(touch.clientX, touch.clientY, vx);
-      lastSwipeX = touch.clientX;
-      lastSwipeY = touch.clientY;
+      const t = e.touches[0];
+      spawnSwipeTrail(t.clientX, t.clientY, t.clientX - lastX);
+      lastX = t.clientX; lastY = t.clientY;
     }, { passive: true });
 
     let isMouseDown = false;
-    window.addEventListener('mousedown', (e) => {
-      isMouseDown = true;
-      lastSwipeX = e.clientX;
-      lastSwipeY = e.clientY;
-    });
-
+    window.addEventListener('mousedown', (e) => { isMouseDown = true; lastX = e.clientX; lastY = e.clientY; });
     window.addEventListener('mouseup', () => { isMouseDown = false; });
-
     window.addEventListener('mousemove', (e) => {
       if (!isMouseDown) return;
-      const vx = e.clientX - lastSwipeX;
-      spawnSwipeTrail(e.clientX, e.clientY, vx);
-      lastSwipeX = e.clientX;
-      lastSwipeY = e.clientY;
+      spawnSwipeTrail(e.clientX, e.clientY, e.clientX - lastX);
+      lastX = e.clientX; lastY = e.clientY;
     });
 
-    /* 3D Tilt */
-    document.querySelectorAll('.link-card').forEach(card => {
-      card.addEventListener('mousemove', (e) => {
-        const rect = card.getBoundingClientRect();
-        const x = e.clientX - rect.left - (rect.width / 2);
-        const y = e.clientY - rect.top - (rect.height / 2);
-        card.style.transform = `perspective(600px) rotateX(${-y * 0.04}deg) rotateY(${x * 0.04}deg) translateY(-3px) scale(1.012)`;
-      });
-
-      card.addEventListener('mouseleave', () => {
-        card.style.transform = '';
-      });
-    });
-
-    // =========================================================
-    // SERVICE WORKER REGISTRATION (OFFICIAL HTTPS/LOCALHOST PWA)
-    // =========================================================
+    /* Service Worker Registration */
     if ('serviceWorker' in navigator) {
       window.addEventListener('load', () => {
         navigator.serviceWorker.register('sw.js').catch((err) => {
-          console.warn('Service Worker registration skipped:', err);
+          console.warn('SW failed:', err);
         });
       });
     }
 
-    // =========================================================
-    // PWA INSTALL MODAL POPUP ENGINE
-    // =========================================================
+    /* Instant PWA Install Trigger */
     let deferredPrompt = null;
     const pwaModal = document.getElementById('pwaModalOverlay');
     const modalInstallBtn = document.getElementById('modalInstallBtn');
 
-    // Browser prompt catch
     window.addEventListener('beforeinstallprompt', (e) => {
       e.preventDefault();
       deferredPrompt = e;
-      showPwaModal();
+      if (pwaModal) pwaModal.style.display = 'flex';
     });
 
-    function showPwaModal() {
-      const isStandalone = window.matchMedia('(display-mode: standalone)').matches || window.navigator.standalone;
-      const dismissed = sessionStorage.getItem('pwa_dismissed');
-      if (!isStandalone && !dismissed && pwaModal) {
-        pwaModal.style.display = 'flex';
-      }
-    }
-
-    // Auto popup after 1.2 seconds if not installed
     window.addEventListener('load', () => {
-      setTimeout(() => {
-        showPwaModal();
-      }, 1200);
+      const isStandalone = window.matchMedia('(display-mode: standalone)').matches || window.navigator.standalone;
+      if (!isStandalone && pwaModal) {
+        setTimeout(() => { pwaModal.style.display = 'flex'; }, 400);
+      }
     });
 
     if (modalInstallBtn) {
       modalInstallBtn.addEventListener('click', async () => {
         if (deferredPrompt) {
           deferredPrompt.prompt();
-          const { outcome } = await deferredPrompt.userChoice;
-          if (outcome === 'accepted' && pwaModal) {
-            pwaModal.style.display = 'none';
-          }
+          await deferredPrompt.userChoice;
           deferredPrompt = null;
+          if (pwaModal) pwaModal.style.display = 'none';
         } else {
-          // Native guide fallback for Android/Chrome/iOS
-          alert('Home Screen par install karne ke liye:\n1. Browser ke right-top 3 dots (⋮) ya Share button dabayein.\n2. "Install App" ya "Add to Home Screen" par tap karein.');
+          alert('Install karne ke liye:\n1. Browser menu (⋮) par click karein.\n2. "Install App" ya "Add to Home Screen" select karein.');
           dismissPwaModal();
         }
       });
@@ -1745,7 +1509,6 @@
 
     function dismissPwaModal() {
       if (pwaModal) pwaModal.style.display = 'none';
-      sessionStorage.setItem('pwa_dismissed', 'true');
     }
 
     window.addEventListener('appinstalled', () => {
